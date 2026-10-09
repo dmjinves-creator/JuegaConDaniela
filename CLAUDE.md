@@ -40,6 +40,11 @@ clic sobre el elemento.
 
 ## Cómo trabajamos (lo pidió la familia: no gastar de más)
 
+Todo esto lo hace el comando **`/tema`** (`.claude/skills/tema/SKILL.md`): fotos del cuaderno →
+plan → sí → juego. La redacción la hace el agente `redactor-tema` con Sonnet
+(`.claude/agents/`), y las comprobaciones, `node herramientas/comprobar.mjs <juego>`.
+
+
 1. **Primero un plan corto, sin código.** Con las fotos del cuaderno, contestar en pocas líneas:
    el contenido leído (para cazar errores de lectura de la letra a mano), los juegos que se
    proponen y qué se reutiliza. **No se escribe nada hasta que digan que sí.**
