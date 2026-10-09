@@ -5,248 +5,290 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Mi cuerpo por dentro</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Baloo+2:wght@600;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Baloo+2:wght@600;700;800&family=Playwrite+ES:wght@300;400&display=swap">
 <style>
-/* Layout: cuaderno de cuadros. Menú de tarjetas grandes; cada juego es dibujo + panel, y en el móvil el panel va arriba. */
+/* Diseño común (diseno/index.html, propuesta 2 «con volumen»): cuaderno de cuadros y piezas con
+   luz arriba, borde más oscuro abajo y sombra suave. Cada juego es dibujo + panel; en el móvil
+   el panel va arriba. */
 :root {
-  --papel: #fdfcf6;
-  --cuadro: #d7e3f2;
-  --margen: #ef9a9a;
-  --tinta: #1f2a44;
-  --suave: #566079;
+  --papel: #fffaf0;
+  --cuadro: #e3eaf6;
+  --margen: #f3a6a6;
+  --tinta: #1d2b4f;
+  --suave: #5b6683;
+  --raya: #9fb3d6;
+  --hoja: #ffffff;
+  --hoja-2: #f4f6fb;
   --tarjeta: #ffffff;
   --blanco: #ffffff;
-  --hueso: #f6efdc;
+  --borde: #d7deeb;
+  --borde-osc: #b3bfd6;
+  --sombra: rgba(29, 43, 79, .14);
+  --hueso: #f6ecd4;
+  --hueso-borde: #8a7350;
   --muneco: #e9eef6;
   --apagado: #dde1ea;
   --apagado-osc: #a4abba;
   --rojo: #d93b30;
   --rojo-claro: #f6b4ab;
-  --sol: #ffcc33;
-  --sol-claro: #fff3c4;
-  --verde: #23824a;
+  --sol: #ffc93c;
+  --sol-claro: #fff3cc;
+  --sol-osc: #d99a00;
+  --verde: #2a9d5c;
   --verde-vivo: #6fcf97;
-  --verde-claro: #cdeedb;
+  --verde-claro: #d9f5e5;
+  --verde-osc: #1c7442;
   --azul: #2f63c9;
   --azul-claro: #dbe6fb;
+  --azul-osc: #1f4796;
   --naranja: #f08a24;
   --naranja-claro: #fde3c6;
   --naranja-osc: #a8520b;
+  --lavanda: #8b6cf0;
+  --lavanda-claro: #ece6ff;
+  --lavanda-osc: #6145cf;
+  --turquesa: #17a99a;
+  --turquesa-claro: #d4f4ef;
   --display: "Baloo 2", "Arial Rounded MT Bold", "Trebuchet MS", sans-serif;
   --texto: "Andika", "Trebuchet MS", "Segoe UI", sans-serif;
+  --letra: "Playwrite ES", "Segoe Script", "Comic Sans MS", cursive;
   --t: 160ms;
   color-scheme: light;
 }
 * { box-sizing: border-box; }
 html { background: var(--papel); }
 body {
-  margin: 0;
-  min-height: 100vh;
+  margin: 0; min-height: 100vh;
   background-color: var(--papel);
-  background-image:
-    linear-gradient(var(--cuadro) 1px, transparent 1px),
-    linear-gradient(90deg, var(--cuadro) 1px, transparent 1px);
+  background-image: linear-gradient(var(--cuadro) 1px, transparent 1px), linear-gradient(90deg, var(--cuadro) 1px, transparent 1px);
   background-size: 22px 22px;
-  color: var(--tinta);
-  font-family: var(--texto);
-  font-size: 18px;
-  line-height: 1.45;
+  color: var(--tinta); font-family: var(--texto); font-size: 18px; line-height: 1.45;
   -webkit-tap-highlight-color: transparent;
 }
-h1, h2, p { margin: 0; }
-h1, h2 { font-family: var(--display); text-wrap: balance; line-height: 1.05; }
+h1, h2, h3, h4, p { margin: 0; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.05; }
 
-/* Botones con forma de pegatina */
+/* Piezas con volumen */
 .b {
-  font: inherit; font-weight: 700; color: var(--tinta);
-  background: var(--tarjeta);
-  border: 3px solid var(--tinta); border-radius: 14px;
+  font: inherit; font-weight: 700; color: var(--tinta); cursor: pointer;
+  background: linear-gradient(180deg, var(--hoja), var(--hoja-2));
+  border: 2px solid var(--borde-osc); border-radius: 16px;
   min-height: 52px; padding: 8px 16px;
-  box-shadow: 0 4px 0 var(--tinta);
-  cursor: pointer;
+  box-shadow: inset 0 2px 0 var(--blanco), 0 4px 0 var(--borde-osc), 0 8px 14px rgba(29, 43, 79, .1);
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   transition: transform var(--t), box-shadow var(--t), background var(--t);
 }
-.b:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--tinta); }
+.b:active { transform: translateY(3px); box-shadow: inset 0 2px 0 var(--blanco), 0 1px 0 var(--borde-osc); }
 .b[disabled] { cursor: default; }
-.b.prim { background: var(--sol); }
-.b.acierto { background: var(--verde); color: var(--blanco); }
+.b.prim, .chip.on {
+  background: linear-gradient(180deg, #ffdb6e, var(--sol)); border-color: var(--sol-osc);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, .6), 0 4px 0 var(--sol-osc), 0 10px 18px rgba(217, 154, 0, .22);
+}
+.b.acierto {
+  background: linear-gradient(180deg, #5fd08e, var(--verde)); border-color: var(--verde-osc); color: var(--blanco);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, .45), 0 4px 0 var(--verde-osc);
+}
 .b.apagado { opacity: .5; }
-.b:focus-visible, .carta:focus-visible, .caja:focus-visible, .marca:focus-visible {
-  outline: 4px solid var(--azul); outline-offset: 3px;
+.b:focus-visible, .carta:focus-visible, .caja:focus-visible, .marca:focus-visible, .check:focus-visible {
+  outline: 4px solid var(--lavanda); outline-offset: 3px;
 }
 .i-r { fill: var(--tinta); }
 .i-l { fill: none; stroke: var(--tinta); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
 .b.acierto .i-l { stroke: var(--blanco); }
+.nota, .ficha, .pide, .fin, .frase, .encargo, .pauta, .revisa, .fig {
+  background: linear-gradient(180deg, var(--hoja), var(--hoja-2));
+  border: 2px solid var(--borde); border-radius: 20px;
+  box-shadow: inset 0 2px 0 var(--blanco), 0 4px 0 var(--borde), 0 10px 22px rgba(29, 43, 79, .08);
+}
 
 /* Cabecera */
-.cab {
-  max-width: 1000px; margin: 0 auto;
-  padding-inline: 16px; padding-block: 12px 4px;
-  display: flex; align-items: center; gap: 12px;
-}
+.cab { max-width: 1000px; margin: 0 auto; padding-inline: 16px; padding-block: 12px 4px; display: flex; align-items: center; gap: 12px; }
 .marca {
-  flex: 1; min-width: 0;
-  display: flex; align-items: center; gap: 8px;
+  flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px;
   background: none; border: 0; padding: 0; cursor: pointer; text-align: left;
   font-family: var(--display); font-weight: 800; font-size: 1.15rem; color: var(--tinta);
 }
-.total {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: var(--tarjeta); border: 3px solid var(--tinta); border-radius: 999px;
-  padding: 4px 12px 4px 8px; font-weight: 700; font-variant-numeric: tabular-nums;
+.total, .chip-pts {
+  display: inline-flex; align-items: center; gap: 6px; font-weight: 800; font-variant-numeric: tabular-nums;
+  background: linear-gradient(180deg, #fff7dc, #ffe9a6); border: 2px solid var(--sol-osc); border-radius: 999px;
+  padding: 3px 12px 3px 6px; box-shadow: inset 0 2px 0 rgba(255, 255, 255, .7), 0 3px 0 var(--sol-osc);
 }
 .son { min-width: 54px; padding: 6px 10px; }
-
 .wrap { max-width: 1000px; margin: 0 auto; padding-inline: 16px; padding-block: 8px 48px; }
 
-/* Portada */
-.portada { padding-block: 14px 20px; display: grid; gap: 8px; }
+/* Portada del tema */
+.portada { padding-block: 14px 22px; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 16px; align-items: end; }
+.portada > svg { grid-row: 1 / 4; }
 .eti { font-size: .8rem; text-transform: uppercase; letter-spacing: .1em; color: var(--suave); font-weight: 700; }
-.portada h1 {
-  font-size: clamp(2.3rem, 8vw, 3.6rem); font-weight: 800;
-  text-decoration: underline; text-decoration-color: var(--rojo);
-  text-decoration-thickness: 5px; text-underline-offset: 8px;
-}
-.lead { font-size: 1.15rem; max-width: 40ch; }
+.portada h1 { font-size: clamp(2.2rem, 7.5vw, 3.5rem); font-weight: 800; }
+.subrayado { background: linear-gradient(transparent 62%, var(--sol) 62%, var(--sol) 90%, transparent 90%); padding-inline: 4px; }
+.lead { font-size: 1.12rem; max-width: 42ch; }
 .menu { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; }
-@media (min-width: 560px) and (max-width: 899px) {
-  .menu { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .carta:last-child { grid-column: span 2; }
-}
-@media (min-width: 900px) {
-  .menu { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-  .carta { grid-column: span 2; }
-  .carta:nth-child(n+4) { grid-column: span 3; }
-}
+@media (min-width: 560px) { .menu { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 900px) { .menu { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .carta {
   font: inherit; color: var(--tinta); text-align: left; cursor: pointer;
   display: grid; grid-template-columns: 72px minmax(0, 1fr); column-gap: 14px; row-gap: 2px;
   align-items: center; align-content: start;
-  background: var(--tarjeta); border: 3px solid var(--tinta); border-radius: 20px;
-  padding: 16px; box-shadow: 0 6px 0 var(--tinta);
+  background: linear-gradient(180deg, var(--hoja), var(--hoja-2));
+  border: 2px solid var(--borde); border-radius: 22px; padding: 16px;
+  box-shadow: inset 0 2px 0 var(--blanco), 0 6px 0 var(--borde-osc), 0 14px 24px rgba(29, 43, 79, .1);
   transition: transform var(--t), box-shadow var(--t);
 }
-.carta:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--tinta); }
-.carta-i { grid-row: 1 / 4; display: grid; place-items: center; }
-.carta-t { font-family: var(--display); font-weight: 800; font-size: 1.35rem; line-height: 1.1; }
-.carta-d { color: var(--suave); font-size: .98rem; }
+.carta:active { transform: translateY(4px); box-shadow: inset 0 2px 0 var(--blanco), 0 2px 0 var(--borde-osc); }
+.carta.nueva { border-color: #f0d27a; background: linear-gradient(180deg, #fffdf3, var(--sol-claro)); box-shadow: inset 0 2px 0 var(--blanco), 0 6px 0 #e9c45c, 0 14px 24px rgba(217, 154, 0, .16); }
+.carta-i {
+  grid-row: 1 / 4; width: 72px; height: 72px; border-radius: 20px; display: grid; place-items: center;
+  background: radial-gradient(100% 90% at 30% 20%, #ffffff, var(--hoja-2)); border: 2px solid var(--borde);
+  box-shadow: inset 0 2px 0 var(--blanco);
+}
+.carta-t { font-family: var(--display); font-weight: 800; font-size: 1.3rem; line-height: 1.1; }
+.carta-d { color: var(--suave); font-size: .96rem; }
 .estrellas { display: inline-flex; gap: 2px; }
-.e-si { fill: var(--sol); stroke: var(--tinta); stroke-width: 1.6; stroke-linejoin: round; }
-.e-no { fill: none; stroke: var(--apagado-osc); stroke-width: 1.6; stroke-linejoin: round; }
+.e-si { fill: var(--sol); stroke: var(--sol-osc); stroke-width: 1.6; stroke-linejoin: round; }
+.e-no { fill: var(--hoja-2); stroke: var(--borde-osc); stroke-width: 1.6; stroke-linejoin: round; }
 .pie { margin-top: 28px; color: var(--suave); font-size: .9rem; text-align: center; }
 
 /* Iconos del menú */
-.ic-o { fill: var(--tinta); }
+.ic-o { fill: var(--hueso-borde); }
 .ic-h { fill: var(--hueso); }
 .ic-m { fill: var(--muneco); }
 .ic-ol { stroke: var(--tinta); stroke-linecap: round; fill: none; }
 .ic-ml { stroke: var(--muneco); stroke-linecap: round; fill: none; }
 .ic-r { fill: var(--rojo-claro); stroke: var(--rojo); stroke-width: 2; }
-.ic-c1 { fill: var(--azul-claro); stroke: var(--tinta); stroke-width: 2.5; }
-.ic-c2 { fill: var(--verde-claro); stroke: var(--tinta); stroke-width: 2.5; }
-.ic-c3 { fill: var(--naranja-claro); stroke: var(--tinta); stroke-width: 2.5; }
+.ic-c1 { fill: var(--azul-claro); stroke: var(--azul); stroke-width: 2.5; }
+.ic-c2 { fill: var(--verde-claro); stroke: var(--verde); stroke-width: 2.5; }
+.ic-c3 { fill: var(--naranja-claro); stroke: var(--naranja); stroke-width: 2.5; }
 .ic-d { fill: none; stroke: var(--tinta); stroke-width: 3; stroke-dasharray: 4 5; stroke-linecap: round; }
 
 /* Pantalla de juego */
 .tira { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-block: 8px 18px; }
-.tira h2 {
-  flex: 1; min-width: 12ch; font-size: clamp(1.6rem, 5vw, 2.1rem); font-weight: 800;
-  text-decoration: underline; text-decoration-color: var(--rojo);
-  text-decoration-thickness: 4px; text-underline-offset: 6px;
-}
+.tira h2 { flex: 1; min-width: 12ch; font-size: clamp(1.6rem, 5vw, 2.1rem); font-weight: 800; }
 .modos { display: flex; gap: 8px; }
-.modo[aria-pressed="true"] { background: var(--azul); color: var(--blanco); }
+.modo[aria-pressed="true"] {
+  background: linear-gradient(180deg, #5b86e0, var(--azul)); border-color: var(--azul-osc); color: var(--blanco);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, .35), 0 4px 0 var(--azul-osc);
+}
 .lienzo { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 20px; align-items: start; }
 @media (max-width: 760px) {
   .lienzo { grid-template-columns: minmax(0, 1fr); }
   .lienzo .panel { order: -1; }
 }
-.fig { margin: 0; background: var(--tarjeta); border: 3px solid var(--tinta); border-radius: 20px; padding: 12px; }
-.fig svg { display: block; width: 100%; height: auto; max-height: 68vh; margin-inline: auto; touch-action: manipulation; }
-@media (max-width: 760px) { .fig svg { max-height: 54vh; } }
+.fig { margin: 0; padding: 12px; background: radial-gradient(90% 70% at 50% 40%, #ffffff, #eef2fa); }
+.fig svg { display: block; width: 100%; height: auto; max-height: 72vh; margin-inline: auto; touch-action: manipulation; }
+@media (max-width: 760px) { .fig svg { max-height: 58vh; } }
 .fig figcaption { text-align: center; color: var(--suave); font-size: .9rem; margin-top: 4px; }
 .panel { display: grid; gap: 14px; min-width: 0; align-content: start; }
 .panel.ancho { max-width: 780px; }
-.nota {
-  background: var(--tarjeta); border: 2px solid var(--cuadro); border-left: 6px solid var(--margen);
-  border-radius: 12px; padding: 12px 14px;
-}
+.nota { padding: 12px 14px; border-left: 6px solid var(--margen); }
 .guia { font-weight: 700; }
-.chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.chip { min-height: 46px; padding: 6px 14px; font-size: 1rem; }
-.chip.on { background: var(--sol); }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip { min-height: 48px; padding: 6px 14px; font-size: 1rem; }
 .chips.grandes .chip { min-height: 56px; font-size: 1.15rem; }
-.ficha {
-  background: var(--tarjeta); border: 3px dashed var(--apagado-osc); border-radius: 16px;
-  padding: 14px 16px; min-height: 104px; display: grid; gap: 4px; align-content: center;
-}
-.ficha.llena { border-style: solid; border-color: var(--tinta); background: var(--sol-claro); }
+.ficha { padding: 14px 16px; min-height: 104px; display: grid; gap: 4px; align-content: center; border-style: dashed; }
+.ficha.llena { border-style: solid; border-color: #f0d27a; background: linear-gradient(180deg, #fffdf3, var(--sol-claro)); }
 .ficha .nombre { font-family: var(--display); font-weight: 800; font-size: 1.9rem; line-height: 1.05; }
 .suave { color: var(--suave); }
 .pide {
-  display: flex; align-items: center; flex-wrap: wrap; gap: 2px 12px;
-  background: var(--sol-claro); border: 3px solid var(--tinta); border-radius: 18px; padding: 12px 16px;
+  display: flex; align-items: center; flex-wrap: wrap; gap: 2px 12px; padding: 12px 16px;
+  background: radial-gradient(120% 100% at 20% 0%, #fffbe8, var(--sol-claro)); border-color: #f3dc94;
+  box-shadow: inset 0 2px 0 var(--blanco), 0 4px 0 #f3dc94, 0 10px 22px rgba(217, 154, 0, .12);
 }
 .pide-a { font-size: 1.2rem; font-weight: 700; width: 100%; }
 .pide-n { font-family: var(--display); font-weight: 800; font-size: clamp(1.9rem, 7vw, 2.5rem); line-height: 1; flex: 1; min-width: 0; }
 .oir { min-height: 50px; padding: 6px 10px; }
 .dicho { min-height: 2.9em; font-weight: 700; font-size: 1.12rem; }
-.dicho.bien { color: var(--verde); }
+.dicho.bien { color: var(--verde-osc); }
 .dicho.otra { color: var(--naranja-osc); }
 .puntos { display: flex; flex-wrap: wrap; gap: 6px; }
-.puntos span { width: 16px; height: 16px; border-radius: 50%; border: 2.5px solid var(--tinta); background: var(--tarjeta); }
-.puntos .p-si { background: var(--verde-vivo); }
-.fin {
-  text-align: center; background: var(--tarjeta); border: 3px solid var(--tinta); border-radius: 20px;
-  padding: 24px 16px; display: grid; gap: 10px; justify-items: center;
-}
+.puntos span { width: 18px; height: 18px; border-radius: 50%; background: var(--hoja-2); box-shadow: inset 0 2px 3px rgba(29, 43, 79, .18); }
+.puntos .p-si { background: linear-gradient(180deg, #5fd08e, var(--verde)); box-shadow: inset 0 2px 0 rgba(255, 255, 255, .45); }
+.fin { text-align: center; padding: 24px 16px; display: grid; gap: 10px; justify-items: center; }
 .fin-t { font-family: var(--display); font-weight: 800; font-size: 1.9rem; line-height: 1.1; text-wrap: balance; }
 .fila { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 6px; }
+.marcador-pts { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; justify-content: space-between; }
+.marcador-pts .cuenta { font-weight: 700; color: var(--suave); }
+
+/* Poner nombres: arrastrar */
+.nombre-tarjeta { touch-action: none; user-select: none; -webkit-user-select: none; }
+.nombre-tarjeta.levantada { opacity: .35; }
+.fantasma {
+  position: fixed; left: 0; top: 0; z-index: 50; pointer-events: none; margin: 0;
+  transform: translate(-50%, -60%) rotate(-3deg) scale(1.08);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, .6), 0 18px 30px rgba(29, 43, 79, .3) !important;
+}
 
 /* Clasificar */
 .cajas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 @media (max-width: 620px) { .cajas { grid-template-columns: minmax(0, 1fr); } }
 .caja {
+  --c: var(--azul-claro); --c-osc: #a9c0ee;
   font: inherit; color: var(--tinta); text-align: left; cursor: pointer;
-  border: 3px solid var(--tinta); border-radius: 18px; padding: 14px; min-height: 150px;
-  display: flex; flex-direction: column; gap: 4px; box-shadow: 0 5px 0 var(--tinta);
+  background: linear-gradient(180deg, var(--hoja), var(--c)); border: 2px solid var(--c-osc); border-radius: 20px;
+  padding: 14px; min-height: 150px; display: flex; flex-direction: column; gap: 4px;
+  box-shadow: inset 0 2px 0 var(--blanco), 0 5px 0 var(--c-osc), 0 12px 20px rgba(29, 43, 79, .08);
 }
 @media (max-width: 620px) { .caja { min-height: 104px; } }
-.c-sup { background: var(--azul-claro); }
-.c-inf { background: var(--verde-claro); }
-.c-tronco { background: var(--naranja-claro); }
+.c-inf { --c: var(--verde-claro); --c-osc: #a8e2c2; }
+.c-tronco { --c: var(--naranja-claro); --c-osc: #f3c08d; }
 .caja-t { font-family: var(--display); font-weight: 800; font-size: 1.3rem; line-height: 1.1; }
 .caja-s { color: var(--suave); font-size: .95rem; }
 .caja-d { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-.colocado { background: var(--tarjeta); border: 2px solid var(--tinta); border-radius: 10px; padding: 2px 10px; font-weight: 700; }
+.colocado { background: var(--hoja); border: 2px solid var(--borde-osc); border-radius: 10px; padding: 2px 10px; font-weight: 700; box-shadow: 0 2px 0 var(--borde-osc); }
 
 /* El viaje */
 .camino { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; counter-reset: paso; }
 .camino li {
   display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 12px; align-items: center;
-  background: var(--tarjeta); border: 3px dashed var(--apagado-osc); border-radius: 14px;
-  padding: 8px 12px; min-height: 62px;
+  background: rgba(255, 255, 255, .7); border: 2px dashed var(--borde-osc); border-radius: 16px; padding: 8px 12px; min-height: 62px;
 }
 .camino li::before {
   counter-increment: paso; content: counter(paso);
-  width: 40px; height: 40px; border-radius: 50%; border: 3px solid var(--tinta);
-  display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-size: 1.2rem;
-  background: var(--tarjeta);
+  width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
+  font-family: var(--display); font-weight: 800; font-size: 1.2rem;
+  background: linear-gradient(180deg, var(--hoja), var(--hoja-2)); border: 2px solid var(--borde-osc); box-shadow: 0 2px 0 var(--borde-osc);
 }
-.camino li.hecho { border-style: solid; border-color: var(--tinta); background: var(--verde-claro); }
+.camino li.hecho { border-style: solid; border-color: #a8e2c2; background: linear-gradient(180deg, #effbf4, var(--verde-claro)); box-shadow: 0 3px 0 #a8e2c2; }
 .camino b { font-family: var(--display); font-weight: 800; font-size: 1.35rem; display: block; line-height: 1.1; }
 
 /* Verdadero o falso */
-.frase {
-  display: flex; gap: 12px; align-items: flex-start;
-  background: var(--tarjeta); border: 3px solid var(--tinta); border-radius: 18px; padding: 16px;
-}
+.frase { display: flex; gap: 12px; align-items: flex-start; padding: 16px; }
 .frase p { font-size: clamp(1.3rem, 4.6vw, 1.65rem); font-weight: 700; flex: 1; min-width: 0; line-height: 1.3; }
 .vfb { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 .vfb .b { min-height: 76px; font-size: 1.25rem; }
-.vf-si { background: var(--verde-claro); }
-.vf-no { background: var(--naranja-claro); }
+.vf-si { background: linear-gradient(180deg, #f2fcf6, var(--verde-claro)); border-color: #a8e2c2; box-shadow: inset 0 2px 0 var(--blanco), 0 4px 0 #a8e2c2; }
+.vf-no { background: linear-gradient(180deg, #fff7ef, var(--naranja-claro)); border-color: #f3c08d; box-shadow: inset 0 2px 0 var(--blanco), 0 4px 0 #f3c08d; }
+
+/* El reto de escribir en el cuaderno */
+.reto-cab { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; align-items: center; }
+.reto-t { font-size: clamp(1.4rem, 5vw, 1.7rem); font-weight: 800; }
+.encargo { padding: 12px 14px; font-weight: 700; font-size: 1.12rem; }
+.pauta { padding: 10px 14px 16px; display: grid; gap: 2px; }
+.pauta small { color: var(--suave); font-weight: 700; font-size: .85rem; }
+.renglon {
+  position: relative; height: 62px; overflow: hidden;
+  background:
+    linear-gradient(var(--raya), var(--raya)) 0 21px / 100% 1px no-repeat,
+    linear-gradient(var(--raya), var(--raya)) 0 45px / 100% 2px no-repeat;
+  border-left: 3px solid var(--margen); padding-left: 12px;
+}
+.renglon span { position: absolute; left: 14px; bottom: 15px; font-family: var(--letra); font-size: clamp(1.15rem, 4.4vw, 1.5rem); color: #23315c; white-space: nowrap; }
+.truco {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: center; padding: 10px 12px;
+  background: linear-gradient(180deg, #f6f2ff, var(--lavanda-claro)); border: 2px solid #cdbfff; border-radius: 20px;
+  box-shadow: inset 0 2px 0 var(--blanco), 0 4px 0 #cdbfff;
+}
+.truco b { display: block; font-family: var(--display); font-size: 1.05rem; color: var(--lavanda-osc); }
+.revisa { padding: 12px 14px; display: grid; gap: 6px; }
+.revisa h4 { font-family: var(--display); font-size: 1.15rem; }
+.check {
+  font: inherit; color: var(--tinta); cursor: pointer; text-align: left; background: none; border: 0; padding: 4px 0;
+  display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 10px; align-items: center; min-height: 48px;
+}
+.check i { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: var(--hoja-2); border: 2px solid var(--borde-osc); box-shadow: inset 0 2px 3px rgba(29, 43, 79, .12); }
+.check[aria-pressed="true"] i { background: linear-gradient(180deg, #5fd08e, var(--verde)); border-color: var(--verde-osc); box-shadow: inset 0 2px 0 rgba(255, 255, 255, .45), 0 2px 0 var(--verde-osc); }
+.check[aria-pressed="true"] i::after { content: ""; width: 13px; height: 7px; border-left: 3px solid var(--blanco); border-bottom: 3px solid var(--blanco); transform: rotate(-45deg) translate(1px, -1px); }
+.premio { font-weight: 700; color: var(--verde-osc); min-height: 1.5em; }
 
 .mal { animation: temblar .4s; }
 @keyframes temblar {
@@ -255,24 +297,39 @@ h1, h2 { font-family: var(--display); text-wrap: balance; line-height: 1.05; }
   75% { transform: translateX(6px); }
 }
 
-/* Dibujos */
-.ol { stroke: var(--tinta); fill: none; stroke-linecap: round; stroke-linejoin: round; }
-.ols { fill: var(--tinta); }
+/* Dibujos: los huesos en marfil con su borde pardo */
+.ol { stroke: var(--hueso-borde); fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.ols { fill: var(--hueso-borde); }
 .fl { stroke: var(--hueso); fill: none; stroke-linecap: round; stroke-linejoin: round; transition: stroke var(--t); }
 .fs { fill: var(--hueso); transition: fill var(--t); }
-.fsb { fill: var(--hueso); stroke: var(--tinta); stroke-width: 2; transition: fill var(--t); }
-.ojo { fill: var(--tinta); }
-.agujero { fill: var(--tarjeta); stroke: var(--tinta); stroke-width: 1.5; }
+.fsb { fill: var(--hueso); stroke: var(--hueso-borde); stroke-width: 2; transition: fill var(--t); }
+.ojo { fill: #5a4630; }
+.agujero { fill: var(--hoja); stroke: var(--hueso-borde); stroke-width: 1.5; }
+.brillo { stroke: var(--blanco); fill: none; stroke-linecap: round; opacity: .75; pointer-events: none; }
 .hit { stroke: transparent; fill: transparent; stroke-linecap: round; }
 .pieza { cursor: pointer; outline: none; }
 .pieza.sel .fl { stroke: var(--sol); }
 .pieza.sel .fs, .pieza.sel .fsb { fill: var(--sol); }
-.pieza.ok .fl { stroke: var(--verde-vivo); }
-.pieza.ok .fs, .pieza.ok .fsb { fill: var(--verde-vivo); }
+.pieza.ok .fl, .pieza.hecho .fl { stroke: var(--verde-vivo); }
+.pieza.ok .fs, .pieza.ok .fsb, .pieza.hecho .fs, .pieza.hecho .fsb { fill: var(--verde-vivo); }
 .pieza.mal .fl { stroke: var(--naranja); }
 .pieza.mal .fs, .pieza.mal .fsb { fill: var(--naranja); }
-.pieza:focus-visible .ol, .pieza:focus-visible .fsb, .pieza:focus-visible .mus { stroke: var(--azul); }
+.pieza:focus-visible .ol, .pieza:focus-visible .fsb, .pieza:focus-visible .mus { stroke: var(--lavanda); }
 .pieza.mal { animation: none; }
+/* Los huecos de los nombres, con su línea hasta el hueso */
+.hueco rect { fill: var(--hoja); stroke: var(--borde-osc); stroke-width: 1.6; stroke-dasharray: 5 3; transition: fill var(--t); }
+.hueco .guia-l { stroke: var(--borde-osc); stroke-width: 1.6; stroke-dasharray: 3 3; fill: none; }
+.hueco .punto { fill: var(--borde-osc); }
+.hueco text { font-family: var(--texto); font-size: 14px; font-weight: 700; fill: var(--tinta); text-anchor: middle; }
+.hueco .vacio { fill: var(--apagado-osc); font-size: 18px; }
+.hueco .nom { opacity: 0; }
+.hueco.sel rect { fill: var(--sol-claro); stroke: var(--sol-osc); stroke-dasharray: none; }
+.hueco.mal rect { fill: var(--naranja-claro); stroke: var(--naranja); }
+.hueco.hecho rect { fill: var(--verde-claro); stroke: var(--verde); stroke-dasharray: none; }
+.hueco.hecho .guia-l { stroke: var(--verde); stroke-dasharray: none; }
+.hueco.hecho .punto { fill: var(--verde); }
+.hueco.hecho .nom { opacity: 1; }
+.hueco.hecho .vacio { opacity: 0; }
 .mo { fill: var(--tinta); }
 .mol { stroke: var(--tinta); stroke-linecap: round; }
 .mop { fill: var(--tinta); stroke: var(--tinta); stroke-width: 5; stroke-linejoin: round; }
@@ -297,6 +354,33 @@ h1, h2 { font-family: var(--display); text-wrap: balance; line-height: 1.05; }
 </style>
 </head>
 <body>
+<!-- Degradados, sombra y Punta, compartidos por todos los dibujos (diseño común) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="fSombra" x="-20%" y="-10%" width="140%" height="130%"><feDropShadow dx="2" dy="4" stdDeviation="3" flood-color="#1d2b4f" flood-opacity=".2"/></filter>
+    <linearGradient id="gCuerpo" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#e09a00"/><stop offset=".28" stop-color="#ffcf3a"/><stop offset=".42" stop-color="#fff2b0"/><stop offset=".56" stop-color="#ffd44a"/><stop offset="1" stop-color="#d98f00"/></linearGradient>
+    <linearGradient id="gMetal" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#8a93a6"/><stop offset=".4" stop-color="#f4f6fa"/><stop offset=".7" stop-color="#c6ccd8"/><stop offset="1" stop-color="#7f889c"/></linearGradient>
+    <linearGradient id="gGoma" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#e86d88"/><stop offset=".4" stop-color="#ffc4d1"/><stop offset="1" stop-color="#e3647f"/></linearGradient>
+    <linearGradient id="gMadera" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#d4925a"/><stop offset=".45" stop-color="#fbd9ae"/><stop offset="1" stop-color="#c98549"/></linearGradient>
+    <linearGradient id="gMina" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#1d2b4f"/><stop offset=".5" stop-color="#5a6a8f"/><stop offset="1" stop-color="#1d2b4f"/></linearGradient>
+    <g id="punta">
+      <ellipse cx="30" cy="117" rx="16" ry="3" fill="#1d2b4f" opacity=".15"/>
+      <path d="M14 12 Q14 4 22 4 H38 Q46 4 46 12 V19 H14 Z" fill="url(#gGoma)"/>
+      <rect x="13" y="19" width="34" height="10" fill="url(#gMetal)"/>
+      <path d="M13 22.5 H47 M13 25.5 H47" stroke="#7f889c" stroke-width="1"/>
+      <rect x="13" y="29" width="34" height="57" fill="url(#gCuerpo)"/>
+      <path d="M24.5 29 V86 M35.5 29 V86" stroke="#c98a00" stroke-width="1" opacity=".55"/>
+      <path d="M13 86 Q17.5 90.5 22 86 Q26.2 90.5 30 86 Q33.8 90.5 38 86 Q42.5 90.5 47 86 L34 108 L26 108 Z" fill="url(#gMadera)"/>
+      <path d="M26 108 L34 108 L30 116 Z" fill="url(#gMina)"/>
+      <path d="M14 12 Q14 4 22 4 H38 Q46 4 46 12 V19 H47 V86 L30 116 L13 86 V19 H14 Z" fill="none" stroke="#1d2b4f" stroke-width="2.4" stroke-linejoin="round"/>
+      <path d="M18 8 Q20 6 25 6" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".7" fill="none"/>
+      <circle cx="19" cy="60" r="4.5" fill="#ff7a59" opacity=".45"/><circle cx="41" cy="60" r="4.5" fill="#ff7a59" opacity=".45"/>
+      <circle cx="23.5" cy="49" r="3.6" fill="#1d2b4f"/><circle cx="36.5" cy="49" r="3.6" fill="#1d2b4f"/>
+      <circle cx="24.6" cy="47.8" r="1.2" fill="#fff"/><circle cx="37.6" cy="47.8" r="1.2" fill="#fff"/>
+      <path d="M24.5 59 Q30 65 35.5 59" fill="none" stroke="#1d2b4f" stroke-width="2.4" stroke-linecap="round"/>
+    </g>
+  </defs>
+</svg>
 <header class="cab">
   <button class="marca" id="marca" aria-label="Ir al menú">
     <svg viewBox="0 0 64 64" width="34" height="34" aria-hidden="true"><g transform="rotate(-40 32 32)"><rect class="ic-o" x="10" y="25" width="44" height="14" rx="7"/><circle class="ic-o" cx="13" cy="25" r="9"/><circle class="ic-o" cx="13" cy="39" r="9"/><circle class="ic-o" cx="51" cy="25" r="9"/><circle class="ic-o" cx="51" cy="39" r="9"/><rect class="ic-h" x="12" y="27" width="40" height="10" rx="5"/><circle class="ic-h" cx="13" cy="25" r="7"/><circle class="ic-h" cx="13" cy="39" r="7"/><circle class="ic-h" cx="51" cy="25" r="7"/><circle class="ic-h" cx="51" cy="39" r="7"/></g></svg>
@@ -315,10 +399,10 @@ h1, h2 { font-family: var(--display); text-wrap: balance; line-height: 1.05; }
 
   /* ---------- Lo que se recuerda, solo en este aparato ---------- */
   var CLAVE = 'jcd:cuerpo-humano:v1';
-  var mem = { estrellas: {}, sonido: true };
+  var mem = { estrellas: {}, puntos: {}, sonido: true };
   try {
     var guardado = localStorage.getItem(CLAVE);
-    if (guardado) { var d = JSON.parse(guardado); mem.estrellas = d.estrellas || {}; mem.sonido = d.sonido !== false; }
+    if (guardado) { var d = JSON.parse(guardado); mem.estrellas = d.estrellas || {}; mem.puntos = d.puntos || {}; mem.sonido = d.sonido !== false; }
   } catch (e) {}
   function guardar() { try { localStorage.setItem(CLAVE, JSON.stringify(mem)); } catch (e) {} }
 
@@ -391,6 +475,7 @@ h1, h2 { font-family: var(--display); text-wrap: balance; line-height: 1.05; }
     mudo: '<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path class="i-r" d="M3.5 9h4l5-4v14l-5-4h-4z"/><path class="i-l" d="M16 9l5 6M21 9l-5 6"/></svg>',
     si: '<svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path class="i-l" stroke-width="3" d="M5 12.5l4.5 4.5L19 7"/></svg>',
     no: '<svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path class="i-l" stroke-width="3" d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg>',
+    etiqueta: '<svg viewBox="0 0 64 64" width="60" height="60" aria-hidden="true"><path d="M6 19 H36 L56 32 L36 45 H6 Z" fill="#fff3cc" stroke="#d99a00" stroke-width="2.5" stroke-linejoin="round"/><circle cx="40" cy="32" r="3.5" fill="#fff" stroke="#d99a00" stroke-width="2"/><path d="M13 28 H29 M13 36 H24" stroke="#1d2b4f" stroke-width="3" stroke-linecap="round"/></svg>',
     hueso: '<svg viewBox="0 0 64 64" width="64" height="64" aria-hidden="true"><g transform="rotate(-40 32 32)"><rect class="ic-o" x="10" y="25" width="44" height="14" rx="7"/><circle class="ic-o" cx="13" cy="25" r="9"/><circle class="ic-o" cx="13" cy="39" r="9"/><circle class="ic-o" cx="51" cy="25" r="9"/><circle class="ic-o" cx="51" cy="39" r="9"/><rect class="ic-h" x="12" y="27" width="40" height="10" rx="5"/><circle class="ic-h" cx="13" cy="25" r="7"/><circle class="ic-h" cx="13" cy="39" r="7"/><circle class="ic-h" cx="51" cy="25" r="7"/><circle class="ic-h" cx="51" cy="39" r="7"/></g></svg>',
     musculo: '<svg viewBox="0 0 64 64" width="64" height="64" aria-hidden="true"><line class="ic-ol" x1="8" y1="46" x2="34" y2="46" stroke-width="18"/><line class="ic-ol" x1="34" y1="46" x2="40" y2="16" stroke-width="15"/><circle class="ic-o" cx="41" cy="12" r="10"/><line class="ic-ml" x1="8" y1="46" x2="34" y2="46" stroke-width="13"/><line class="ic-ml" x1="34" y1="46" x2="40" y2="16" stroke-width="10"/><circle class="ic-m" cx="41" cy="12" r="7.5"/><ellipse class="ic-r" cx="22" cy="40" rx="11" ry="7"/></svg>',
     cajas: '<svg viewBox="0 0 64 64" width="64" height="64" aria-hidden="true"><rect class="ic-c1" x="4" y="28" width="17" height="24" rx="4"/><rect class="ic-c2" x="23.5" y="28" width="17" height="24" rx="4"/><rect class="ic-c3" x="43" y="28" width="17" height="24" rx="4"/><ellipse class="ic-r" cx="32" cy="14" rx="10" ry="6.5"/></svg>',
@@ -457,6 +542,7 @@ h1, h2 { font-family: var(--display); text-wrap: balance; line-height: 1.05; }
     };
     var o = ln('ol', w + 4) + '<circle class="ols" cx="' + x1 + '" cy="' + y1 + '" r="' + (r + 2) + '"/><circle class="ols" cx="' + x2 + '" cy="' + y2 + '" r="' + (r + 2) + '"/>';
     var f = ln('fl', w) + '<circle class="fs" cx="' + x1 + '" cy="' + y1 + '" r="' + r + '"/><circle class="fs" cx="' + x2 + '" cy="' + y2 + '" r="' + r + '"/>';
+    f += '<line class="brillo" x1="' + (x1 - w * 0.22) + '" y1="' + (y1 + r) + '" x2="' + (x2 - w * 0.22) + '" y2="' + (y2 - r) + '" stroke-width="' + Math.max(1.2, w * 0.22) + '"/>';
     var h = ln('hit', Math.max(w + 14, 20));
     return pieza(id, nombre, o + f + h);
   }
@@ -469,9 +555,9 @@ h1, h2 { font-family: var(--display); text-wrap: balance; line-height: 1.05; }
   }
   function nombreHueso(id) { for (var i = 0; i < HUESOS.length; i++) if (HUESOS[i].id === id) return HUESOS[i].nombre; return id; }
 
-  function svgEsqueleto() {
+  function cuerpoEsqueleto() {
     var m = function (x) { return 220 - x; };
-    var s = '<svg viewBox="0 0 220 472" role="img" aria-label="Dibujo de un esqueleto">';
+    var s = '';
     // costillas
     var o = '', f = '';
     for (var k = 0; k < 6; k++) {
@@ -518,7 +604,11 @@ h1, h2 { font-family: var(--display); text-wrap: balance; line-height: 1.05; }
       '<circle class="ojo" cx="99" cy="42" r="7"/><circle class="ojo" cx="121" cy="42" r="7"/>' +
       '<path class="ojo" d="M110 52 l-4 8 h8 z"/>' +
       '<path class="ol" stroke-width="1.6" d="M100 75 H120 M104 72 v6 M110 72 v7 M116 72 v6"/>');
-    return s + '</svg>';
+    return s;
+  }
+
+  function svgEsqueleto() {
+    return '<svg viewBox="0 0 220 472" role="img" aria-label="Dibujo de un esqueleto"><g filter="url(#fSombra)">' + cuerpoEsqueleto() + '</g></svg>';
   }
 
   var SILUETA = [
@@ -586,6 +676,7 @@ h1, h2 { font-family: var(--display); text-wrap: balance; line-height: 1.05; }
 
   /* ---------- Pantallas ---------- */
   var ACTS = [
+    { id: 'nombres', t: 'Pon nombre a los huesos', d: 'Coloca cada nombre en su hueso y luego escríbelos.', ico: ICO.etiqueta },
     { id: 'huesos', t: 'Los huesos', d: 'Encuentra los huesos del esqueleto.', ico: ICO.hueso },
     { id: 'musculos', t: 'Los músculos', d: 'Toca el bíceps, el gemelo y los demás.', ico: ICO.musculo },
     { id: 'clasifica', t: '¿Dónde está cada músculo?', d: 'Brazos, piernas o tronco.', ico: ICO.cajas },
@@ -627,10 +718,10 @@ h1, h2 { font-family: var(--display); text-wrap: balance; line-height: 1.05; }
   }
 
   function pantallaMenu() {
-    var h = '<section class="portada"><p class="eti">Tema 1 · Conocimiento del Medio</p><h1>Mi cuerpo por dentro</h1>' +
+    var h = '<section class="portada">' + punta(56) + '<p class="eti">Tema 1 · Conocimiento del Medio</p><h1>Mi cuerpo <span class="subrayado">por dentro</span></h1>' +
       '<p class="lead">Huesos, músculos y el viaje de la comida. Elige un juego.</p></section><div class="menu">';
     ACTS.forEach(function (a) {
-      h += '<button class="carta" data-a="' + a.id + '"><span class="carta-i">' + a.ico + '</span><span class="carta-t">' + a.t +
+      h += '<button class="carta' + (a.id === 'nombres' ? ' nueva' : '') + '" data-a="' + a.id + '"><span class="carta-i">' + a.ico + '</span><span class="carta-t">' + a.t +
         '</span><span class="carta-d">' + a.d + '</span>' + estrellas(mem.estrellas[a.id] || 0, 22) + '</button>';
     });
     h += '</div><p class="pie">Sin anuncios. Nada de lo que hagas aquí sale de este aparato.</p>';
@@ -869,8 +960,226 @@ h1, h2 { font-family: var(--display); text-wrap: balance; line-height: 1.05; }
     empezar();
   }
 
+
+  /* ---------- Pon nombre a los huesos ---------- */
+  // Dónde va el hueco de cada nombre (lado y altura) y a qué punto del hueso apunta su línea.
+  // Las coordenadas del hueso son las del esqueleto de 220 de ancho, que aquí se desplaza 90.
+  var HUECOS = {
+    craneo: { lado: 'i', y: 40, a: [86, 40] },
+    costillas: { lado: 'i', y: 126, a: [78, 130] },
+    columna: { lado: 'i', y: 210, a: [104, 214] },
+    pelvis: { lado: 'i', y: 264, a: [72, 262] },
+    femur: { lado: 'i', y: 326, a: [90, 326] },
+    tibia: { lado: 'i', y: 420, a: [93, 420] },
+    humero: { lado: 'd', y: 140, a: [160, 140] },
+    radio: { lado: 'd', y: 214, a: [175, 214] },
+    cubito: { lado: 'd', y: 252, a: [159, 252] },
+    perone: { lado: 'd', y: 414, a: [147, 414] }
+  };
+  var DX = 90;
+  function svgEsqueletoNombres() {
+    var s = '<svg viewBox="0 0 400 472" role="img" aria-label="Un esqueleto con huecos para poner el nombre de cada hueso">';
+    HUESOS.forEach(function (x) {
+      var h = HUECOS[x.id], dos = x.nombre.indexOf(' ') > 0, alto = dos ? 42 : 30;
+      var rx = h.lado === 'i' ? 2 : 316, borde = h.lado === 'i' ? 84 : 316;
+      var ax = h.a[0] + DX, ay = h.a[1], cx = rx + 41;
+      var nom = dos
+        ? '<text class="nom" x="' + cx + '" y="' + (h.y - 4) + '">' + x.nombre.split(' ')[0] + '</text><text class="nom" x="' + cx + '" y="' + (h.y + 13) + '">' + x.nombre.split(' ').slice(1).join(' ') + '</text>'
+        : '<text class="nom" x="' + cx + '" y="' + (h.y + 5) + '">' + x.nombre + '</text>';
+      s += '<g class="pieza hueco" data-p="' + x.id + '" tabindex="0" role="button" aria-label="Hueco para el nombre">' +
+        '<line class="guia-l" x1="' + borde + '" y1="' + h.y + '" x2="' + ax + '" y2="' + ay + '"/>' +
+        '<circle class="punto" cx="' + ax + '" cy="' + ay + '" r="3.5"/>' +
+        '<rect x="' + rx + '" y="' + (h.y - alto / 2) + '" width="82" height="' + alto + '" rx="10"/>' +
+        '<text class="vacio" x="' + cx + '" y="' + (h.y + 6) + '">?</text>' + nom + '</g>';
+    });
+    s += '<g transform="translate(' + DX + ' 0)"><g filter="url(#fSombra)">' + cuerpoEsqueleto() + '</g></g>';
+    return s + '</svg>';
+  }
+
+  var TRUCOS = [
+    'Apoya todas las letras en la raya de abajo, como si se sentaran en un banco.',
+    'Deja un dedito de espacio entre una palabra y la siguiente.',
+    'Coge el lápiz con suavidad, sin apretar. ¡La mano también se cansa!',
+    'Escribe despacito. Más despacio sale más bonito.',
+    'Las letras pequeñas, como la a y la o, caben justas entre las dos rayas.'
+  ];
+  var REVISAR = ['Se lee bien', 'Las letras se apoyan en la raya', 'Hay espacio entre palabras', 'Las letras son del mismo tamaño'];
+  function punta(ancho) {
+    return '<svg width="' + ancho + '" height="' + (ancho * 2) + '" viewBox="0 0 60 120" aria-hidden="true"><use href="#punta"/></svg>';
+  }
+  function moneda(t) {
+    return '<svg width="' + t + '" height="' + t + '" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="#ffd44a" stroke="#d99a00" stroke-width="1.5"/><path fill="#fff6c9" stroke="#c98a00" stroke-width="1" stroke-linejoin="round" d="M12 5.5l1.9 3.9 4.3.6-3.1 3 .7 4.2L12 15.2l-3.8 2 .7-4.2-3.1-3 4.3-.6z"/></svg>';
+  }
+
+  /* El reto de escribir en el cuaderno: lo usan todos los juegos al terminar. */
+  function retoEscribir(panel, o) {
+    var truco = al(TRUCOS);
+    panel.innerHTML = '<div class="reto-cab">' + punta(48) + '<h3 class="reto-t">¡Ahora, a escribir en tu cuaderno!</h3></div>' +
+      '<p class="encargo">' + o.encargo + '</p>' +
+      '<div class="pauta"><small>Míralo así de bonito:</small>' +
+      o.renglones.map(function (r) { return '<div class="renglon"><span>' + r + '</span></div>'; }).join('') + '</div>' +
+      '<div class="truco">' + punta(30) + '<p><b>Truco de Punta</b>' + truco + '</p></div>' +
+      '<button class="b prim" id="yaEscrito">¡Ya lo he escrito!</button>';
+    decir('¡Ahora, a escribir en tu cuaderno! ' + o.encargo + ' Truco de Punta: ' + truco);
+    $('#yaEscrito', panel).onclick = function () {
+      this.remove();
+      var r = document.createElement('div');
+      r.className = 'revisa';
+      r.innerHTML = '<h4>Que lo mire un mayor</h4>' +
+        REVISAR.map(function (c) { return '<button class="check" aria-pressed="false"><i></i><span>' + c + '</span></button>'; }).join('') +
+        '<p class="premio" aria-live="polite"></p><button class="b prim" data-r="fin">Terminar</button>';
+      panel.appendChild(r);
+      var premio = $('.premio', r);
+      r.querySelectorAll('.check').forEach(function (c) {
+        c.onclick = function () {
+          c.setAttribute('aria-pressed', c.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+          var n = r.querySelectorAll('.check[aria-pressed="true"]').length;
+          premio.textContent = n === REVISAR.length ? '¡Qué letra tan bonita! +20 puntos.' : n > 0 ? 'Vas muy bien. Repasa lo que falta, despacito.' : '';
+          if (n === REVISAR.length) son('bien');
+        };
+      });
+      $('[data-r="fin"]', r).onclick = function () {
+        var n = r.querySelectorAll('.check[aria-pressed="true"]').length;
+        o.alTerminar(n === REVISAR.length ? 20 : 0, n);
+      };
+      r.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      decir('Que lo mire un mayor.');
+    };
+  }
+
+  /* Arrastrar con el dedo o con el ratón; si no se mueve, cuenta como un toque. */
+  function arrastrable(el, alSoltar, alTocar, alPasar) {
+    el.addEventListener('pointerdown', function (e) {
+      if (e.button > 0) return;
+      var x0 = e.clientX, y0 = e.clientY, fantasma = null;
+      try { el.setPointerCapture(e.pointerId); } catch (er) {}
+      function bajo(ev) {
+        var d = document.elementFromPoint(ev.clientX, ev.clientY);
+        var g = d && d.closest ? d.closest('[data-p]') : null;
+        return g ? g.dataset.p : null;
+      }
+      function mover(ev) {
+        if (!fantasma) {
+          if (Math.abs(ev.clientX - x0) + Math.abs(ev.clientY - y0) < 10) return;
+          fantasma = el.cloneNode(true);
+          fantasma.classList.add('fantasma');
+          fantasma.removeAttribute('id');
+          document.body.appendChild(fantasma);
+          el.classList.add('levantada');
+        }
+        fantasma.style.left = ev.clientX + 'px';
+        fantasma.style.top = ev.clientY + 'px';
+        alPasar(bajo(ev));
+      }
+      function fin(ev, valido) {
+        el.removeEventListener('pointermove', mover);
+        el.removeEventListener('pointerup', soltar);
+        el.removeEventListener('pointercancel', cancelar);
+        if (fantasma) {
+          var destino = valido ? bajo(ev) : null;
+          fantasma.remove(); el.classList.remove('levantada'); alPasar(null);
+          if (destino) alSoltar(destino);
+        } else if (valido) alTocar();
+      }
+      function soltar(ev) { fin(ev, true); }
+      function cancelar(ev) { fin(ev, false); }
+      el.addEventListener('pointermove', mover);
+      el.addEventListener('pointerup', soltar);
+      el.addEventListener('pointercancel', cancelar);
+    });
+    el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); alTocar(); } });
+  }
+
+  function pantallaNombres() {
+    main.innerHTML = '<section>' + tira('Pon nombre a los huesos') +
+      '<div class="lienzo"><figure class="fig">' + svgEsqueletoNombres() + '<figcaption>El esqueleto</figcaption></figure><div class="panel" id="panel"></div></div></section>';
+    var fig = $('.fig', main), panel = $('#panel');
+    var st;
+    function marcar(id, cls, ms) {
+      fig.querySelectorAll('[data-p="' + id + '"]').forEach(function (g) {
+        g.classList.add(cls);
+        if (ms) setTimeout(function () { g.classList.remove(cls); }, ms);
+      });
+    }
+    function item(id) { for (var i = 0; i < HUESOS.length; i++) if (HUESOS[i].id === id) return HUESOS[i]; }
+    function empezar() {
+      st = { puntos: 0, intentos: {}, colocados: 0, primera: 0, sel: null, sobre: null };
+      fig.querySelectorAll('.hecho, .sel, .ok').forEach(function (g) { g.classList.remove('hecho', 'sel', 'ok'); });
+      panel.innerHTML = '<p class="nota">Arrastra cada nombre hasta su hueso. También puedes tocar el nombre y luego el hueso.</p>' +
+        '<div class="marcador-pts"><span class="chip-pts">' + moneda(24) + '<span id="pts">0</span> puntos</span><span class="cuenta" id="cuenta">0 de ' + HUESOS.length + '</span></div>' +
+        '<div class="chips grandes" id="tarjetas">' +
+        barajar(HUESOS).map(function (x) { return '<button class="b chip nombre-tarjeta" data-id="' + x.id + '">' + x.nombre + '</button>'; }).join('') +
+        '</div><p class="dicho" id="dicho" aria-live="polite">A la primera, 10 puntos. A la segunda, 5.</p>';
+      panel.querySelectorAll('.nombre-tarjeta').forEach(function (b) {
+        arrastrable(b,
+          function (destino) { intentar(b.dataset.id, destino); },
+          function () { elegir(b.dataset.id); },
+          function (destino) {
+            if (destino === st.sobre) return;
+            if (st.sobre) fig.querySelectorAll('[data-p="' + st.sobre + '"]').forEach(function (g) { g.classList.remove('sel'); });
+            st.sobre = destino;
+            if (destino) marcar(destino, 'sel');
+          });
+      });
+    }
+    function elegir(id) {
+      st.sel = st.sel === id ? null : id;
+      panel.querySelectorAll('.nombre-tarjeta').forEach(function (c) { c.classList.toggle('on', c.dataset.id === st.sel); });
+      if (st.sel) { var x = item(id); decir(x.nombre); $('#dicho', panel).className = 'dicho'; $('#dicho', panel).textContent = 'Ahora toca su hueso en el dibujo.'; }
+    }
+    function intentar(id, destino) {
+      var x = item(id), d = $('#dicho', panel), tarjeta = panel.querySelector('.nombre-tarjeta[data-id="' + id + '"]');
+      if (!tarjeta) return;
+      st.intentos[id] = (st.intentos[id] || 0) + 1;
+      if (destino === id) {
+        var n = st.intentos[id], gana = n === 1 ? 10 : n === 2 ? 5 : 2;
+        st.puntos += gana; st.colocados++; if (n === 1) st.primera++;
+        son('bien'); marcar(id, 'hecho'); tarjeta.remove(); st.sel = null;
+        $('#pts', panel).textContent = st.puntos;
+        $('#cuenta', panel).textContent = st.colocados + ' de ' + HUESOS.length;
+        var frase = al(ANIMO);
+        d.className = 'dicho bien'; d.textContent = frase + ' +' + gana + '. ' + x.dato;
+        decir(frase + ' ' + cap(x.art) + ' ' + x.nombre + '. ' + x.dato);
+        if (st.colocados === HUESOS.length) setTimeout(escribir, 1600);
+      } else {
+        son('otra'); marcar(destino, 'mal', 900);
+        tarjeta.classList.remove('mal'); void tarjeta.offsetWidth; tarjeta.classList.add('mal');
+        var y = item(destino);
+        var donde = fig.querySelector('.hueco.hecho[data-p="' + destino + '"]') ? 'Ahí ya está ' : 'Ahí va ';
+        d.className = 'dicho otra';
+        d.textContent = donde + y.art + ' ' + y.nombre + '. Pista: ' + x.dato;
+        decir(donde + y.art + ' ' + y.nombre + '. Pista: ' + x.dato);
+      }
+    }
+    function escribir() {
+      retoEscribir(panel, {
+        encargo: 'Escribe los nombres de los diez huesos.',
+        renglones: ['cráneo, costillas', 'columna vertebral', 'pelvis, húmero', 'radio, cúbito', 'fémur, tibia', 'y peroné'],
+        alTerminar: function (extra) {
+          var total = st.puntos + extra;
+          if (!mem.puntos[ 'nombres' ] || total > mem.puntos.nombres) { mem.puntos.nombres = total; guardar(); }
+          var n = st.primera >= 9 ? 3 : st.primera >= 6 ? 2 : 1;
+          pantallaFin(panel, 'nombres', n, '¡' + total + ' puntos!',
+            (st.primera === HUESOS.length ? 'Los diez huesos a la primera. ¡Eres una experta!' : st.primera + ' de 10 a la primera. ¡Cada vez te saldrá mejor!') +
+            (extra ? ' Y +20 por tu letra bonita.' : ''), empezar);
+        }
+      });
+    }
+    fig.addEventListener('click', function (e) {
+      var g = e.target.closest('[data-p]');
+      if (!g) return;
+      if (st.sel) intentar(st.sel, g.dataset.p);
+      else { var d = $('#dicho', panel); if (d) { d.className = 'dicho'; d.textContent = 'Primero elige un nombre de los de arriba.'; } }
+    });
+    fig.addEventListener('keydown', function (e) {
+      if ((e.key === 'Enter' || e.key === ' ') && st.sel) { var g = e.target.closest('[data-p]'); if (g) { e.preventDefault(); intentar(st.sel, g.dataset.p); } }
+    });
+    empezar();
+  }
+
   var PANTALLAS = {
     '': pantallaMenu,
+    nombres: pantallaNombres,
     huesos: function () { pantallaTocar(CFG_HUESOS); },
     musculos: function () { pantallaTocar(CFG_MUSCULOS); },
     clasifica: pantallaClasifica,

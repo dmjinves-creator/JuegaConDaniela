@@ -10,7 +10,7 @@ funcionan sin conexión una vez cargadas. La portada es `index.html`.
 
 | Tema | Carpeta | Qué trae |
 |---|---|---|
-| Conocimiento del Medio · Tema 1 · Mi cuerpo por dentro | `juegos/cuerpo-humano/` | Los huesos, los músculos, dónde está cada músculo, el viaje de la comida y un verdadero o falso |
+| Conocimiento del Medio · Tema 1 · Mi cuerpo por dentro | `juegos/cuerpo-humano/` | Pon nombre a los huesos (y escríbelos), los huesos, los músculos, dónde está cada músculo, el viaje de la comida y un verdadero o falso |
 
 ## Probarlo en el ordenador
 
