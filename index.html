@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Juega con Daniela</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Baloo+2:wght@600;800&display=swap">
+<style>
+/* Layout: la misma hoja de cuadros que los juegos; una tarjeta por tema. */
+:root {
+  --papel: #fdfcf6; --cuadro: #d7e3f2; --tinta: #1f2a44; --suave: #566079;
+  --tarjeta: #ffffff; --rojo: #d93b30; --hueso: #f6efdc; --azul: #2f63c9;
+  --display: "Baloo 2", "Arial Rounded MT Bold", "Trebuchet MS", sans-serif;
+  --texto: "Andika", "Trebuchet MS", "Segoe UI", sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { background: var(--papel); }
+body {
+  margin: 0; min-height: 100vh; color: var(--tinta); font-family: var(--texto); font-size: 18px; line-height: 1.45;
+  background-color: var(--papel);
+  background-image: linear-gradient(var(--cuadro) 1px, transparent 1px), linear-gradient(90deg, var(--cuadro) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+.wrap { max-width: 900px; margin: 0 auto; padding-inline: 16px; padding-block: 32px 48px; display: grid; gap: 22px; }
+h1 {
+  margin: 0; font-family: var(--display); font-weight: 800; font-size: clamp(2.4rem, 9vw, 3.8rem); line-height: 1.05; text-wrap: balance;
+  text-decoration: underline; text-decoration-color: var(--rojo); text-decoration-thickness: 5px; text-underline-offset: 8px;
+}
+.lead { margin: 0; font-size: 1.15rem; max-width: 42ch; }
+.temas { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 18px; }
+.tema {
+  display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 4px 14px; align-items: center;
+  text-decoration: none; color: var(--tinta);
+  background: var(--tarjeta); border: 3px solid var(--tinta); border-radius: 20px; padding: 16px;
+  box-shadow: 0 6px 0 var(--tinta); transition: transform 160ms, box-shadow 160ms;
+}
+.tema:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--tinta); }
+.tema:focus-visible { outline: 4px solid var(--azul); outline-offset: 3px; }
+.tema svg { grid-row: 1 / 4; }
+.eti { font-size: .78rem; text-transform: uppercase; letter-spacing: .1em; color: var(--suave); font-weight: 700; }
+.tema b { font-family: var(--display); font-weight: 800; font-size: 1.4rem; line-height: 1.1; }
+.tema span:last-child { color: var(--suave); font-size: .98rem; }
+.pie { margin: 0; color: var(--suave); font-size: .9rem; }
+.ic-o { fill: var(--tinta); } .ic-h { fill: var(--hueso); }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <h1>Juega con Daniela</h1>
+  <p class="lead">Juegos para repasar lo que se aprende en clase. Elige un tema.</p>
+  <div class="temas">
+    <a class="tema" href="juegos/cuerpo-humano/">
+      <svg viewBox="0 0 64 64" width="64" height="64" aria-hidden="true"><g transform="rotate(-40 32 32)"><rect class="ic-o" x="10" y="25" width="44" height="14" rx="7"/><circle class="ic-o" cx="13" cy="25" r="9"/><circle class="ic-o" cx="13" cy="39" r="9"/><circle class="ic-o" cx="51" cy="25" r="9"/><circle class="ic-o" cx="51" cy="39" r="9"/><rect class="ic-h" x="12" y="27" width="40" height="10" rx="5"/><circle class="ic-h" cx="13" cy="25" r="7"/><circle class="ic-h" cx="13" cy="39" r="7"/><circle class="ic-h" cx="51" cy="25" r="7"/><circle class="ic-h" cx="51" cy="39" r="7"/></g></svg>
+      <span class="eti">Conocimiento del Medio · Tema 1</span>
+      <b>Mi cuerpo por dentro</b>
+      <span>Huesos, músculos y el viaje de la comida. Cinco juegos.</span>
+    </a>
+  </div>
+  <p class="pie">Sin anuncios. Nada de lo que se hace aquí sale del aparato.</p>
+</main>
+</body>
+</html>

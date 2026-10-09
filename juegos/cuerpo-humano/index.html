@@ -1,0 +1,893 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mi cuerpo por dentro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Baloo+2:wght@600;800&display=swap">
+<style>
+/* Layout: cuaderno de cuadros. Menú de tarjetas grandes; cada juego es dibujo + panel, y en el móvil el panel va arriba. */
+:root {
+  --papel: #fdfcf6;
+  --cuadro: #d7e3f2;
+  --margen: #ef9a9a;
+  --tinta: #1f2a44;
+  --suave: #566079;
+  --tarjeta: #ffffff;
+  --blanco: #ffffff;
+  --hueso: #f6efdc;
+  --muneco: #e9eef6;
+  --apagado: #dde1ea;
+  --apagado-osc: #a4abba;
+  --rojo: #d93b30;
+  --rojo-claro: #f6b4ab;
+  --sol: #ffcc33;
+  --sol-claro: #fff3c4;
+  --verde: #23824a;
+  --verde-vivo: #6fcf97;
+  --verde-claro: #cdeedb;
+  --azul: #2f63c9;
+  --azul-claro: #dbe6fb;
+  --naranja: #f08a24;
+  --naranja-claro: #fde3c6;
+  --naranja-osc: #a8520b;
+  --display: "Baloo 2", "Arial Rounded MT Bold", "Trebuchet MS", sans-serif;
+  --texto: "Andika", "Trebuchet MS", "Segoe UI", sans-serif;
+  --t: 160ms;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { background: var(--papel); }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--papel);
+  background-image:
+    linear-gradient(var(--cuadro) 1px, transparent 1px),
+    linear-gradient(90deg, var(--cuadro) 1px, transparent 1px);
+  background-size: 22px 22px;
+  color: var(--tinta);
+  font-family: var(--texto);
+  font-size: 18px;
+  line-height: 1.45;
+  -webkit-tap-highlight-color: transparent;
+}
+h1, h2, p { margin: 0; }
+h1, h2 { font-family: var(--display); text-wrap: balance; line-height: 1.05; }
+
+/* Botones con forma de pegatina */
+.b {
+  font: inherit; font-weight: 700; color: var(--tinta);
+  background: var(--tarjeta);
+  border: 3px solid var(--tinta); border-radius: 14px;
+  min-height: 52px; padding: 8px 16px;
+  box-shadow: 0 4px 0 var(--tinta);
+  cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  transition: transform var(--t), box-shadow var(--t), background var(--t);
+}
+.b:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--tinta); }
+.b[disabled] { cursor: default; }
+.b.prim { background: var(--sol); }
+.b.acierto { background: var(--verde); color: var(--blanco); }
+.b.apagado { opacity: .5; }
+.b:focus-visible, .carta:focus-visible, .caja:focus-visible, .marca:focus-visible {
+  outline: 4px solid var(--azul); outline-offset: 3px;
+}
+.i-r { fill: var(--tinta); }
+.i-l { fill: none; stroke: var(--tinta); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.b.acierto .i-l { stroke: var(--blanco); }
+
+/* Cabecera */
+.cab {
+  max-width: 1000px; margin: 0 auto;
+  padding-inline: 16px; padding-block: 12px 4px;
+  display: flex; align-items: center; gap: 12px;
+}
+.marca {
+  flex: 1; min-width: 0;
+  display: flex; align-items: center; gap: 8px;
+  background: none; border: 0; padding: 0; cursor: pointer; text-align: left;
+  font-family: var(--display); font-weight: 800; font-size: 1.15rem; color: var(--tinta);
+}
+.total {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--tarjeta); border: 3px solid var(--tinta); border-radius: 999px;
+  padding: 4px 12px 4px 8px; font-weight: 700; font-variant-numeric: tabular-nums;
+}
+.son { min-width: 54px; padding: 6px 10px; }
+
+.wrap { max-width: 1000px; margin: 0 auto; padding-inline: 16px; padding-block: 8px 48px; }
+
+/* Portada */
+.portada { padding-block: 14px 20px; display: grid; gap: 8px; }
+.eti { font-size: .8rem; text-transform: uppercase; letter-spacing: .1em; color: var(--suave); font-weight: 700; }
+.portada h1 {
+  font-size: clamp(2.3rem, 8vw, 3.6rem); font-weight: 800;
+  text-decoration: underline; text-decoration-color: var(--rojo);
+  text-decoration-thickness: 5px; text-underline-offset: 8px;
+}
+.lead { font-size: 1.15rem; max-width: 40ch; }
+.menu { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; }
+@media (min-width: 560px) and (max-width: 899px) {
+  .menu { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .carta:last-child { grid-column: span 2; }
+}
+@media (min-width: 900px) {
+  .menu { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .carta { grid-column: span 2; }
+  .carta:nth-child(n+4) { grid-column: span 3; }
+}
+.carta {
+  font: inherit; color: var(--tinta); text-align: left; cursor: pointer;
+  display: grid; grid-template-columns: 72px minmax(0, 1fr); column-gap: 14px; row-gap: 2px;
+  align-items: center; align-content: start;
+  background: var(--tarjeta); border: 3px solid var(--tinta); border-radius: 20px;
+  padding: 16px; box-shadow: 0 6px 0 var(--tinta);
+  transition: transform var(--t), box-shadow var(--t);
+}
+.carta:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--tinta); }
+.carta-i { grid-row: 1 / 4; display: grid; place-items: center; }
+.carta-t { font-family: var(--display); font-weight: 800; font-size: 1.35rem; line-height: 1.1; }
+.carta-d { color: var(--suave); font-size: .98rem; }
+.estrellas { display: inline-flex; gap: 2px; }
+.e-si { fill: var(--sol); stroke: var(--tinta); stroke-width: 1.6; stroke-linejoin: round; }
+.e-no { fill: none; stroke: var(--apagado-osc); stroke-width: 1.6; stroke-linejoin: round; }
+.pie { margin-top: 28px; color: var(--suave); font-size: .9rem; text-align: center; }
+
+/* Iconos del menú */
+.ic-o { fill: var(--tinta); }
+.ic-h { fill: var(--hueso); }
+.ic-m { fill: var(--muneco); }
+.ic-ol { stroke: var(--tinta); stroke-linecap: round; fill: none; }
+.ic-ml { stroke: var(--muneco); stroke-linecap: round; fill: none; }
+.ic-r { fill: var(--rojo-claro); stroke: var(--rojo); stroke-width: 2; }
+.ic-c1 { fill: var(--azul-claro); stroke: var(--tinta); stroke-width: 2.5; }
+.ic-c2 { fill: var(--verde-claro); stroke: var(--tinta); stroke-width: 2.5; }
+.ic-c3 { fill: var(--naranja-claro); stroke: var(--tinta); stroke-width: 2.5; }
+.ic-d { fill: none; stroke: var(--tinta); stroke-width: 3; stroke-dasharray: 4 5; stroke-linecap: round; }
+
+/* Pantalla de juego */
+.tira { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-block: 8px 18px; }
+.tira h2 {
+  flex: 1; min-width: 12ch; font-size: clamp(1.6rem, 5vw, 2.1rem); font-weight: 800;
+  text-decoration: underline; text-decoration-color: var(--rojo);
+  text-decoration-thickness: 4px; text-underline-offset: 6px;
+}
+.modos { display: flex; gap: 8px; }
+.modo[aria-pressed="true"] { background: var(--azul); color: var(--blanco); }
+.lienzo { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+@media (max-width: 760px) {
+  .lienzo { grid-template-columns: minmax(0, 1fr); }
+  .lienzo .panel { order: -1; }
+}
+.fig { margin: 0; background: var(--tarjeta); border: 3px solid var(--tinta); border-radius: 20px; padding: 12px; }
+.fig svg { display: block; width: 100%; height: auto; max-height: 68vh; margin-inline: auto; touch-action: manipulation; }
+@media (max-width: 760px) { .fig svg { max-height: 54vh; } }
+.fig figcaption { text-align: center; color: var(--suave); font-size: .9rem; margin-top: 4px; }
+.panel { display: grid; gap: 14px; min-width: 0; align-content: start; }
+.panel.ancho { max-width: 780px; }
+.nota {
+  background: var(--tarjeta); border: 2px solid var(--cuadro); border-left: 6px solid var(--margen);
+  border-radius: 12px; padding: 12px 14px;
+}
+.guia { font-weight: 700; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { min-height: 46px; padding: 6px 14px; font-size: 1rem; }
+.chip.on { background: var(--sol); }
+.chips.grandes .chip { min-height: 56px; font-size: 1.15rem; }
+.ficha {
+  background: var(--tarjeta); border: 3px dashed var(--apagado-osc); border-radius: 16px;
+  padding: 14px 16px; min-height: 104px; display: grid; gap: 4px; align-content: center;
+}
+.ficha.llena { border-style: solid; border-color: var(--tinta); background: var(--sol-claro); }
+.ficha .nombre { font-family: var(--display); font-weight: 800; font-size: 1.9rem; line-height: 1.05; }
+.suave { color: var(--suave); }
+.pide {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 2px 12px;
+  background: var(--sol-claro); border: 3px solid var(--tinta); border-radius: 18px; padding: 12px 16px;
+}
+.pide-a { font-size: 1.2rem; font-weight: 700; width: 100%; }
+.pide-n { font-family: var(--display); font-weight: 800; font-size: clamp(1.9rem, 7vw, 2.5rem); line-height: 1; flex: 1; min-width: 0; }
+.oir { min-height: 50px; padding: 6px 10px; }
+.dicho { min-height: 2.9em; font-weight: 700; font-size: 1.12rem; }
+.dicho.bien { color: var(--verde); }
+.dicho.otra { color: var(--naranja-osc); }
+.puntos { display: flex; flex-wrap: wrap; gap: 6px; }
+.puntos span { width: 16px; height: 16px; border-radius: 50%; border: 2.5px solid var(--tinta); background: var(--tarjeta); }
+.puntos .p-si { background: var(--verde-vivo); }
+.fin {
+  text-align: center; background: var(--tarjeta); border: 3px solid var(--tinta); border-radius: 20px;
+  padding: 24px 16px; display: grid; gap: 10px; justify-items: center;
+}
+.fin-t { font-family: var(--display); font-weight: 800; font-size: 1.9rem; line-height: 1.1; text-wrap: balance; }
+.fila { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 6px; }
+
+/* Clasificar */
+.cajas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 620px) { .cajas { grid-template-columns: minmax(0, 1fr); } }
+.caja {
+  font: inherit; color: var(--tinta); text-align: left; cursor: pointer;
+  border: 3px solid var(--tinta); border-radius: 18px; padding: 14px; min-height: 150px;
+  display: flex; flex-direction: column; gap: 4px; box-shadow: 0 5px 0 var(--tinta);
+}
+@media (max-width: 620px) { .caja { min-height: 104px; } }
+.c-sup { background: var(--azul-claro); }
+.c-inf { background: var(--verde-claro); }
+.c-tronco { background: var(--naranja-claro); }
+.caja-t { font-family: var(--display); font-weight: 800; font-size: 1.3rem; line-height: 1.1; }
+.caja-s { color: var(--suave); font-size: .95rem; }
+.caja-d { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.colocado { background: var(--tarjeta); border: 2px solid var(--tinta); border-radius: 10px; padding: 2px 10px; font-weight: 700; }
+
+/* El viaje */
+.camino { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; counter-reset: paso; }
+.camino li {
+  display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 12px; align-items: center;
+  background: var(--tarjeta); border: 3px dashed var(--apagado-osc); border-radius: 14px;
+  padding: 8px 12px; min-height: 62px;
+}
+.camino li::before {
+  counter-increment: paso; content: counter(paso);
+  width: 40px; height: 40px; border-radius: 50%; border: 3px solid var(--tinta);
+  display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-size: 1.2rem;
+  background: var(--tarjeta);
+}
+.camino li.hecho { border-style: solid; border-color: var(--tinta); background: var(--verde-claro); }
+.camino b { font-family: var(--display); font-weight: 800; font-size: 1.35rem; display: block; line-height: 1.1; }
+
+/* Verdadero o falso */
+.frase {
+  display: flex; gap: 12px; align-items: flex-start;
+  background: var(--tarjeta); border: 3px solid var(--tinta); border-radius: 18px; padding: 16px;
+}
+.frase p { font-size: clamp(1.3rem, 4.6vw, 1.65rem); font-weight: 700; flex: 1; min-width: 0; line-height: 1.3; }
+.vfb { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.vfb .b { min-height: 76px; font-size: 1.25rem; }
+.vf-si { background: var(--verde-claro); }
+.vf-no { background: var(--naranja-claro); }
+
+.mal { animation: temblar .4s; }
+@keyframes temblar {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+/* Dibujos */
+.ol { stroke: var(--tinta); fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.ols { fill: var(--tinta); }
+.fl { stroke: var(--hueso); fill: none; stroke-linecap: round; stroke-linejoin: round; transition: stroke var(--t); }
+.fs { fill: var(--hueso); transition: fill var(--t); }
+.fsb { fill: var(--hueso); stroke: var(--tinta); stroke-width: 2; transition: fill var(--t); }
+.ojo { fill: var(--tinta); }
+.agujero { fill: var(--tarjeta); stroke: var(--tinta); stroke-width: 1.5; }
+.hit { stroke: transparent; fill: transparent; stroke-linecap: round; }
+.pieza { cursor: pointer; outline: none; }
+.pieza.sel .fl { stroke: var(--sol); }
+.pieza.sel .fs, .pieza.sel .fsb { fill: var(--sol); }
+.pieza.ok .fl { stroke: var(--verde-vivo); }
+.pieza.ok .fs, .pieza.ok .fsb { fill: var(--verde-vivo); }
+.pieza.mal .fl { stroke: var(--naranja); }
+.pieza.mal .fs, .pieza.mal .fsb { fill: var(--naranja); }
+.pieza:focus-visible .ol, .pieza:focus-visible .fsb, .pieza:focus-visible .mus { stroke: var(--azul); }
+.pieza.mal { animation: none; }
+.mo { fill: var(--tinta); }
+.mol { stroke: var(--tinta); stroke-linecap: round; }
+.mop { fill: var(--tinta); stroke: var(--tinta); stroke-width: 5; stroke-linejoin: round; }
+.mf { fill: var(--muneco); }
+.mfl { stroke: var(--muneco); stroke-linecap: round; }
+.mus { fill: var(--rojo-claro); stroke: var(--rojo); stroke-width: 2; transition: fill var(--t); }
+.mline { stroke: var(--rojo); stroke-width: 1.5; fill: none; opacity: .7; }
+.pieza.sel .mus { fill: var(--sol); stroke: var(--tinta); }
+.pieza.ok .mus { fill: var(--verde-vivo); }
+.pieza.mal .mus { fill: var(--naranja); }
+.pliegue { stroke: var(--apagado-osc); stroke-width: 2; fill: none; stroke-linecap: round; }
+.rotulo { font-family: var(--texto); font-size: 15px; font-weight: 700; fill: var(--suave); }
+.org { fill: var(--apagado); stroke: var(--apagado-osc); stroke-width: 2; transition: fill var(--t), stroke var(--t); }
+.org-l { stroke: var(--apagado); fill: none; stroke-linecap: round; transition: stroke var(--t); }
+.org.ok { fill: var(--rojo-claro); stroke: var(--tinta); }
+.org-l.ok { stroke: var(--rojo); }
+.tripa { stroke: var(--apagado); fill: none; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+<header class="cab">
+  <button class="marca" id="marca" aria-label="Ir al menú">
+    <svg viewBox="0 0 64 64" width="34" height="34" aria-hidden="true"><g transform="rotate(-40 32 32)"><rect class="ic-o" x="10" y="25" width="44" height="14" rx="7"/><circle class="ic-o" cx="13" cy="25" r="9"/><circle class="ic-o" cx="13" cy="39" r="9"/><circle class="ic-o" cx="51" cy="25" r="9"/><circle class="ic-o" cx="51" cy="39" r="9"/><rect class="ic-h" x="12" y="27" width="40" height="10" rx="5"/><circle class="ic-h" cx="13" cy="25" r="7"/><circle class="ic-h" cx="13" cy="39" r="7"/><circle class="ic-h" cx="51" cy="25" r="7"/><circle class="ic-h" cx="51" cy="39" r="7"/></g></svg>
+    <span>Juega con Daniela</span>
+  </button>
+  <span class="total" id="total"></span>
+  <button class="b son" id="son"></button>
+</header>
+<main class="wrap" id="main"></main>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var main = $('#main');
+
+  /* ---------- Lo que se recuerda, solo en este aparato ---------- */
+  var CLAVE = 'jcd:cuerpo-humano:v1';
+  var mem = { estrellas: {}, sonido: true };
+  try {
+    var guardado = localStorage.getItem(CLAVE);
+    if (guardado) { var d = JSON.parse(guardado); mem.estrellas = d.estrellas || {}; mem.sonido = d.sonido !== false; }
+  } catch (e) {}
+  function guardar() { try { localStorage.setItem(CLAVE, JSON.stringify(mem)); } catch (e) {} }
+
+  /* ---------- Voz y sonidos (todo en el propio aparato) ---------- */
+  var vozEs = null;
+  function buscarVoz() {
+    try {
+      var v = speechSynthesis.getVoices();
+      vozEs = v.find(function (x) { return /^es[-_]ES/i.test(x.lang); }) || v.find(function (x) { return /^es/i.test(x.lang); }) || null;
+    } catch (e) {}
+  }
+  if ('speechSynthesis' in window) { buscarVoz(); speechSynthesis.onvoiceschanged = buscarVoz; }
+  function decir(t) {
+    if (!mem.sonido || !('speechSynthesis' in window)) return;
+    try {
+      speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(t);
+      u.lang = 'es-ES'; if (vozEs) u.voice = vozEs;
+      u.rate = 0.92; u.pitch = 1.05;
+      speechSynthesis.speak(u);
+    } catch (e) {}
+  }
+  function callar() { try { if ('speechSynthesis' in window) speechSynthesis.cancel(); } catch (e) {} }
+  var ctx = null;
+  function tono(f, t0, dur, tipo, vol) {
+    var o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = tipo || 'sine'; o.frequency.value = f;
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(vol || 0.16, t0 + 0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    o.connect(g); g.connect(ctx.destination);
+    o.start(t0); o.stop(t0 + dur + 0.03);
+  }
+  function son(tipo) {
+    if (!mem.sonido) return;
+    try {
+      ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
+      var t = ctx.currentTime;
+      if (tipo === 'bien') { tono(660, t, 0.12); tono(880, t + 0.11, 0.2); }
+      else if (tipo === 'otra') { tono(330, t, 0.2, 'triangle', 0.1); }
+      else if (tipo === 'fin') { [523, 659, 784, 1047].forEach(function (f, i) { tono(f, t + i * 0.13, 0.25); }); }
+    } catch (e) {}
+  }
+
+  /* ---------- Ayudas ---------- */
+  function barajar(a) {
+    a = a.slice();
+    for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var x = a[i]; a[i] = a[j]; a[j] = x; }
+    return a;
+  }
+  function al(a) { return a[Math.floor(Math.random() * a.length)]; }
+  function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+  function ese(art) { return art === 'las' ? 'Esas son' : art === 'los' ? 'Esos son' : art === 'la' ? 'Esa es' : 'Ese es'; }
+  var ANIMO = ['¡Muy bien!', '¡Genial!', '¡Eso es!', '¡Fenomenal!', '¡Lo has encontrado!'];
+  var CORRECTO = ['¡Correcto!', '¡Muy bien!', '¡Eso es!', '¡Genial!'];
+
+  var ESTRELLA = 'M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z';
+  function estrellas(n, tam) {
+    var h = '<span class="estrellas" role="img" aria-label="' + n + ' de 3 estrellas">';
+    for (var i = 0; i < 3; i++) h += '<svg viewBox="0 0 24 24" width="' + tam + '" height="' + tam + '" aria-hidden="true"><path class="' + (i < n ? 'e-si' : 'e-no') + '" d="' + ESTRELLA + '"/></svg>';
+    return h + '</span>';
+  }
+  function puntos(total, hechos) {
+    var h = '<div class="puntos" role="img" aria-label="' + hechos + ' de ' + total + '">';
+    for (var k = 0; k < total; k++) h += '<span class="' + (k < hechos ? 'p-si' : '') + '"></span>';
+    return h + '</div>';
+  }
+  var ICO = {
+    altavoz: '<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path class="i-r" d="M3.5 9h4l5-4v14l-5-4h-4z"/><path class="i-l" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12"/></svg>',
+    mudo: '<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path class="i-r" d="M3.5 9h4l5-4v14l-5-4h-4z"/><path class="i-l" d="M16 9l5 6M21 9l-5 6"/></svg>',
+    si: '<svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path class="i-l" stroke-width="3" d="M5 12.5l4.5 4.5L19 7"/></svg>',
+    no: '<svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path class="i-l" stroke-width="3" d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg>',
+    hueso: '<svg viewBox="0 0 64 64" width="64" height="64" aria-hidden="true"><g transform="rotate(-40 32 32)"><rect class="ic-o" x="10" y="25" width="44" height="14" rx="7"/><circle class="ic-o" cx="13" cy="25" r="9"/><circle class="ic-o" cx="13" cy="39" r="9"/><circle class="ic-o" cx="51" cy="25" r="9"/><circle class="ic-o" cx="51" cy="39" r="9"/><rect class="ic-h" x="12" y="27" width="40" height="10" rx="5"/><circle class="ic-h" cx="13" cy="25" r="7"/><circle class="ic-h" cx="13" cy="39" r="7"/><circle class="ic-h" cx="51" cy="25" r="7"/><circle class="ic-h" cx="51" cy="39" r="7"/></g></svg>',
+    musculo: '<svg viewBox="0 0 64 64" width="64" height="64" aria-hidden="true"><line class="ic-ol" x1="8" y1="46" x2="34" y2="46" stroke-width="18"/><line class="ic-ol" x1="34" y1="46" x2="40" y2="16" stroke-width="15"/><circle class="ic-o" cx="41" cy="12" r="10"/><line class="ic-ml" x1="8" y1="46" x2="34" y2="46" stroke-width="13"/><line class="ic-ml" x1="34" y1="46" x2="40" y2="16" stroke-width="10"/><circle class="ic-m" cx="41" cy="12" r="7.5"/><ellipse class="ic-r" cx="22" cy="40" rx="11" ry="7"/></svg>',
+    cajas: '<svg viewBox="0 0 64 64" width="64" height="64" aria-hidden="true"><rect class="ic-c1" x="4" y="28" width="17" height="24" rx="4"/><rect class="ic-c2" x="23.5" y="28" width="17" height="24" rx="4"/><rect class="ic-c3" x="43" y="28" width="17" height="24" rx="4"/><ellipse class="ic-r" cx="32" cy="14" rx="10" ry="6.5"/></svg>',
+    viaje: '<svg viewBox="0 0 64 64" width="64" height="64" aria-hidden="true"><path class="ic-d" d="M16 16 C16 34 48 24 48 40 S30 52 40 58"/><circle class="ic-r" cx="16" cy="10" r="7"/><path class="ic-o" d="M34 54l9 5-2-9z"/></svg>',
+    vf: '<svg viewBox="0 0 64 64" width="64" height="64" aria-hidden="true"><circle class="ic-c2" cx="19" cy="32" r="14"/><path class="i-l" stroke-width="3.5" d="M12 32l5 5 9-10"/><circle class="ic-c3" cx="45" cy="32" r="14"/><path class="i-l" stroke-width="3.5" d="M39 26l12 12M51 26L39 38"/></svg>'
+  };
+
+  /* ---------- El contenido del Tema 1, sacado del cuaderno ---------- */
+  var HUESOS = [
+    { id: 'craneo', nombre: 'cráneo', art: 'el', dato: 'Es la cabeza de hueso. Protege el cerebro.' },
+    { id: 'costillas', nombre: 'costillas', art: 'las', dato: 'Protegen el corazón y los pulmones.' },
+    { id: 'columna', nombre: 'columna vertebral', art: 'la', dato: 'Va por la espalda y nos sostiene derechos.' },
+    { id: 'pelvis', nombre: 'pelvis', art: 'la', dato: 'Está en la cadera. De ella salen las piernas.' },
+    { id: 'humero', nombre: 'húmero', art: 'el', dato: 'Es el hueso de arriba del brazo.' },
+    { id: 'radio', nombre: 'radio', art: 'el', dato: 'Está en el antebrazo, del lado del dedo gordo.' },
+    { id: 'cubito', nombre: 'cúbito', art: 'el', dato: 'Está en el antebrazo, al lado del radio.' },
+    { id: 'femur', nombre: 'fémur', art: 'el', dato: 'Es el hueso del muslo. ¡El más largo del cuerpo!' },
+    { id: 'tibia', nombre: 'tibia', art: 'la', dato: 'Está en la pierna, por delante. Es más gorda que el peroné.' },
+    { id: 'perone', nombre: 'peroné', art: 'el', dato: 'Está en la pierna, al lado de la tibia. Es fino.' }
+  ];
+  var MUSCULOS = [
+    { id: 'biceps', nombre: 'bíceps', art: 'el', zona: 'sup', dato: 'Está en el brazo. Se pone duro cuando sacas músculo.' },
+    { id: 'pectoral', nombre: 'pectoral', art: 'el', zona: 'tronco', dato: 'Está en el pecho.' },
+    { id: 'abdominal', nombre: 'abdominal', art: 'el', zona: 'tronco', dato: 'Está en la tripa.' },
+    { id: 'gluteo', nombre: 'glúteo', art: 'el', zona: 'tronco', dato: 'Está en el culete. Nos ayuda a andar y a sentarnos.' },
+    { id: 'gemelo', nombre: 'gemelo', art: 'el', zona: 'inf', dato: 'Está detrás de la pierna. Nos pone de puntillas.' }
+  ];
+  var ZONAS = {
+    sup: { t: 'Extremidad superior', s: 'Los brazos' },
+    inf: { t: 'Extremidad inferior', s: 'Las piernas' },
+    tronco: { t: 'Tronco', s: 'Pecho, tripa y culete' }
+  };
+  var VIAJE = [
+    { id: 'boca', nombre: 'Boca', dato: 'Masticamos la comida.', pista: '¿Por dónde entra la comida?' },
+    { id: 'esofago', nombre: 'Esófago', dato: 'Es un tubo que baja la comida.', pista: '¿Por qué tubo baja la comida?' },
+    { id: 'estomago', nombre: 'Estómago', dato: 'Aquí la comida se deshace.', pista: '¿Dónde se deshace la comida?' },
+    { id: 'ano', nombre: 'Ano', dato: 'Por aquí sale lo que el cuerpo no usa.', pista: '¿Por dónde sale lo que no usamos?' }
+  ];
+  var VF = [
+    ['Debajo de la piel tenemos los huesos.', true, 'Debajo de la piel están los huesos.'],
+    ['Todos los huesos juntos se llaman esqueleto.', true, 'El conjunto de huesos se llama esqueleto.'],
+    ['Todos los huesos juntos se llaman estómago.', false, 'El conjunto de huesos se llama esqueleto.'],
+    ['Los huesos sostienen nuestro cuerpo.', true, 'Sin huesos no podríamos estar de pie.'],
+    ['Los huesos protegen algunos órganos.', true, 'Por ejemplo, el cráneo protege el cerebro.'],
+    ['Los huesos se unen en las articulaciones.', true, 'El codo y la rodilla son articulaciones.'],
+    ['Los músculos son duros como una piedra.', false, 'Los músculos son blandos y elásticos.'],
+    ['Los músculos cubren el esqueleto.', true, 'Están debajo de la piel y cubren los huesos.'],
+    ['El bíceps está en la pierna.', false, 'El bíceps está en el brazo.'],
+    ['El gemelo está en la pierna.', true, 'Está detrás de la pierna.'],
+    ['El pectoral está en el pecho.', true, 'Pectoral y pecho se parecen, ¿a que sí?'],
+    ['El fémur es un hueso del brazo.', false, 'El fémur está en el muslo.'],
+    ['El cráneo protege el cerebro.', true, 'Es como un casco de hueso.'],
+    ['Los seres vivos nos alimentamos, nos relacionamos y nos reproducimos.', true, 'Son las tres cosas que hacen todos los seres vivos.'],
+    ['Nos alimentamos para crecer y tener energía.', true, 'La comida nos da energía para jugar y crecer.'],
+    ['En la boca masticamos la comida.', true, 'Con los dientes masticamos la comida.'],
+    ['La comida va de la boca directa al ano.', false, 'Primero pasa por el esófago y el estómago.'],
+    ['El estómago está en la cabeza.', false, 'El estómago está en la tripa.']
+  ];
+
+  /* ---------- Los dibujos ---------- */
+  function largo(id, nombre, x1, y1, x2, y2, w) {
+    var r = w * 0.75, ln = function (cls, sw) {
+      return '<line class="' + cls + '" x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke-width="' + sw + '"/>';
+    };
+    var o = ln('ol', w + 4) + '<circle class="ols" cx="' + x1 + '" cy="' + y1 + '" r="' + (r + 2) + '"/><circle class="ols" cx="' + x2 + '" cy="' + y2 + '" r="' + (r + 2) + '"/>';
+    var f = ln('fl', w) + '<circle class="fs" cx="' + x1 + '" cy="' + y1 + '" r="' + r + '"/><circle class="fs" cx="' + x2 + '" cy="' + y2 + '" r="' + r + '"/>';
+    var h = ln('hit', Math.max(w + 14, 20));
+    return pieza(id, nombre, o + f + h);
+  }
+  function pieza(id, nombre, dentro) {
+    return '<g class="pieza" data-p="' + id + '" tabindex="0" role="button" aria-label="' + nombre + '">' + dentro + '</g>';
+  }
+  function deco(x1, y1, x2, y2, w) {
+    return '<line class="ol" x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke-width="' + (w + 3) + '"/>' +
+      '<line class="fl" x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke-width="' + w + '"/>';
+  }
+  function nombreHueso(id) { for (var i = 0; i < HUESOS.length; i++) if (HUESOS[i].id === id) return HUESOS[i].nombre; return id; }
+
+  function svgEsqueleto() {
+    var m = function (x) { return 220 - x; };
+    var s = '<svg viewBox="0 0 220 472" role="img" aria-label="Dibujo de un esqueleto">';
+    // costillas
+    var o = '', f = '';
+    for (var k = 0; k < 6; k++) {
+      var y = 104 + k * 14, xo = 72 + k * 1.5;
+      var a = 'M106 ' + y + ' Q' + xo + ' ' + (y - 4) + ' ' + xo + ' ' + (y + 16);
+      var b = 'M114 ' + y + ' Q' + m(xo) + ' ' + (y - 4) + ' ' + m(xo) + ' ' + (y + 16);
+      o += '<path class="ol" d="' + a + '" stroke-width="7"/><path class="ol" d="' + b + '" stroke-width="7"/>';
+      f += '<path class="fl" d="' + a + '" stroke-width="3.5"/><path class="fl" d="' + b + '" stroke-width="3.5"/>';
+    }
+    s += pieza('costillas', nombreHueso('costillas'), o + f + '<rect class="hit" x="68" y="96" width="36" height="98"/><rect class="hit" x="116" y="96" width="36" height="98"/>');
+    // clavículas
+    s += '<g>' + deco(108, 92, 72, 99, 5) + deco(112, 92, 148, 99, 5) + '</g>';
+    // pelvis
+    s += pieza('pelvis', nombreHueso('pelvis'),
+      '<path class="fsb" d="M110 250 C92 240 70 240 68 258 C66 276 84 288 100 284 L110 292 L120 284 C136 288 154 276 152 258 C150 240 128 240 110 250 Z"/>' +
+      '<circle class="agujero" cx="90" cy="272" r="6"/><circle class="agujero" cx="130" cy="272" r="6"/>');
+    // columna vertebral
+    var v = '';
+    for (var j = 0; j < 20; j++) v += '<rect class="fsb" x="103" y="' + (78 + j * 9) + '" width="14" height="7" rx="2.5"/>';
+    s += pieza('columna', nombreHueso('columna'), v + '<rect class="hit" x="98" y="76" width="24" height="186"/>');
+    // brazos
+    [false, true].forEach(function (der) {
+      var X = der ? m : function (x) { return x; };
+      s += largo('humero', nombreHueso('humero'), X(66), 104, X(56), 184, 8);
+      s += largo('radio', nombreHueso('radio'), X(52), 192, X(38), 262, 5);
+      s += largo('cubito', nombreHueso('cubito'), X(60), 192, X(62), 262, 5);
+      s += '<g><ellipse class="fsb" cx="' + X(50) + '" cy="276" rx="12" ry="10"/>' +
+        deco(X(42), 284, X(40), 300, 3.5) + deco(X(47), 286, X(46), 304, 3.5) +
+        deco(X(53), 286, X(54), 304, 3.5) + deco(X(58), 284, X(60), 298, 3.5) + '</g>';
+    });
+    // piernas
+    [false, true].forEach(function (der) {
+      var X = der ? m : function (x) { return x; };
+      s += largo('femur', nombreHueso('femur'), X(92), 284, X(88), 368, 9);
+      s += '<g><circle class="fsb" cx="' + X(88) + '" cy="376" r="5"/></g>';
+      s += largo('perone', nombreHueso('perone'), X(74), 386, X(76), 446, 4.5);
+      s += largo('tibia', nombreHueso('tibia'), X(94), 384, X(96), 448, 8);
+      s += '<g><ellipse class="fsb" cx="' + X(86) + '" cy="458" rx="15" ry="7"/></g>';
+    });
+    // cráneo
+    s += pieza('craneo', nombreHueso('craneo'),
+      '<path class="fsb" d="M92 58 Q94 84 110 86 Q126 84 128 58 Z"/>' +
+      '<ellipse class="fsb" cx="110" cy="40" rx="27" ry="30"/>' +
+      '<circle class="ojo" cx="99" cy="42" r="7"/><circle class="ojo" cx="121" cy="42" r="7"/>' +
+      '<path class="ojo" d="M110 52 l-4 8 h8 z"/>' +
+      '<path class="ol" stroke-width="1.6" d="M100 75 H120 M104 72 v6 M110 72 v7 M116 72 v6"/>');
+    return s + '</svg>';
+  }
+
+  var SILUETA = [
+    ['c', 100, 42, 24],
+    ['l', 100, 62, 100, 80, 16],
+    ['p', 'M68 78 Q100 70 132 78 Q141 140 134 198 Q100 214 66 198 Q59 140 68 78 Z'],
+    ['l', 72, 86, 52, 168, 22], ['l', 52, 168, 44, 246, 18], ['c', 43, 258, 11],
+    ['l', 128, 86, 148, 168, 22], ['l', 148, 168, 156, 246, 18], ['c', 157, 258, 11],
+    ['l', 86, 196, 84, 300, 26], ['l', 84, 300, 84, 386, 22], ['e', 80, 398, 17, 8],
+    ['l', 114, 196, 116, 300, 26], ['l', 116, 300, 116, 386, 22], ['e', 120, 398, 17, 8]
+  ];
+  function silueta() {
+    var o = '', f = '';
+    SILUETA.forEach(function (p) {
+      if (p[0] === 'c') {
+        o += '<circle class="mo" cx="' + p[1] + '" cy="' + p[2] + '" r="' + (p[3] + 2.5) + '"/>';
+        f += '<circle class="mf" cx="' + p[1] + '" cy="' + p[2] + '" r="' + p[3] + '"/>';
+      } else if (p[0] === 'l') {
+        var at = 'x1="' + p[1] + '" y1="' + p[2] + '" x2="' + p[3] + '" y2="' + p[4] + '"';
+        o += '<line class="mol" ' + at + ' stroke-width="' + (p[5] + 5) + '"/>';
+        f += '<line class="mfl" ' + at + ' stroke-width="' + p[5] + '"/>';
+      } else if (p[0] === 'p') {
+        o += '<path class="mop" d="' + p[1] + '"/>';
+        f += '<path class="mf" d="' + p[1] + '"/>';
+      } else {
+        o += '<ellipse class="mo" cx="' + p[1] + '" cy="' + p[2] + '" rx="' + (p[3] + 2.5) + '" ry="' + (p[4] + 2.5) + '"/>';
+        f += '<ellipse class="mf" cx="' + p[1] + '" cy="' + p[2] + '" rx="' + p[3] + '" ry="' + p[4] + '"/>';
+      }
+    });
+    return o + f;
+  }
+  function svgMusculos() {
+    var s = '<svg viewBox="0 0 420 432" role="img" aria-label="Dos dibujos de un niño: de frente y de espaldas">';
+    // de frente
+    s += '<g>' + silueta() +
+      '<circle class="ojo" cx="92" cy="40" r="2.6"/><circle class="ojo" cx="108" cy="40" r="2.6"/><path class="ol" stroke-width="2" d="M93 50 Q100 56 107 50"/>' +
+      pieza('pectoral', 'pectoral', '<ellipse class="mus" cx="87" cy="102" rx="15" ry="11"/><ellipse class="mus" cx="113" cy="102" rx="15" ry="11"/>') +
+      pieza('abdominal', 'abdominal', '<rect class="mus" x="89" y="122" width="22" height="62" rx="9"/><path class="mline" d="M89 143 h22 M89 163 h22 M100 124 v58"/>') +
+      pieza('biceps', 'bíceps', '<ellipse class="mus" cx="63" cy="122" rx="8.5" ry="20" transform="rotate(13 63 122)"/><ellipse class="hit" cx="63" cy="122" rx="16" ry="28" transform="rotate(13 63 122)"/>') +
+      pieza('biceps', 'bíceps', '<ellipse class="mus" cx="137" cy="122" rx="8.5" ry="20" transform="rotate(-13 137 122)"/><ellipse class="hit" cx="137" cy="122" rx="16" ry="28" transform="rotate(-13 137 122)"/>') +
+      '<text class="rotulo" x="100" y="428" text-anchor="middle">De frente</text></g>';
+    // de espaldas
+    s += '<g transform="translate(210 0)">' + silueta() +
+      '<path class="pliegue" d="M100 92 V186"/>' +
+      pieza('gluteo', 'glúteo', '<ellipse class="mus" cx="89" cy="201" rx="13" ry="13"/><ellipse class="mus" cx="111" cy="201" rx="13" ry="13"/><rect class="hit" x="72" y="184" width="56" height="34"/>') +
+      pieza('gemelo', 'gemelo', '<ellipse class="mus" cx="84" cy="328" rx="9.5" ry="22"/><ellipse class="hit" cx="84" cy="328" rx="17" ry="32"/>') +
+      pieza('gemelo', 'gemelo', '<ellipse class="mus" cx="116" cy="328" rx="9.5" ry="22"/><ellipse class="hit" cx="116" cy="328" rx="17" ry="32"/>') +
+      '<text class="rotulo" x="100" y="428" text-anchor="middle">De espaldas</text></g>';
+    return s + '</svg>';
+  }
+  function svgViaje() {
+    var s = '<svg viewBox="0 0 200 300" role="img" aria-label="Dibujo del camino de la comida por dentro del cuerpo">';
+    s += '<circle class="mo" cx="100" cy="52" r="38.5"/><path class="mop" d="M58 100 Q100 88 142 100 L148 270 Q100 292 52 270 Z"/>';
+    s += '<line class="mol" x1="100" y1="84" x2="100" y2="100" stroke-width="27"/>';
+    s += '<circle class="mf" cx="100" cy="52" r="36"/><path class="mf" d="M58 100 Q100 88 142 100 L148 270 Q100 292 52 270 Z"/>';
+    s += '<line class="mfl" x1="100" y1="84" x2="100" y2="104" stroke-width="22"/>';
+    s += '<circle class="ojo" cx="88" cy="46" r="3"/><circle class="ojo" cx="112" cy="46" r="3"/>';
+    s += '<path class="tripa" d="M106 184 q -24 8 0 16 q 24 8 0 16 q -24 8 0 16 q 24 8 0 16 L100 262"/>';
+    s += '<path class="org-l" data-p="esofago" d="M100 76 L100 100 L106 140" stroke-width="9"/>';
+    s += '<path class="org" data-p="estomago" d="M104 134 C134 124 146 160 126 178 C112 190 92 182 96 168 C100 158 112 160 110 148 Z"/>';
+    s += '<ellipse class="org" data-p="boca" cx="100" cy="70" rx="12" ry="6"/>';
+    s += '<circle class="org" data-p="ano" cx="100" cy="268" r="6"/>';
+    return s + '</svg>';
+  }
+
+  /* ---------- Pantallas ---------- */
+  var ACTS = [
+    { id: 'huesos', t: 'Los huesos', d: 'Encuentra los huesos del esqueleto.', ico: ICO.hueso },
+    { id: 'musculos', t: 'Los músculos', d: 'Toca el bíceps, el gemelo y los demás.', ico: ICO.musculo },
+    { id: 'clasifica', t: '¿Dónde está cada músculo?', d: 'Brazos, piernas o tronco.', ico: ICO.cajas },
+    { id: 'viaje', t: 'El viaje de la comida', d: 'De la boca hasta el final del camino.', ico: ICO.viaje },
+    { id: 'vf', t: '¿Verdadero o falso?', d: 'Preguntas de todo el tema.', ico: ICO.vf }
+  ];
+
+  function pintarTotal() {
+    var suma = 0;
+    ACTS.forEach(function (a) { suma += mem.estrellas[a.id] || 0; });
+    $('#total').innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path class="e-si" d="' + ESTRELLA + '"/></svg><span>' + suma + ' / ' + (ACTS.length * 3) + '</span>';
+    $('#total').setAttribute('aria-label', suma + ' estrellas de ' + (ACTS.length * 3));
+  }
+  function pintarSon() {
+    var b = $('#son');
+    b.innerHTML = mem.sonido ? ICO.altavoz : ICO.mudo;
+    b.setAttribute('aria-pressed', mem.sonido ? 'true' : 'false');
+    b.setAttribute('aria-label', mem.sonido ? 'Quitar el sonido' : 'Poner el sonido');
+  }
+  $('#son').onclick = function () { mem.sonido = !mem.sonido; guardar(); if (!mem.sonido) callar(); pintarSon(); };
+  $('#marca').onclick = function () { ir(''); };
+
+  function guardarMejor(id, n) {
+    if (!mem.estrellas[id] || n > mem.estrellas[id]) { mem.estrellas[id] = n; guardar(); }
+    pintarTotal();
+  }
+  function calcEstrellas(fallos, a, b) { return fallos <= a ? 3 : (fallos <= b ? 2 : 1); }
+  function pantallaFin(panel, id, n, titulo, sub, otra) {
+    guardarMejor(id, n);
+    son('fin');
+    panel.innerHTML = '<div class="fin">' + estrellas(n, 46) + '<p class="fin-t">' + titulo + '</p><p>' + sub + '</p>' +
+      '<div class="fila"><button class="b prim" data-fin="otra">Jugar otra vez</button><button class="b" data-fin="menu">Volver al menú</button></div></div>';
+    panel.querySelector('[data-fin="otra"]').onclick = otra;
+    panel.querySelector('[data-fin="menu"]').onclick = function () { ir(''); };
+    setTimeout(function () { decir(titulo.replace(/<[^>]+>/g, '') + ' ' + sub); }, 500);
+  }
+  function tira(titulo, extra) {
+    return '<div class="tira"><button class="b volver">‹ Menú</button><h2>' + titulo + '</h2>' + (extra || '') + '</div>';
+  }
+
+  function pantallaMenu() {
+    var h = '<section class="portada"><p class="eti">Tema 1 · Conocimiento del Medio</p><h1>Mi cuerpo por dentro</h1>' +
+      '<p class="lead">Huesos, músculos y el viaje de la comida. Elige un juego.</p></section><div class="menu">';
+    ACTS.forEach(function (a) {
+      h += '<button class="carta" data-a="' + a.id + '"><span class="carta-i">' + a.ico + '</span><span class="carta-t">' + a.t +
+        '</span><span class="carta-d">' + a.d + '</span>' + estrellas(mem.estrellas[a.id] || 0, 22) + '</button>';
+    });
+    h += '</div><p class="pie">Sin anuncios. Nada de lo que hagas aquí sale de este aparato.</p>';
+    main.innerHTML = h;
+    main.querySelectorAll('.carta').forEach(function (c) { c.onclick = function () { ir(c.dataset.a); }; });
+  }
+
+  /* Huesos y músculos: tocar en el dibujo */
+  function pantallaTocar(cfg) {
+    var st = { modo: 'aprender', orden: [], i: 0, fallos: 0, bloq: false };
+    main.innerHTML = '<section>' + tira(cfg.titulo,
+      '<div class="modos" role="group" aria-label="Modo"><button class="b modo" data-modo="aprender">Aprender</button><button class="b modo" data-modo="jugar">Jugar</button></div>') +
+      '<div class="lienzo"><figure class="fig">' + cfg.svg() + '<figcaption>' + cfg.pie + '</figcaption></figure><div class="panel" id="panel"></div></div></section>';
+    var fig = $('.fig', main), panel = $('#panel');
+    function item(id) { for (var i = 0; i < cfg.items.length; i++) if (cfg.items[i].id === id) return cfg.items[i]; }
+    function marcar(id, cls, ms) {
+      fig.querySelectorAll('[data-p="' + id + '"]').forEach(function (g) {
+        g.classList.add(cls);
+        if (ms) setTimeout(function () { g.classList.remove(cls); }, ms);
+      });
+    }
+    function limpiar(cls) { fig.querySelectorAll('.' + cls).forEach(function (g) { g.classList.remove(cls); }); }
+    function modos() { main.querySelectorAll('.modo').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.modo === st.modo ? 'true' : 'false'); }); }
+
+    function aprender() {
+      st.modo = 'aprender'; modos(); limpiar('sel'); limpiar('ok'); callar();
+      var h = '<p class="nota">' + cfg.nota + '</p><p class="guia">Toca ' + cfg.queTocar + ' en el dibujo o aquí:</p><div class="chips">';
+      cfg.items.forEach(function (x) { h += '<button class="b chip" data-id="' + x.id + '">' + x.nombre + '</button>'; });
+      h += '</div><div class="ficha" id="ficha" aria-live="polite"><p class="suave">Aquí verás cómo se llama y para qué sirve.</p></div>';
+      h += '<button class="b prim" id="aJugar">¡A jugar!</button>';
+      panel.innerHTML = h;
+      panel.querySelectorAll('.chip').forEach(function (b) { b.onclick = function () { mostrar(b.dataset.id); }; });
+      $('#aJugar', panel).onclick = jugar;
+    }
+    function mostrar(id) {
+      var x = item(id);
+      limpiar('sel'); marcar(id, 'sel');
+      panel.querySelectorAll('.chip').forEach(function (b) { b.classList.toggle('on', b.dataset.id === id); });
+      var f = $('#ficha', panel); f.classList.add('llena');
+      f.innerHTML = '<p class="nombre">' + cap(x.art) + ' ' + x.nombre + '</p><p>' + x.dato + '</p>';
+      decir(cap(x.art) + ' ' + x.nombre + '. ' + x.dato);
+    }
+    function jugar() {
+      st.modo = 'jugar'; modos(); limpiar('sel'); limpiar('ok');
+      st.orden = barajar(cfg.items.map(function (x) { return x.id; }));
+      st.i = 0; st.fallos = 0; st.bloq = false;
+      pedir();
+    }
+    function pedir() {
+      var x = item(st.orden[st.i]);
+      panel.innerHTML = '<div class="pide"><span class="pide-a">Toca ' + x.art + '…</span><span class="pide-n">' + x.nombre + '</span>' +
+        '<button class="b oir" aria-label="Oírlo otra vez">' + ICO.altavoz + '</button></div>' +
+        puntos(st.orden.length, st.i) + '<p class="dicho" id="dicho" aria-live="polite"></p>';
+      $('.oir', panel).onclick = function () { decir('Toca ' + x.art + ' ' + x.nombre); };
+      decir('Toca ' + x.art + ' ' + x.nombre);
+    }
+    function tocado(id) {
+      if (st.modo === 'aprender') { mostrar(id); return; }
+      if (st.bloq) return;
+      var obj = item(st.orden[st.i]), d = $('#dicho', panel);
+      if (id === obj.id) {
+        st.bloq = true; son('bien'); marcar(id, 'ok');
+        var frase = al(ANIMO);
+        d.className = 'dicho bien'; d.textContent = frase + ' ' + cap(obj.art) + ' ' + obj.nombre + '.';
+        decir(frase);
+        setTimeout(function () {
+          limpiar('ok'); st.i++;
+          if (st.i >= st.orden.length) terminar(); else { st.bloq = false; pedir(); }
+        }, 1300);
+      } else {
+        st.fallos++; son('otra'); marcar(id, 'mal', 900);
+        var x = item(id);
+        d.className = 'dicho otra';
+        d.textContent = ese(x.art) + ' ' + x.art + ' ' + x.nombre + '. ¡Busca ' + obj.art + ' ' + obj.nombre + '!';
+        decir(ese(x.art) + ' ' + x.art + ' ' + x.nombre + '. Busca ' + obj.art + ' ' + obj.nombre + '.');
+      }
+    }
+    function terminar() {
+      var n = calcEstrellas(st.fallos, 1, 4);
+      pantallaFin(panel, cfg.id, n, '¡Has encontrado los ' + cfg.items.length + ' ' + cfg.plural + '!',
+        st.fallos === 0 ? 'Sin ningún fallo. ¡Eres una experta!' : 'Cada vez te saldrá mejor.', jugar);
+    }
+    fig.addEventListener('click', function (e) { var g = e.target.closest('[data-p]'); if (g) tocado(g.dataset.p); });
+    fig.addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      var g = e.target.closest('[data-p]'); if (g) { e.preventDefault(); tocado(g.dataset.p); }
+    });
+    main.querySelectorAll('.modo').forEach(function (b) { b.onclick = function () { if (b.dataset.modo === 'jugar') jugar(); else aprender(); }; });
+    aprender();
+  }
+  var CFG_HUESOS = {
+    id: 'huesos', titulo: 'Los huesos', items: HUESOS, svg: svgEsqueleto, pie: 'El esqueleto', plural: 'huesos', queTocar: 'un hueso',
+    nota: 'Debajo de nuestra piel tenemos los huesos. El conjunto de huesos se llama <b>esqueleto</b>. Los huesos <b>sostienen</b> nuestro cuerpo y <b>protegen</b> algunos órganos.'
+  };
+  var CFG_MUSCULOS = {
+    id: 'musculos', titulo: 'Los músculos', items: MUSCULOS, svg: svgMusculos, pie: 'El glúteo y el gemelo se ven mejor de espaldas', plural: 'músculos', queTocar: 'un músculo',
+    nota: 'Los músculos son las partes <b>blandas y elásticas</b> que están debajo de la piel y <b>cubren el esqueleto</b>.'
+  };
+
+  /* ¿Dónde está cada músculo? */
+  function pantallaClasifica() {
+    main.innerHTML = '<section>' + tira('¿Dónde está cada músculo?') + '<div class="panel ancho" id="panel"></div></section>';
+    var panel = $('#panel');
+    function empezar() {
+      var sel = null, hechos = 0, fallos = 0;
+      var h = '<p class="nota">El cuerpo tiene <b>extremidades superiores</b> (los brazos), <b>extremidades inferiores</b> (las piernas) y el <b>tronco</b>.</p>' +
+        '<p class="guia">Elige un músculo y luego toca su caja.</p><div class="chips grandes" id="sueltos">';
+      barajar(MUSCULOS).forEach(function (m) { h += '<button class="b chip" data-id="' + m.id + '">' + m.nombre + '</button>'; });
+      h += '</div><div class="cajas">';
+      Object.keys(ZONAS).forEach(function (k) {
+        h += '<button class="caja c-' + k + '" data-z="' + k + '"><span class="caja-t">' + ZONAS[k].t + '</span><span class="caja-s">' + ZONAS[k].s + '</span><span class="caja-d"></span></button>';
+      });
+      h += '</div><p class="dicho" id="dicho" aria-live="polite"></p>';
+      panel.innerHTML = h;
+      var d = $('#dicho', panel);
+      panel.querySelectorAll('.chip').forEach(function (b) {
+        b.onclick = function () {
+          sel = b.dataset.id;
+          panel.querySelectorAll('.chip').forEach(function (c) { c.classList.toggle('on', c === b); });
+          d.className = 'dicho'; d.textContent = '';
+          decir(b.textContent);
+        };
+      });
+      panel.querySelectorAll('.caja').forEach(function (c) {
+        c.onclick = function () {
+          if (!sel) { d.className = 'dicho otra'; d.textContent = 'Primero elige un músculo de arriba.'; decir(d.textContent); return; }
+          var m = MUSCULOS.filter(function (x) { return x.id === sel; })[0];
+          if (m.zona === c.dataset.z) {
+            son('bien'); hechos++;
+            var chip = panel.querySelector('.chip[data-id="' + sel + '"]'); if (chip) chip.remove();
+            var span = document.createElement('span'); span.className = 'colocado'; span.textContent = m.nombre;
+            c.querySelector('.caja-d').appendChild(span);
+            var frase = al(ANIMO);
+            d.className = 'dicho bien'; d.textContent = frase + ' ' + cap(m.art) + ' ' + m.nombre + ' va en ' + ZONAS[m.zona].t.toLowerCase() + '.';
+            decir(d.textContent);
+            sel = null;
+            if (hechos === MUSCULOS.length) {
+              setTimeout(function () {
+                pantallaFin(panel, 'clasifica', calcEstrellas(fallos, 0, 2), '¡Todos los músculos en su sitio!',
+                  fallos === 0 ? 'Sin ningún fallo.' : 'Muy bien, lo has terminado.', empezar);
+              }, 1400);
+            }
+          } else {
+            fallos++; son('otra');
+            c.classList.remove('mal'); void c.offsetWidth; c.classList.add('mal');
+            d.className = 'dicho otra'; d.textContent = cap(m.art) + ' ' + m.nombre + ' no va ahí. ' + m.dato;
+            decir(d.textContent);
+          }
+        };
+      });
+    }
+    empezar();
+  }
+
+  /* El viaje de la comida */
+  function pantallaViaje() {
+    main.innerHTML = '<section>' + tira('El viaje de la comida') +
+      '<div class="lienzo"><figure class="fig">' + svgViaje() + '<figcaption>El aparato digestivo</figcaption></figure><div class="panel" id="panel"></div></div></section>';
+    var fig = $('.fig', main), panel = $('#panel');
+    function empezar() {
+      var i = 0, fallos = 0;
+      fig.querySelectorAll('[data-p]').forEach(function (e) { e.classList.remove('ok'); });
+      var h = '<p class="nota">Nos alimentamos para <b>crecer</b> y tener <b>energía</b>. La comida hace un viaje por el <b>aparato digestivo</b>.</p>' +
+        '<p class="guia">¿Por dónde pasa la comida? Tócalos en orden.</p><ol class="camino">';
+      VIAJE.forEach(function () { h += '<li><span class="suave">…</span></li>'; });
+      h += '</ol><div class="chips grandes">';
+      barajar(VIAJE).forEach(function (p) { h += '<button class="b chip" data-id="' + p.id + '">' + p.nombre + '</button>'; });
+      h += '</div><p class="dicho" id="dicho" aria-live="polite"></p>';
+      panel.innerHTML = h;
+      var d = $('#dicho', panel), pasos = panel.querySelectorAll('.camino li');
+      panel.querySelectorAll('.chip').forEach(function (b) {
+        b.onclick = function () {
+          var toca = VIAJE[i];
+          if (b.dataset.id === toca.id) {
+            son('bien');
+            pasos[i].classList.add('hecho');
+            pasos[i].innerHTML = '<span><b>' + toca.nombre + '</b>' + toca.dato + '</span>';
+            fig.querySelectorAll('[data-p="' + toca.id + '"]').forEach(function (e) { e.classList.add('ok'); });
+            b.remove();
+            d.className = 'dicho bien'; d.textContent = al(ANIMO);
+            decir(toca.nombre + '. ' + toca.dato);
+            i++;
+            if (i === VIAJE.length) {
+              setTimeout(function () {
+                pantallaFin(panel, 'viaje', calcEstrellas(fallos, 0, 2), '¡La comida ha hecho todo el viaje!',
+                  'Boca, esófago, estómago y ano.', empezar);
+              }, 1800);
+            }
+          } else {
+            fallos++; son('otra');
+            b.classList.remove('mal'); void b.offsetWidth; b.classList.add('mal');
+            d.className = 'dicho otra'; d.textContent = 'Todavía no. ' + toca.pista;
+            decir(d.textContent);
+          }
+        };
+      });
+    }
+    empezar();
+  }
+
+  /* ¿Verdadero o falso? */
+  function pantallaVF() {
+    main.innerHTML = '<section>' + tira('¿Verdadero o falso?') + '<div class="panel ancho" id="panel"></div></section>';
+    var panel = $('#panel'), ronda, i, fallos, POR = 8;
+    function empezar() { ronda = barajar(VF).slice(0, POR); i = 0; fallos = 0; pregunta(); }
+    function pregunta() {
+      var q = ronda[i];
+      panel.innerHTML = puntos(POR, i) +
+        '<div class="frase"><p>' + q[0] + '</p><button class="b oir" aria-label="Oírlo otra vez">' + ICO.altavoz + '</button></div>' +
+        '<div class="vfb"><button class="b vf-si" data-r="1">' + ICO.si + ' Verdadero</button><button class="b vf-no" data-r="0">' + ICO.no + ' Falso</button></div>' +
+        '<p class="dicho" id="dicho" aria-live="polite"></p><div id="sig"></div>';
+      $('.oir', panel).onclick = function () { decir(q[0]); };
+      decir(q[0]);
+      panel.querySelectorAll('.vfb .b').forEach(function (b) {
+        b.onclick = function () {
+          var dijo = b.dataset.r === '1', bien = dijo === q[1], d = $('#dicho', panel);
+          panel.querySelectorAll('.vfb .b').forEach(function (x) {
+            x.disabled = true;
+            if ((x.dataset.r === '1') === q[1]) x.classList.add('acierto'); else x.classList.add('apagado');
+          });
+          if (bien) { son('bien'); var f = al(CORRECTO); d.className = 'dicho bien'; d.textContent = f + ' ' + q[2]; }
+          else { fallos++; son('otra'); d.className = 'dicho otra'; d.textContent = (q[1] ? 'Es verdadero. ' : 'Es falso. ') + q[2]; }
+          decir(d.textContent);
+          var ult = i === POR - 1;
+          $('#sig', panel).innerHTML = '<button class="b prim">' + (ult ? 'Ver mis estrellas' : 'Siguiente ›') + '</button>';
+          var sig = $('#sig .b', panel); sig.focus();
+          sig.onclick = function () {
+            i++;
+            if (i < POR) pregunta();
+            else pantallaFin(panel, 'vf', calcEstrellas(fallos, 1, 3), 'Has acertado ' + (POR - fallos) + ' de ' + POR,
+              fallos === 0 ? '¡Todas bien! Te sabes el tema.' : 'Si juegas otra vez, salen preguntas nuevas.', empezar);
+          };
+        };
+      });
+    }
+    empezar();
+  }
+
+  var PANTALLAS = {
+    '': pantallaMenu,
+    huesos: function () { pantallaTocar(CFG_HUESOS); },
+    musculos: function () { pantallaTocar(CFG_MUSCULOS); },
+    clasifica: pantallaClasifica,
+    viaje: pantallaViaje,
+    vf: pantallaVF
+  };
+  function ir(id) {
+    callar();
+    (PANTALLAS[id] || pantallaMenu)();
+    var v = main.querySelector('.volver'); if (v) v.onclick = function () { ir(''); };
+    window.scrollTo(0, 0);
+  }
+
+  pintarTotal(); pintarSon();
+  var inicio = (location.hash || '').slice(1);
+  ir(PANTALLAS[inicio] ? inicio : '');
+})();
+</script>
+</body>
+</html>

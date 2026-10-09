@@ -1,17 +1,32 @@
 # Juega con Daniela
 
-Juegos para aprender jugando, hechos para Daniela.
+Juegos para repasar jugando lo que Daniela (nacida en 2019) estudia en clase.
+Cada tema sale de los apuntes de su cuaderno.
 
-Cada juego vive en su propia carpeta dentro de `juegos/` y se abre en el navegador:
-sin instalar nada y sin conexión a internet una vez cargado.
+Todo son páginas HTML sueltas: se abren en el navegador, sin instalar nada, y
+funcionan sin conexión una vez cargadas. La portada es `index.html`.
 
 ## Juegos
 
-Todavía no hay ninguno. El primero está por elegir.
+| Tema | Carpeta | Qué trae |
+|---|---|---|
+| Conocimiento del Medio · Tema 1 · Mi cuerpo por dentro | `juegos/cuerpo-humano/` | Los huesos, los músculos, dónde está cada músculo, el viaje de la comida y un verdadero o falso |
+
+## Probarlo en el ordenador
+
+Abre `index.html` con doble clic. O, desde esta carpeta:
+
+```
+python3 -m http.server 8000
+```
+
+y entra en http://localhost:8000.
 
 ## Reglas de la casa
 
 - Nada de anuncios, enlaces a otras webs ni compras dentro del juego.
-- Ningún dato de Daniela sale del dispositivo: ni nombre, ni fotos, ni voz.
+- Ningún dato del niño sale del aparato. Las estrellas se guardan en el propio navegador.
 - Letra grande, botones grandes y que se pueda jugar con el dedo en una tableta.
-- Si se equivoca, el juego anima a volver a intentarlo; nunca castiga.
+- Cada pregunta se puede oír en voz alta, para quien todavía lee despacio.
+- Si se equivoca, el juego le dice qué ha tocado y le anima a probar otra vez. Nunca castiga.
+- Los dibujos son propios. No se copian las láminas del libro de texto.
