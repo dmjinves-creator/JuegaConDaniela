@@ -7,30 +7,36 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Baloo+2:wght@600;700;800&family=Playwrite+ES:wght@300;400&display=swap">
 <style>
-/* Layout: un cuaderno abierto. Cuatro pantallas de tableta en rejilla de dos, apiladas en el móvil. */
+/* Layout: un cuaderno abierto. Cuatro pantallas de tableta en rejilla de dos, apiladas en el móvil.
+   Estilo «con volumen»: cada pieza tiene luz arriba, borde más oscuro abajo y sombra suave. */
 :root {
   --papel: #fffaf0;
   --hoja: #ffffff;
-  --cuadro: #dfe8f5;
+  --hoja-2: #f4f6fb;
+  --cuadro: #e3eaf6;
   --margen: #f3a6a6;
   --tinta: #1d2b4f;
   --suave: #5b6683;
   --raya: #9fb3d6;
+  --borde: #d7deeb;
+  --borde-osc: #b3bfd6;
+  --sombra: rgba(29, 43, 79, .14);
   --sol: #ffc93c;
-  --sol-claro: #fff1c7;
+  --sol-claro: #fff3cc;
+  --sol-osc: #d99a00;
   --coral: #ff7a59;
-  --coral-claro: #ffe1d7;
+  --coral-claro: #ffe3d9;
+  --coral-osc: #d9502f;
   --turquesa: #17a99a;
-  --turquesa-claro: #d2f3ee;
+  --turquesa-claro: #d4f4ef;
+  --turquesa-osc: #0b7a6f;
   --lavanda: #8b6cf0;
-  --lavanda-claro: #e9e2ff;
+  --lavanda-claro: #ece6ff;
+  --lavanda-osc: #6145cf;
   --verde: #2a9d5c;
-  --verde-claro: #d6f3e2;
+  --verde-claro: #d9f5e5;
+  --verde-osc: #1c7442;
   --oro: #f2a516;
-  --rojo: #e5484d;
-  --madera: #f2c48d;
-  --goma: #ff9fb2;
-  --metal: #c3cad8;
   --blanco: #ffffff;
   --display: "Baloo 2", "Arial Rounded MT Bold", "Trebuchet MS", sans-serif;
   --texto: "Andika", "Trebuchet MS", "Segoe UI", sans-serif;
@@ -46,23 +52,23 @@ body {
   background-size: 22px 22px;
   color: var(--tinta); font-family: var(--texto); font-size: 17px; line-height: 1.45;
 }
-h1, h2, h3, p { margin: 0; }
+h1, h2, h3, h4, p { margin: 0; }
 h1, h2, h3 { font-family: var(--display); line-height: 1.05; text-wrap: balance; }
 .wrap { max-width: 1180px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 56px; display: grid; gap: 28px; }
 
-/* Cabecera de la propuesta */
 .intro { display: grid; gap: 10px; max-width: 70ch; }
 .eti { font-size: .78rem; text-transform: uppercase; letter-spacing: .12em; color: var(--suave); font-weight: 700; }
 .intro h1 { font-size: clamp(2.2rem, 6vw, 3.4rem); font-weight: 800; }
 .subrayado { background: linear-gradient(transparent 62%, var(--sol) 62%, var(--sol) 90%, transparent 90%); padding-inline: 4px; }
 
-.galeria { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 24px; }
+.galeria { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 24px; }
 @media (max-width: 900px) { .galeria { grid-template-columns: minmax(0, 1fr); } }
 .lamina { display: grid; gap: 12px; align-content: start; min-width: 0; }
 .lamina > h2 { font-size: 1.3rem; font-weight: 800; display: flex; align-items: center; gap: 10px; }
 .num {
   width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; flex: none;
-  background: var(--tinta); color: var(--blanco); font-family: var(--display); font-size: 1.1rem;
+  background: linear-gradient(180deg, #34477a, var(--tinta)); color: var(--blanco); font-family: var(--display); font-size: 1.1rem;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, .25), 0 3px 6px var(--sombra);
 }
 .por-que { color: var(--suave); font-size: .95rem; max-width: 60ch; }
 
@@ -71,157 +77,183 @@ h1, h2, h3 { font-family: var(--display); line-height: 1.05; text-wrap: balance;
   background: var(--papel);
   background-image: linear-gradient(var(--cuadro) 1px, transparent 1px), linear-gradient(90deg, var(--cuadro) 1px, transparent 1px);
   background-size: 20px 20px;
-  border: 3px solid var(--tinta); border-radius: 30px; padding: 16px;
-  box-shadow: 0 8px 0 var(--tinta);
+  border: 10px solid var(--hoja); border-radius: 34px; padding: 16px;
+  box-shadow: 0 0 0 2px var(--borde-osc), 0 24px 48px var(--sombra), 0 8px 0 var(--borde-osc);
   display: grid; gap: 14px; align-content: start; min-width: 0;
 }
-.barra { display: flex; align-items: center; gap: 10px; }
-.marca { display: flex; align-items: center; gap: 8px; font-family: var(--display); font-weight: 800; font-size: 1.05rem; flex: 1; min-width: 0; }
-.chip-pts {
-  display: inline-flex; align-items: center; gap: 6px; font-weight: 700; font-variant-numeric: tabular-nums;
-  background: var(--hoja); border: 3px solid var(--tinta); border-radius: 999px; padding: 3px 12px 3px 6px;
+
+/* Piezas con volumen: tarjeta, botón, ficha */
+.tarjeta {
+  background: linear-gradient(180deg, var(--hoja), var(--hoja-2));
+  border: 2px solid var(--borde); border-radius: 20px;
+  box-shadow: inset 0 2px 0 var(--blanco), 0 4px 0 var(--borde), 0 10px 22px rgba(29, 43, 79, .08);
 }
 .btn {
   font: inherit; font-weight: 700; color: var(--tinta); cursor: pointer;
-  background: var(--hoja); border: 3px solid var(--tinta); border-radius: 16px;
-  min-height: 50px; padding: 8px 16px; box-shadow: 0 4px 0 var(--tinta);
+  background: linear-gradient(180deg, var(--hoja), var(--hoja-2));
+  border: 2px solid var(--borde-osc); border-radius: 16px;
+  min-height: 50px; padding: 8px 16px;
+  box-shadow: inset 0 2px 0 var(--blanco), 0 4px 0 var(--borde-osc), 0 8px 14px rgba(29, 43, 79, .1);
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   transition: transform 140ms, box-shadow 140ms;
 }
-.btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--tinta); }
-.btn:focus-visible, .edad:focus-visible, .check:focus-visible, .opcion:focus-visible { outline: 4px solid var(--lavanda); outline-offset: 3px; }
-.btn.sol { background: var(--sol); }
-.btn.verde { background: var(--verde); color: var(--blanco); }
+.btn:active { transform: translateY(3px); box-shadow: inset 0 2px 0 var(--blanco), 0 1px 0 var(--borde-osc); }
+.btn.sol {
+  background: linear-gradient(180deg, #ffdb6e, var(--sol)); border-color: var(--sol-osc);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, .6), 0 5px 0 var(--sol-osc), 0 10px 18px rgba(217, 154, 0, .25);
+}
 .btn.peque { min-height: 46px; padding: 6px 12px; font-size: .95rem; }
+.btn:focus-visible, .edad:focus-visible, .check:focus-visible, .opcion:focus-visible { outline: 4px solid var(--lavanda); outline-offset: 3px; }
+
+.barra { display: flex; align-items: center; gap: 10px; }
+.marca { display: flex; align-items: center; gap: 8px; font-family: var(--display); font-weight: 800; font-size: 1.05rem; flex: 1; min-width: 0; }
+.chip-pts {
+  display: inline-flex; align-items: center; gap: 6px; font-weight: 800; font-variant-numeric: tabular-nums;
+  background: linear-gradient(180deg, #fff7dc, #ffe9a6); border: 2px solid var(--sol-osc); border-radius: 999px;
+  padding: 3px 12px 3px 5px; box-shadow: inset 0 2px 0 rgba(255, 255, 255, .7), 0 3px 0 var(--sol-osc);
+}
 
 /* 1 · Portada por edades */
 .saludo { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; align-items: end; }
 .saludo h3 { font-size: clamp(1.7rem, 4vw, 2.2rem); font-weight: 800; }
-.bocadillo {
-  position: relative; background: var(--hoja); border: 3px solid var(--tinta); border-radius: 18px;
-  padding: 8px 12px; font-weight: 700; font-size: .98rem; margin-bottom: 4px;
-}
-.edades { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.bocadillo { padding: 8px 12px; font-weight: 700; font-size: .98rem; margin-bottom: 6px; }
+.edades { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; padding-bottom: 4px; }
 @media (max-width: 520px) { .edades { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .edad {
+  --c: var(--sol); --c-luz: #ffe08a; --c-osc: var(--sol-osc);
   font: inherit; color: var(--tinta); cursor: pointer; text-align: center;
-  border: 3px solid var(--tinta); border-radius: 20px; padding: 12px 6px 10px;
-  box-shadow: 0 5px 0 var(--tinta); display: grid; gap: 2px; justify-items: center;
-  transition: transform 140ms, box-shadow 140ms;
+  background: radial-gradient(120% 80% at 30% 15%, var(--c-luz), var(--c) 60%);
+  border: 2px solid var(--c-osc); border-radius: 24px; padding: 14px 6px 12px;
+  box-shadow: inset 0 3px 0 rgba(255, 255, 255, .55), inset 0 -6px 10px rgba(0, 0, 0, .08), 0 6px 0 var(--c-osc), 0 14px 22px rgba(29, 43, 79, .16);
+  display: grid; gap: 2px; justify-items: center;
+  transition: transform 160ms, box-shadow 160ms;
 }
-.edad:nth-child(odd) { transform: rotate(-1.5deg); }
-.edad:nth-child(even) { transform: rotate(1.2deg); }
-.edad[aria-pressed="true"] { outline: 4px solid var(--tinta); outline-offset: 3px; }
-.edad b { font-family: var(--display); font-size: 2.1rem; line-height: 1; }
+.edad b { font-family: var(--display); font-size: 2.2rem; line-height: 1; }
 .edad span { font-size: .85rem; font-weight: 700; }
-.e1 { background: var(--sol); } .e2 { background: var(--coral); } .e3 { background: var(--turquesa); color: var(--blanco); } .e4 { background: var(--lavanda); color: var(--blanco); }
-.e3, .e4 { color: var(--blanco); }
-.lista-juegos { display: grid; gap: 10px; }
-.lista-juegos h4 { margin: 0; font-family: var(--display); font-size: 1.15rem; }
-.juego {
-  display: grid; grid-template-columns: 58px minmax(0, 1fr) auto; gap: 12px; align-items: center;
-  background: var(--hoja); border: 3px solid var(--tinta); border-radius: 18px; padding: 10px 12px;
-  box-shadow: 0 4px 0 var(--tinta);
+.edad[aria-pressed="true"] { transform: translateY(-4px) scale(1.04); box-shadow: inset 0 3px 0 rgba(255, 255, 255, .55), 0 0 0 4px var(--hoja), 0 0 0 7px var(--c-osc), 0 10px 0 var(--c-osc), 0 20px 28px rgba(29, 43, 79, .2); }
+.e2 { --c: var(--coral); --c-luz: #ffb39c; --c-osc: var(--coral-osc); }
+.e3 { --c: var(--turquesa); --c-luz: #5fd6c8; --c-osc: var(--turquesa-osc); color: var(--blanco); }
+.e4 { --c: var(--lavanda); --c-luz: #b7a3ff; --c-osc: var(--lavanda-osc); color: var(--blanco); }
+.e3 b, .e4 b, .e3 span, .e4 span { text-shadow: 0 2px 0 rgba(0, 0, 0, .18); }
+.lista-juegos { display: grid; gap: 12px; }
+.lista-juegos h4 { font-family: var(--display); font-size: 1.15rem; }
+.juego { display: grid; grid-template-columns: 62px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 10px 12px; }
+.juego .ico {
+  width: 62px; height: 62px; border-radius: 18px; display: grid; place-items: center;
+  background: radial-gradient(100% 90% at 30% 20%, #fff2ec, var(--coral-claro)); border: 2px solid #f6c3b3;
+  box-shadow: inset 0 2px 0 var(--blanco);
 }
-.juego .ico { width: 58px; height: 58px; border-radius: 14px; display: grid; place-items: center; border: 2.5px solid var(--tinta); }
 .juego b { font-family: var(--display); font-size: 1.15rem; display: block; line-height: 1.1; }
 .juego small { color: var(--suave); font-size: .88rem; }
-.juego.luego { opacity: .6; box-shadow: none; border-style: dashed; }
-.pegatina { font-size: .78rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; border: 2px solid var(--tinta); background: var(--sol-claro); white-space: nowrap; }
+.juego.luego { opacity: .65; box-shadow: none; border-style: dashed; background: transparent; }
+.juego.luego .ico { background: var(--turquesa-claro); border-color: #a7e3da; }
+.pegatina {
+  font-size: .78rem; font-weight: 800; padding: 4px 10px; border-radius: 999px; white-space: nowrap;
+  background: linear-gradient(180deg, #fff9e3, #ffeaa8); border: 2px solid var(--sol-osc);
+  box-shadow: 0 2px 0 var(--sol-osc);
+}
 
 /* 2 · Jugando */
 .marcador { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .marcador h3 { font-size: 1.4rem; font-weight: 800; flex: 1; min-width: 8ch; }
 .racha {
   display: inline-flex; align-items: center; gap: 4px; font-weight: 800; font-family: var(--display); font-size: 1.05rem;
-  background: var(--coral-claro); border: 3px solid var(--coral); color: var(--tinta); border-radius: 999px; padding: 2px 12px 2px 6px;
+  background: linear-gradient(180deg, #fff0ea, var(--coral-claro)); border: 2px solid var(--coral-osc); border-radius: 999px;
+  padding: 2px 12px 2px 6px; box-shadow: inset 0 2px 0 rgba(255, 255, 255, .7), 0 3px 0 var(--coral-osc);
 }
 .camino { display: flex; gap: 6px; }
-.camino span { flex: 1; height: 12px; border-radius: 999px; border: 2px solid var(--tinta); background: var(--hoja); }
-.camino .si { background: var(--verde); }
-.camino .ahora { background: var(--sol); }
-.juega { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 12px; align-items: start; }
+.camino span { flex: 1; height: 14px; border-radius: 999px; background: var(--hoja-2); box-shadow: inset 0 2px 3px rgba(29, 43, 79, .15); }
+.camino .si { background: linear-gradient(180deg, #5fd08e, var(--verde)); box-shadow: inset 0 2px 0 rgba(255, 255, 255, .45); }
+.camino .ahora { background: linear-gradient(180deg, #ffe08a, var(--sol)); box-shadow: inset 0 2px 0 rgba(255, 255, 255, .55); }
+.juega { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 12px; align-items: start; }
 @media (max-width: 520px) { .juega { grid-template-columns: minmax(0, 1fr); } }
-.dibujo { background: var(--hoja); border: 3px solid var(--tinta); border-radius: 20px; padding: 8px; display: grid; place-items: center; position: relative; }
-.dibujo svg { width: 100%; height: auto; max-height: 260px; }
+.dibujo { padding: 8px; display: grid; place-items: center; position: relative; background: radial-gradient(90% 70% at 50% 40%, #ffffff, #eef2fa); }
+.dibujo svg { width: 100%; height: auto; max-height: 300px; }
 .mas {
-  position: absolute; top: 18%; right: 10%;
-  font-family: var(--display); font-weight: 800; font-size: 1.6rem; color: var(--verde);
-  background: var(--verde-claro); border: 3px solid var(--verde); border-radius: 14px; padding: 0 10px;
-  transform: rotate(6deg);
+  position: absolute; top: 34%; right: 8%;
+  font-family: var(--display); font-weight: 800; font-size: 1.7rem; color: var(--blanco);
+  background: linear-gradient(180deg, #5fd08e, var(--verde)); border: 2px solid var(--verde-osc); border-radius: 16px; padding: 0 12px;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, .45), 0 4px 0 var(--verde-osc), 0 10px 16px rgba(42, 157, 92, .3);
+  text-shadow: 0 2px 0 rgba(0, 0, 0, .2); transform: rotate(6deg);
 }
-.pide { background: var(--sol-claro); border: 3px solid var(--tinta); border-radius: 20px; padding: 12px 14px; display: grid; gap: 2px; align-content: center; }
+.pide { padding: 12px 14px; display: grid; gap: 2px; background: radial-gradient(120% 100% at 20% 0%, #fffbe8, var(--sol-claro)); border-color: #f3dc94; box-shadow: inset 0 2px 0 var(--blanco), 0 4px 0 #f3dc94, 0 10px 22px rgba(217, 154, 0, .12); }
 .pide small { font-weight: 700; font-size: 1rem; }
-.pide b { font-family: var(--display); font-size: 2.2rem; line-height: 1; }
-.bien { background: var(--verde-claro); border: 3px solid var(--verde); border-radius: 16px; padding: 10px 12px; font-weight: 700; display: grid; gap: 2px; }
-.bien .cuenta { font-family: var(--display); font-size: 1.05rem; color: var(--verde); }
+.pide b { font-family: var(--display); font-size: 2.3rem; line-height: 1; }
+.bien { padding: 10px 12px; font-weight: 700; display: grid; gap: 2px; background: linear-gradient(180deg, #effbf4, var(--verde-claro)); border-color: #a8e2c2; box-shadow: inset 0 2px 0 var(--blanco), 0 4px 0 #a8e2c2; }
+.bien .cuenta { font-family: var(--display); font-size: 1.05rem; color: var(--verde-osc); }
 .fila { display: flex; flex-wrap: wrap; gap: 8px; }
-
-/* Punta, el lápiz */
-.punta { flex: none; }
-.pt-goma { fill: var(--goma); } .pt-metal { fill: var(--metal); } .pt-cuerpo { fill: var(--sol); } .pt-raya { fill: var(--oro); }
-.pt-madera { fill: var(--madera); } .pt-mina { fill: var(--tinta); } .pt-borde { fill: none; stroke: var(--tinta); stroke-width: 3; stroke-linejoin: round; }
-.pt-ojo { fill: var(--tinta); } .pt-boca { fill: none; stroke: var(--tinta); stroke-width: 2.5; stroke-linecap: round; } .pt-moflete { fill: var(--coral); opacity: .55; }
 
 /* 3 · Reto de escribir */
 .reto-cab { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; align-items: center; }
 .reto-cab h3 { font-size: 1.6rem; font-weight: 800; }
-.encargo { background: var(--hoja); border: 3px solid var(--tinta); border-radius: 18px; padding: 12px 14px; font-weight: 700; font-size: 1.1rem; }
-.pauta {
-  background: var(--hoja); border: 3px solid var(--tinta); border-radius: 18px; padding: 10px 14px 16px;
-  display: grid; gap: 4px;
-}
+.encargo { padding: 12px 14px; font-weight: 700; font-size: 1.1rem; }
+.pauta { padding: 10px 14px 16px; display: grid; gap: 4px; }
 .pauta small { color: var(--suave); font-weight: 700; font-size: .85rem; }
 .renglon {
   position: relative; height: 64px; overflow: hidden;
   background:
     linear-gradient(var(--raya), var(--raya)) 0 22px / 100% 1px no-repeat,
     linear-gradient(var(--raya), var(--raya)) 0 46px / 100% 2px no-repeat;
-  border-left: 3px solid var(--margen);
-  padding-left: 12px;
+  border-left: 3px solid var(--margen); padding-left: 12px;
 }
-.renglon span { position: absolute; left: 14px; bottom: 15px; font-family: var(--letra); font-size: 1.55rem; color: var(--tinta); white-space: nowrap; }
-.renglon.calco span { opacity: .28; }
+.renglon span { position: absolute; left: 14px; bottom: 15px; font-family: var(--letra); font-size: 1.55rem; color: #23315c; white-space: nowrap; }
+.renglon.calco span { opacity: .26; }
 .truco {
-  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: center;
-  background: var(--lavanda-claro); border: 3px solid var(--lavanda); border-radius: 18px; padding: 10px 12px;
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: center; padding: 10px 12px;
+  background: linear-gradient(180deg, #f6f2ff, var(--lavanda-claro)); border-color: #cdbfff;
+  box-shadow: inset 0 2px 0 var(--blanco), 0 4px 0 #cdbfff;
 }
-.truco b { display: block; font-family: var(--display); font-size: 1.05rem; color: var(--lavanda); }
-.revisa { background: var(--hoja); border: 3px solid var(--tinta); border-radius: 18px; padding: 12px 14px; display: grid; gap: 8px; }
-.revisa h4 { margin: 0; font-family: var(--display); font-size: 1.1rem; }
+.truco b { display: block; font-family: var(--display); font-size: 1.05rem; color: var(--lavanda-osc); }
+.revisa { padding: 12px 14px; display: grid; gap: 6px; }
+.revisa h4 { font-family: var(--display); font-size: 1.1rem; }
 .check {
   font: inherit; color: var(--tinta); cursor: pointer; text-align: left; background: none; border: 0; padding: 4px 0;
-  display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 10px; align-items: center; min-height: 40px;
+  display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 10px; align-items: center; min-height: 44px;
 }
-.check i { width: 30px; height: 30px; border: 3px solid var(--tinta); border-radius: 9px; display: grid; place-items: center; background: var(--hoja); }
-.check[aria-pressed="true"] i { background: var(--verde); }
-.check[aria-pressed="true"] i::after { content: ""; width: 12px; height: 7px; border-left: 3px solid var(--blanco); border-bottom: 3px solid var(--blanco); transform: rotate(-45deg) translate(1px, -1px); }
-.premio { font-weight: 700; color: var(--verde); min-height: 1.5em; }
+.check i {
+  width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center;
+  background: var(--hoja-2); border: 2px solid var(--borde-osc); box-shadow: inset 0 2px 3px rgba(29, 43, 79, .12);
+}
+.check[aria-pressed="true"] i { background: linear-gradient(180deg, #5fd08e, var(--verde)); border-color: var(--verde-osc); box-shadow: inset 0 2px 0 rgba(255, 255, 255, .45), 0 2px 0 var(--verde-osc); }
+.check[aria-pressed="true"] i::after { content: ""; width: 13px; height: 7px; border-left: 3px solid var(--blanco); border-bottom: 3px solid var(--blanco); transform: rotate(-45deg) translate(1px, -1px); }
+.premio { font-weight: 700; color: var(--verde-osc); min-height: 1.5em; }
 .foto {
   display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: center;
-  border: 3px dashed var(--raya); border-radius: 18px; padding: 10px 12px;
+  border: 2px dashed var(--borde-osc); border-radius: 18px; padding: 10px 12px; background: rgba(255, 255, 255, .6);
 }
-.prueba { display: inline-block; font-size: .8rem; font-weight: 700; padding: 2px 9px; border-radius: 999px; background: var(--turquesa-claro); border: 2px solid var(--turquesa); }
+.prueba {
+  display: inline-block; font-size: .8rem; font-weight: 800; padding: 2px 10px; border-radius: 999px;
+  background: linear-gradient(180deg, #ecfbf8, var(--turquesa-claro)); border: 2px solid var(--turquesa); box-shadow: 0 2px 0 var(--turquesa);
+}
 
 /* 4 · Ajustes */
-.ajustes { display: grid; gap: 12px; }
-.ajuste { background: var(--hoja); border: 3px solid var(--tinta); border-radius: 18px; padding: 12px 14px; display: grid; gap: 8px; }
-.ajuste h4 { margin: 0; font-family: var(--display); font-size: 1.1rem; }
-.perfil { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 12px; align-items: center; }
-.avatar { width: 52px; height: 52px; border-radius: 50%; background: var(--coral); border: 3px solid var(--tinta); display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-size: 1.4rem; }
-.opciones { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.ajustes { display: grid; gap: 14px; }
+.ajuste { padding: 12px 14px; display: grid; gap: 8px; }
+.ajuste h4 { font-family: var(--display); font-size: 1.1rem; }
+.perfil { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 12px; align-items: center; }
+.avatar {
+  width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center;
+  font-family: var(--display); font-weight: 800; font-size: 1.5rem; color: var(--blanco); text-shadow: 0 2px 0 rgba(0, 0, 0, .2);
+  background: radial-gradient(90% 90% at 30% 25%, #ffb39c, var(--coral) 65%); border: 2px solid var(--coral-osc);
+  box-shadow: inset 0 3px 0 rgba(255, 255, 255, .45), 0 4px 0 var(--coral-osc);
+}
+.opciones { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 @media (max-width: 420px) { .opciones { grid-template-columns: minmax(0, 1fr); } }
 .opcion {
-  font: inherit; color: var(--tinta); text-align: left; cursor: pointer;
-  border: 3px solid var(--tinta); border-radius: 14px; padding: 10px 12px; background: var(--hoja); display: grid; gap: 2px;
+  font: inherit; color: var(--tinta); text-align: left; cursor: pointer; display: grid; gap: 2px;
+  border: 2px solid var(--borde-osc); border-radius: 16px; padding: 10px 12px;
+  background: linear-gradient(180deg, var(--hoja), var(--hoja-2)); box-shadow: inset 0 2px 0 var(--blanco), 0 3px 0 var(--borde-osc);
 }
-.opcion[aria-pressed="true"] { background: var(--turquesa-claro); box-shadow: inset 0 0 0 2px var(--turquesa); }
+.opcion[aria-pressed="true"] { background: linear-gradient(180deg, #f0fcfa, var(--turquesa-claro)); border-color: var(--turquesa); box-shadow: inset 0 2px 0 var(--blanco), 0 3px 0 var(--turquesa), 0 0 0 3px rgba(23, 169, 154, .2); }
 .opcion b { font-family: var(--display); font-size: 1.02rem; }
 .opcion small { color: var(--suave); }
-.bono { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: center; background: var(--sol-claro); border: 3px solid var(--oro); border-radius: 16px; padding: 10px 12px; }
+.bono {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: center; padding: 10px 12px;
+  background: linear-gradient(180deg, #fffbe9, var(--sol-claro)); border-color: #f0d27a; box-shadow: inset 0 2px 0 var(--blanco), 0 4px 0 #f0d27a;
+}
 .privado { color: var(--suave); font-size: .9rem; }
 
-.decide { background: var(--hoja); border: 3px solid var(--tinta); border-radius: 22px; padding: 18px 20px; display: grid; gap: 10px; max-width: 80ch; }
+.decide { padding: 18px 20px; display: grid; gap: 10px; max-width: 80ch; }
 .decide h2 { font-size: 1.4rem; font-weight: 800; }
 .decide ul { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; }
 
@@ -229,11 +261,54 @@ h1, h2, h3 { font-family: var(--display); line-height: 1.05; text-wrap: balance;
 </style>
 </head>
 <body>
+<!-- Degradados, sombras y dibujos que comparten todas las pantallas -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="fSombra" x="-30%" y="-20%" width="160%" height="150%"><feDropShadow dx="2" dy="5" stdDeviation="4" flood-color="#1d2b4f" flood-opacity=".22"/></filter>
+    <linearGradient id="gHueso" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#fffdf6"/><stop offset=".35" stop-color="#f8edd5"/><stop offset=".75" stop-color="#e9d3a9"/><stop offset="1" stop-color="#cfb27e"/></linearGradient>
+    <radialGradient id="gCabeza" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="#ffffff"/><stop offset=".5" stop-color="#f6e8cb"/><stop offset="1" stop-color="#d6bb88"/></radialGradient>
+    <linearGradient id="gVerde" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#e6fbef"/><stop offset=".4" stop-color="#9be3b8"/><stop offset="1" stop-color="#3f9f68"/></linearGradient>
+    <radialGradient id="gVerdeCab" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="#f0fff6"/><stop offset=".5" stop-color="#9be3b8"/><stop offset="1" stop-color="#3f9f68"/></radialGradient>
+    <linearGradient id="gCuerpo" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#e09a00"/><stop offset=".28" stop-color="#ffcf3a"/><stop offset=".42" stop-color="#fff2b0"/><stop offset=".56" stop-color="#ffd44a"/><stop offset="1" stop-color="#d98f00"/></linearGradient>
+    <linearGradient id="gMetal" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#8a93a6"/><stop offset=".4" stop-color="#f4f6fa"/><stop offset=".7" stop-color="#c6ccd8"/><stop offset="1" stop-color="#7f889c"/></linearGradient>
+    <linearGradient id="gGoma" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#e86d88"/><stop offset=".4" stop-color="#ffc4d1"/><stop offset="1" stop-color="#e3647f"/></linearGradient>
+    <linearGradient id="gMadera" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#d4925a"/><stop offset=".45" stop-color="#fbd9ae"/><stop offset="1" stop-color="#c98549"/></linearGradient>
+    <linearGradient id="gMina" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#1d2b4f"/><stop offset=".5" stop-color="#5a6a8f"/><stop offset="1" stop-color="#1d2b4f"/></linearGradient>
+    <linearGradient id="gPelvis" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#fffaf0"/><stop offset=".6" stop-color="#f1e2c3"/><stop offset="1" stop-color="#d9c08e"/></linearGradient>
+
+    <!-- Punta, el lápiz -->
+    <g id="punta">
+      <ellipse cx="30" cy="117" rx="16" ry="3" fill="#1d2b4f" opacity=".15"/>
+      <path d="M14 12 Q14 4 22 4 H38 Q46 4 46 12 V19 H14 Z" fill="url(#gGoma)"/>
+      <rect x="13" y="19" width="34" height="10" fill="url(#gMetal)"/>
+      <path d="M13 22.5 H47 M13 25.5 H47" stroke="#7f889c" stroke-width="1"/>
+      <rect x="13" y="29" width="34" height="57" fill="url(#gCuerpo)"/>
+      <path d="M24.5 29 V86 M35.5 29 V86" stroke="#c98a00" stroke-width="1" opacity=".55"/>
+      <path d="M13 86 Q17.5 90.5 22 86 Q26.2 90.5 30 86 Q33.8 90.5 38 86 Q42.5 90.5 47 86 L34 108 L26 108 Z" fill="url(#gMadera)"/>
+      <path d="M26 108 L34 108 L30 116 Z" fill="url(#gMina)"/>
+      <path d="M14 12 Q14 4 22 4 H38 Q46 4 46 12 V19 H47 V86 L30 116 L13 86 V19 H14 Z" fill="none" stroke="#1d2b4f" stroke-width="2.4" stroke-linejoin="round"/>
+      <path d="M18 8 Q20 6 25 6" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".7" fill="none"/>
+      <circle cx="19" cy="60" r="4.5" fill="#ff7a59" opacity=".45"/><circle cx="41" cy="60" r="4.5" fill="#ff7a59" opacity=".45"/>
+      <circle cx="23.5" cy="49" r="3.6" fill="#1d2b4f"/><circle cx="36.5" cy="49" r="3.6" fill="#1d2b4f"/>
+      <circle cx="24.6" cy="47.8" r="1.2" fill="#fff"/><circle cx="37.6" cy="47.8" r="1.2" fill="#fff"/>
+      <path d="M24.5 59 Q30 65 35.5 59" fill="none" stroke="#1d2b4f" stroke-width="2.4" stroke-linecap="round"/>
+    </g>
+
+    <!-- Fémur pequeño, para los iconos -->
+    <symbol id="femurIco" viewBox="0 0 64 64">
+      <g transform="rotate(35 32 32)" filter="url(#fSombra)">
+        <path d="M29 15 C27 11 30 7 34 8 C38 9 40 13 37 16 L36 47 C40 48 42 53 38 56 C36 57 34 56 32 55 C30 56 27 57 25 55 C22 52 24 48 28 47 Z" fill="url(#gHueso)" stroke="#8a7350" stroke-width="1.5" stroke-linejoin="round"/>
+        <circle cx="31" cy="11" r="5.5" fill="url(#gCabeza)" stroke="#8a7350" stroke-width="1.5"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
 <main class="wrap">
   <header class="intro">
-    <p class="eti">Propuesta de diseño 1 · para revisar</p>
+    <p class="eti">Propuesta de diseño 2 · con volumen</p>
     <h1>Así se verían <span class="subrayado">todos los juegos</span></h1>
-    <p>Un cuaderno de cuadros con pegatinas de colores, como el de clase. Cada edad tiene su color y Punta, el lápiz, acompaña en todos los juegos y da los trucos de letra. Las cuatro pantallas se pueden tocar.</p>
+    <p>Las mismas cuatro pantallas, ahora con luces, sombras y relieve, como las apps infantiles de pago. Los huesos tienen su forma de verdad y Punta es un lápiz con brillo y madera. Las pantallas se pueden tocar.</p>
   </header>
 
   <div class="galeria">
@@ -244,11 +319,11 @@ h1, h2, h3 { font-family: var(--display); line-height: 1.05; text-wrap: balance;
       <div class="pantalla">
         <div class="barra">
           <span class="marca">Juega con Daniela</span>
-          <span class="chip-pts"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="var(--sol)" stroke="var(--tinta)" stroke-width="1.6" stroke-linejoin="round" d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>340</span>
+          <span class="chip-pts"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="#ffd44a" stroke="#d99a00" stroke-width="1.5"/><path fill="#fff6c9" stroke="#c98a00" stroke-width="1" stroke-linejoin="round" d="M12 5.5l1.9 3.9 4.3.6-3.1 3 .7 4.2L12 15.2l-3.8 2 .7-4.2-3.1-3 4.3-.6z"/></svg>340</span>
         </div>
         <div class="saludo">
-          <svg class="punta" width="62" height="112" viewBox="0 0 60 120" role="img" aria-label="Punta, el lápiz"><use href="#punta"/></svg>
-          <div><p class="bocadillo">¡Hola! Soy Punta. ¿Cuántos años tienes?</p><h3>¿A qué jugamos hoy?</h3></div>
+          <svg width="64" height="120" viewBox="0 0 60 120" role="img" aria-label="Punta, el lápiz"><use href="#punta"/></svg>
+          <div><p class="bocadillo tarjeta">¡Hola! Soy Punta. ¿Cuántos años tienes?</p><h3>¿A qué jugamos hoy?</h3></div>
         </div>
         <div class="edades" role="group" aria-label="Edad">
           <button class="edad e1" aria-pressed="false" data-edad="3 a 5"><b>3-5</b><span>Infantil</span></button>
@@ -258,53 +333,60 @@ h1, h2, h3 { font-family: var(--display); line-height: 1.05; text-wrap: balance;
         </div>
         <div class="lista-juegos">
           <h4 id="titulo-edad">Juegos para 6 y 7 años</h4>
-          <div class="juego">
-            <span class="ico" style="background:var(--coral-claro)"><svg viewBox="0 0 64 64" width="44" height="44" aria-hidden="true"><g transform="rotate(-40 32 32)"><rect fill="var(--tinta)" x="10" y="25" width="44" height="14" rx="7"/><circle fill="var(--tinta)" cx="13" cy="25" r="9"/><circle fill="var(--tinta)" cx="13" cy="39" r="9"/><circle fill="var(--tinta)" cx="51" cy="25" r="9"/><circle fill="var(--tinta)" cx="51" cy="39" r="9"/><rect fill="var(--hoja)" x="12" y="27" width="40" height="10" rx="5"/><circle fill="var(--hoja)" cx="13" cy="25" r="7"/><circle fill="var(--hoja)" cx="13" cy="39" r="7"/><circle fill="var(--hoja)" cx="51" cy="25" r="7"/><circle fill="var(--hoja)" cx="51" cy="39" r="7"/></g></svg></span>
+          <div class="juego tarjeta">
+            <span class="ico"><svg width="50" height="50" aria-hidden="true"><use href="#femurIco" width="50" height="50"/></svg></span>
             <span><b>Mi cuerpo por dentro</b><small>Conocimiento del Medio · Tema 1</small></span>
             <span class="pegatina">4 de 6 pegatinas</span>
           </div>
-          <div class="juego luego">
-            <span class="ico" style="background:var(--turquesa-claro)"></span>
+          <div class="juego tarjeta luego">
+            <span class="ico"></span>
             <span><b>El siguiente tema</b><small>Llega cuando mandes las fotos del cuaderno</small></span>
             <span class="pegatina">Pronto</span>
           </div>
         </div>
       </div>
-      <p class="por-que">Cuatro pegatinas grandes, una por edad, con su curso debajo para los padres. Elegida la edad, salen sus juegos con las pegatinas ya ganadas, que es lo que les hace volver.</p>
+      <p class="por-que">Cada edad es un botón de gominola con su color y su curso debajo para los padres. La edad elegida se levanta un poco, y debajo salen sus juegos con las pegatinas ya ganadas.</p>
     </section>
 
     <!-- 2 · JUGANDO -->
     <section class="lamina">
       <h2><span class="num">2</span> Jugando: puntos y racha</h2>
-      <div class="pantalla" style="border-color:var(--tinta)">
+      <div class="pantalla">
         <div class="marcador">
           <button class="btn peque">‹ Salir</button>
           <h3>Los huesos</h3>
-          <span class="racha"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="var(--coral)" stroke="var(--tinta)" stroke-width="1.5" stroke-linejoin="round" d="M12 2c1 4 6 6 6 12a6 6 0 0 1-12 0c0-3 2-4 2-7 2 1 3 3 3 5 1-3 1-7 1-10z"/></svg>Racha ×3</span>
-          <span class="chip-pts"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="var(--sol)" stroke="var(--tinta)" stroke-width="1.6" stroke-linejoin="round" d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>85</span>
+          <span class="racha"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="gFuego" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#ffd44a"/><stop offset="1" stop-color="#ff5a2e"/></linearGradient></defs><path fill="url(#gFuego)" stroke="#c2401f" stroke-width="1.3" stroke-linejoin="round" d="M12 2c1 4 6 6 6 12a6 6 0 0 1-12 0c0-3 2-4 2-7 2 1 3 3 3 5 1-3 1-7 1-10z"/></svg>Racha ×3</span>
+          <span class="chip-pts"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="#ffd44a" stroke="#d99a00" stroke-width="1.5"/><path fill="#fff6c9" stroke="#c98a00" stroke-width="1" stroke-linejoin="round" d="M12 5.5l1.9 3.9 4.3.6-3.1 3 .7 4.2L12 15.2l-3.8 2 .7-4.2-3.1-3 4.3-.6z"/></svg>85</span>
         </div>
-        <div class="camino" aria-label="Pregunta 5 de 10"><span class="si"></span><span class="si"></span><span class="si"></span><span class="si"></span><span class="ahora"></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="camino" role="img" aria-label="Pregunta 5 de 10"><span class="si"></span><span class="si"></span><span class="si"></span><span class="si"></span><span class="ahora"></span><span></span><span></span><span></span><span></span><span></span></div>
         <div class="juega">
-          <div class="pide"><small>Toca el…</small><b>fémur</b></div>
-          <div class="dibujo">
-            <svg viewBox="0 0 140 230" role="img" aria-label="Los huesos de la pierna, con el fémur en verde">
-              <path d="M70 26 C58 12 34 10 30 24 C27 36 40 46 56 42 L70 50 L84 42 C100 46 113 36 110 24 C106 10 82 12 70 26 Z" fill="var(--hoja)" stroke="var(--tinta)" stroke-width="3"/>
-              <line x1="58" y1="34" x2="54" y2="120" stroke="var(--tinta)" stroke-width="16" stroke-linecap="round"/>
-              <line x1="58" y1="34" x2="54" y2="120" stroke="var(--verde)" stroke-width="10" stroke-linecap="round"/>
-              <circle cx="56" cy="128" r="7" fill="var(--hoja)" stroke="var(--tinta)" stroke-width="3"/>
-              <line x1="62" y1="142" x2="64" y2="206" stroke="var(--tinta)" stroke-width="14" stroke-linecap="round"/>
-              <line x1="62" y1="142" x2="64" y2="206" stroke="var(--hoja)" stroke-width="8" stroke-linecap="round"/>
-              <line x1="42" y1="144" x2="44" y2="204" stroke="var(--tinta)" stroke-width="9" stroke-linecap="round"/>
-              <line x1="42" y1="144" x2="44" y2="204" stroke="var(--hoja)" stroke-width="4" stroke-linecap="round"/>
-              <ellipse cx="54" cy="216" rx="22" ry="8" fill="var(--hoja)" stroke="var(--tinta)" stroke-width="3"/>
+          <div class="pide tarjeta"><small>Toca el…</small><b>fémur</b></div>
+          <div class="dibujo tarjeta">
+            <svg viewBox="0 0 150 300" role="img" aria-label="La cadera y los huesos de la pierna, con el fémur en verde">
+              <g filter="url(#fSombra)">
+                <!-- cadera -->
+                <path d="M16 14 C40 0 98 2 120 18 C130 28 122 42 106 44 C94 46 84 52 78 62 C70 52 56 46 40 42 C22 38 8 26 16 14 Z" fill="url(#gPelvis)" stroke="#8a7350" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M30 18 C50 10 90 10 108 20" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+                <!-- peroné -->
+                <path d="M51 230 C46 228 46 237 51 239 L53 280 C49 284 51 293 57 293 C62 291 62 285 59 281 L57 239 C60 235 56 228 51 230 Z" fill="url(#gHueso)" stroke="#8a7350" stroke-width="1.8" stroke-linejoin="round"/>
+                <!-- tibia -->
+                <path d="M58 222 C58 216 70 214 82 216 C94 214 106 216 106 224 C106 232 99 235 97 241 L93 275 C93 283 95 289 91 293 C87 296 80 295 78 291 L80 283 L74 243 C72 235 58 231 58 222 Z" fill="url(#gHueso)" stroke="#8a7350" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M84 232 L86 278" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".6"/>
+                <!-- fémur, en verde porque es el acierto -->
+                <path d="M70 52 C80 50 90 56 98 60 C106 64 108 75 100 81 C94 85 92 91 91 99 L88 178 C88 184 94 188 100 192 C106 196 106 208 98 212 C92 215 86 210 82 208 C78 212 72 214 66 211 C58 206 60 194 68 190 C74 186 76 182 76 176 L78 99 C78 91 74 85 68 79 C60 73 62 56 70 52 Z" fill="url(#gVerde)" stroke="#1c7442" stroke-width="2.2" stroke-linejoin="round"/>
+                <circle cx="68" cy="62" r="12" fill="url(#gVerdeCab)" stroke="#1c7442" stroke-width="2.2"/>
+                <path d="M83 100 L81 176" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+                <!-- rótula -->
+                <ellipse cx="83" cy="206" rx="8" ry="10" fill="url(#gCabeza)" stroke="#8a7350" stroke-width="1.8"/>
+              </g>
             </svg>
             <span class="mas">+15</span>
           </div>
         </div>
-        <div class="bien"><span>¡Genial! El fémur es el hueso del muslo.</span><span class="cuenta">+10 por acertar · +5 por la racha</span></div>
+        <div class="bien tarjeta"><span>¡Genial! El fémur es el hueso del muslo.</span><span class="cuenta">+10 por acertar · +5 por la racha</span></div>
         <div class="fila"><button class="btn peque">Oírlo otra vez</button><button class="btn peque">Una pista · ganas 5</button></div>
       </div>
-      <p class="por-que">La racha sube cuando aciertas seguido y nunca se pierden puntos: si fallas, solo se apaga la racha. La pista ayuda, pero da la mitad. Sin cronómetro, para que no agobie.</p>
+      <p class="por-que">Los huesos tienen su forma real, con la cabeza del fémur encajada en la cadera, la rótula y la tibia y el peroné. Cuando aciertas, el hueso se pone verde y salta la moneda de puntos.</p>
     </section>
 
     <!-- 3 · RETO DE ESCRIBIR -->
@@ -312,21 +394,21 @@ h1, h2, h3 { font-family: var(--display); line-height: 1.05; text-wrap: balance;
       <h2><span class="num">3</span> El reto de escribir en el cuaderno</h2>
       <div class="pantalla">
         <div class="reto-cab">
-          <svg class="punta" width="48" height="96" viewBox="0 0 60 120" aria-hidden="true"><use href="#punta"/></svg>
+          <svg width="50" height="100" viewBox="0 0 60 120" aria-hidden="true"><use href="#punta"/></svg>
           <h3>¡Ahora, a escribir en tu cuaderno!</h3>
         </div>
-        <p class="encargo">Escribe los tres huesos de la pierna.</p>
-        <div class="pauta">
+        <p class="encargo tarjeta">Escribe los tres huesos de la pierna.</p>
+        <div class="pauta tarjeta">
           <small>Míralo así de bonito:</small>
           <div class="renglon"><span>fémur, tibia y peroné</span></div>
           <div class="renglon calco"><span>fémur, tibia y peroné</span></div>
         </div>
-        <div class="truco">
-          <svg class="punta" width="30" height="60" viewBox="0 0 60 120" aria-hidden="true"><use href="#punta"/></svg>
+        <div class="truco tarjeta">
+          <svg width="32" height="64" viewBox="0 0 60 120" aria-hidden="true"><use href="#punta"/></svg>
           <p><b>Truco de Punta</b>Apoya todas las letras en la raya de abajo, como si se sentaran en un banco.</p>
         </div>
         <button class="btn sol">¡Ya lo he escrito!</button>
-        <div class="revisa">
+        <div class="revisa tarjeta">
           <h4>Que lo mire un mayor</h4>
           <button class="check" aria-pressed="false"><i></i><span>Se lee bien</span></button>
           <button class="check" aria-pressed="false"><i></i><span>Las letras se apoyan en la raya</span></button>
@@ -335,7 +417,7 @@ h1, h2, h3 { font-family: var(--display); line-height: 1.05; text-wrap: balance;
           <p class="premio" id="premio" aria-live="polite"></p>
         </div>
         <div class="foto">
-          <svg width="40" height="40" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="6" width="19" height="14" rx="3" fill="var(--turquesa-claro)" stroke="var(--tinta)" stroke-width="1.8"/><path d="M8 6l1.5-2.5h5L16 6" fill="none" stroke="var(--tinta)" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13" r="4" fill="var(--hoja)" stroke="var(--tinta)" stroke-width="1.8"/></svg>
+          <svg width="44" height="44" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="gCam" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#5fd6c8"/><stop offset="1" stop-color="#0b7a6f"/></linearGradient></defs><rect x="2.5" y="6" width="19" height="14" rx="3.5" fill="url(#gCam)" stroke="#0b5f56" stroke-width="1.2"/><path d="M8 6l1.5-2.5h5L16 6" fill="#0b7a6f" stroke="#0b5f56" stroke-width="1.2" stroke-linejoin="round"/><circle cx="12" cy="13" r="4.2" fill="#1d2b4f" stroke="#fff" stroke-width="1.6"/><circle cx="10.8" cy="11.8" r="1.2" fill="#fff" opacity=".8"/></svg>
           <p><b>O hazle una foto y Punta la lee</b><br><span class="prueba">Prueba gratis · quedan 5 días</span></p>
         </div>
       </div>
@@ -348,11 +430,11 @@ h1, h2, h3 { font-family: var(--display); line-height: 1.05; text-wrap: balance;
       <div class="pantalla">
         <div class="barra"><span class="marca">Ajustes de la familia</span></div>
         <div class="ajustes">
-          <div class="ajuste perfil">
+          <div class="ajuste tarjeta perfil">
             <span class="avatar">D</span>
             <span><b style="font-family:var(--display);font-size:1.2rem">Daniela</b><br><small style="color:var(--suave)">6 y 7 años · 1º y 2º de Primaria</small></span>
           </div>
-          <div class="ajuste">
+          <div class="ajuste tarjeta">
             <h4>¿Quién revisa la letra?</h4>
             <div class="opciones" role="group" aria-label="Quién revisa la letra">
               <button class="opcion" aria-pressed="true"><b>Un mayor</b><small>Con la lista de cuatro preguntas. Gratis.</small></button>
@@ -360,8 +442,8 @@ h1, h2, h3 { font-family: var(--display); line-height: 1.05; text-wrap: balance;
             </div>
             <p><span class="prueba">Prueba gratis de la foto · quedan 5 de 7 días</span></p>
           </div>
-          <div class="bono">
-            <svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="9" width="18" height="12" rx="2" fill="var(--coral-claro)" stroke="var(--tinta)" stroke-width="1.8"/><rect x="2" y="6" width="20" height="4" rx="1.5" fill="var(--coral)" stroke="var(--tinta)" stroke-width="1.8"/><path d="M12 6v15" stroke="var(--tinta)" stroke-width="1.8"/><path d="M12 6c-2-4-6-3-5 0M12 6c2-4 6-3 5 0" fill="none" stroke="var(--tinta)" stroke-width="1.8"/></svg>
+          <div class="bono tarjeta">
+            <svg width="40" height="40" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="gRegalo" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#ffb39c"/><stop offset="1" stop-color="#e0532f"/></linearGradient></defs><rect x="3" y="9.5" width="18" height="11.5" rx="2" fill="url(#gRegalo)" stroke="#a83a1f" stroke-width="1.2"/><rect x="2" y="6" width="20" height="4.5" rx="1.5" fill="#ff7a59" stroke="#a83a1f" stroke-width="1.2"/><rect x="10.6" y="6" width="2.8" height="15" fill="#ffd44a" stroke="#a83a1f" stroke-width="1"/><path d="M12 6c-2-4-6-3-5 0M12 6c2-4 6-3 5 0" fill="none" stroke="#a83a1f" stroke-width="1.5"/></svg>
             <p><b>Tienes un bono de regalo</b><br>La foto automática es gratis hasta el 30 de noviembre.</p>
           </div>
           <p class="privado">La foto solo sale de la tableta si eliges «Foto automática», y se borra nada más leerla.</p>
@@ -371,34 +453,16 @@ h1, h2, h3 { font-family: var(--display); line-height: 1.05; text-wrap: balance;
     </section>
   </div>
 
-  <section class="decide">
+  <section class="decide tarjeta">
     <h2>Lo que necesito que mires</h2>
     <ul>
-      <li>Si te gusta el estilo: el cuaderno de cuadros, las pegatinas de colores y los botones gordos.</li>
-      <li>Si Punta, el lápiz, te parece buena idea como compañero de todos los juegos.</li>
-      <li>Si los colores de cada edad te encajan: amarillo, coral, turquesa y lavanda.</li>
+      <li>Si el volumen es el que tenías en mente, o lo quieres todavía más marcado.</li>
+      <li>Si los huesos se parecen ya a los del libro.</li>
+      <li>Si Punta con brillo y madera te gusta como compañero.</li>
       <li>Cualquier cosa que cambiarías antes de aplicarlo a «Mi cuerpo por dentro».</li>
     </ul>
   </section>
 </main>
-
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <defs>
-    <g id="punta">
-      <rect class="pt-goma" x="14" y="4" width="32" height="16" rx="6"/>
-      <rect class="pt-metal" x="13" y="18" width="34" height="10"/>
-      <rect class="pt-cuerpo" x="13" y="28" width="34" height="58"/>
-      <rect class="pt-raya" x="25" y="28" width="10" height="58"/>
-      <path class="pt-madera" d="M13 86 L47 86 L34 108 L26 108 Z"/>
-      <path class="pt-mina" d="M26 108 L34 108 L30 116 Z"/>
-      <path class="pt-borde" d="M14 10 Q14 4 20 4 H40 Q46 4 46 10 V18 H47 V86 L30 116 L13 86 V18 H14 Z"/>
-      <path class="pt-borde" d="M13 28 H47 M13 86 H47"/>
-      <circle class="pt-moflete" cx="19" cy="58" r="4"/><circle class="pt-moflete" cx="41" cy="58" r="4"/>
-      <circle class="pt-ojo" cx="23" cy="48" r="3.2"/><circle class="pt-ojo" cx="37" cy="48" r="3.2"/>
-      <path class="pt-boca" d="M24 58 Q30 64 36 58"/>
-    </g>
-  </defs>
-</svg>
 
 <script>
 (function () {
@@ -409,8 +473,8 @@ h1, h2, h3 { font-family: var(--display); line-height: 1.05; text-wrap: balance;
       document.getElementById('titulo-edad').textContent = 'Juegos para ' + b.dataset.edad + ' años';
     });
   });
-  var checks = document.querySelectorAll('.check'), premio = document.getElementById('premio');
-  checks.forEach(function (c) {
+  var premio = document.getElementById('premio');
+  document.querySelectorAll('.check').forEach(function (c) {
     c.addEventListener('click', function () {
       c.setAttribute('aria-pressed', c.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
       var n = document.querySelectorAll('.check[aria-pressed="true"]').length;
@@ -418,8 +482,9 @@ h1, h2, h3 { font-family: var(--display); line-height: 1.05; text-wrap: balance;
         n > 0 ? 'Vas muy bien. Repasa lo que falta, despacito.' : '';
     });
   });
-  document.querySelectorAll('.opcion').forEach(function (o, _, todas) {
-    o.addEventListener('click', function () { todas.forEach(function (x) { x.setAttribute('aria-pressed', x === o ? 'true' : 'false'); }); });
+  var opciones = document.querySelectorAll('.opcion');
+  opciones.forEach(function (o) {
+    o.addEventListener('click', function () { opciones.forEach(function (x) { x.setAttribute('aria-pressed', x === o ? 'true' : 'false'); }); });
   });
 })();
 </script>
