@@ -37,3 +37,15 @@ Ojo al probar: navegar solo cambiando el `#` no recarga la página, así que hay
 antes por `about:blank`. Y pulsar el centro de una pieza del dibujo puede caer sobre otra que
 la tapa (el centro de las costillas es la columna): para una partida automática, disparar el
 clic sobre el elemento.
+
+## Cómo trabajamos (lo pidió la familia: no gastar de más)
+
+1. **Primero un plan corto, sin código.** Con las fotos del cuaderno, contestar en pocas líneas:
+   el contenido leído (para cazar errores de lectura de la letra a mano), los juegos que se
+   proponen y qué se reutiliza. **No se escribe nada hasta que digan que sí.**
+2. **Reutilizar antes que escribir.** Un tema nuevo copia el motor de `juegos/cuerpo-humano/`
+   y cambia los datos y los dibujos. Cuando haya dos temas, sacar el motor común a un fichero.
+3. **Comprobar lo justo**: `node --check` y una partida automática. Capturas solo si hay un
+   dibujo nuevo, y una sola pasada.
+4. **Un solo commit y un solo push al final**, y publicar la página una vez.
+5. Trabajar en una sesión con **solo este repositorio** cargado.
