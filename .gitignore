@@ -1,23 +1,4 @@
-# Credentials — NEVER commit
-.env
-.streamlit/secrets.toml
-.vscode/mcp.json
-
-# Python
-venv/
-__pycache__/
-*.pyc
-*.pyo
-*.egg-info/
-dist/
-build/
-
-# Tools
 .DS_Store
-.claude/
-.pytest_cache/
-
-# Runtime output
-logs/
-data/
-*.db
+node_modules/
+dist/
+.env
