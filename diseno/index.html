@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Diseño de Juega con Daniela</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Baloo+2:wght@600;700;800&family=Playwrite+ES:wght@300;400&display=swap">
+<style>
+/* Layout: un cuaderno abierto. Cuatro pantallas de tableta en rejilla de dos, apiladas en el móvil. */
+:root {
+  --papel: #fffaf0;
+  --hoja: #ffffff;
+  --cuadro: #dfe8f5;
+  --margen: #f3a6a6;
+  --tinta: #1d2b4f;
+  --suave: #5b6683;
+  --raya: #9fb3d6;
+  --sol: #ffc93c;
+  --sol-claro: #fff1c7;
+  --coral: #ff7a59;
+  --coral-claro: #ffe1d7;
+  --turquesa: #17a99a;
+  --turquesa-claro: #d2f3ee;
+  --lavanda: #8b6cf0;
+  --lavanda-claro: #e9e2ff;
+  --verde: #2a9d5c;
+  --verde-claro: #d6f3e2;
+  --oro: #f2a516;
+  --rojo: #e5484d;
+  --madera: #f2c48d;
+  --goma: #ff9fb2;
+  --metal: #c3cad8;
+  --blanco: #ffffff;
+  --display: "Baloo 2", "Arial Rounded MT Bold", "Trebuchet MS", sans-serif;
+  --texto: "Andika", "Trebuchet MS", "Segoe UI", sans-serif;
+  --letra: "Playwrite ES", "Segoe Script", "Comic Sans MS", cursive;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { background: var(--papel); }
+body {
+  margin: 0; min-height: 100vh;
+  background-color: var(--papel);
+  background-image: linear-gradient(var(--cuadro) 1px, transparent 1px), linear-gradient(90deg, var(--cuadro) 1px, transparent 1px);
+  background-size: 22px 22px;
+  color: var(--tinta); font-family: var(--texto); font-size: 17px; line-height: 1.45;
+}
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.05; text-wrap: balance; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 56px; display: grid; gap: 28px; }
+
+/* Cabecera de la propuesta */
+.intro { display: grid; gap: 10px; max-width: 70ch; }
+.eti { font-size: .78rem; text-transform: uppercase; letter-spacing: .12em; color: var(--suave); font-weight: 700; }
+.intro h1 { font-size: clamp(2.2rem, 6vw, 3.4rem); font-weight: 800; }
+.subrayado { background: linear-gradient(transparent 62%, var(--sol) 62%, var(--sol) 90%, transparent 90%); padding-inline: 4px; }
+
+.galeria { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 24px; }
+@media (max-width: 900px) { .galeria { grid-template-columns: minmax(0, 1fr); } }
+.lamina { display: grid; gap: 12px; align-content: start; min-width: 0; }
+.lamina > h2 { font-size: 1.3rem; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+.num {
+  width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; flex: none;
+  background: var(--tinta); color: var(--blanco); font-family: var(--display); font-size: 1.1rem;
+}
+.por-que { color: var(--suave); font-size: .95rem; max-width: 60ch; }
+
+/* El marco de tableta */
+.pantalla {
+  background: var(--papel);
+  background-image: linear-gradient(var(--cuadro) 1px, transparent 1px), linear-gradient(90deg, var(--cuadro) 1px, transparent 1px);
+  background-size: 20px 20px;
+  border: 3px solid var(--tinta); border-radius: 30px; padding: 16px;
+  box-shadow: 0 8px 0 var(--tinta);
+  display: grid; gap: 14px; align-content: start; min-width: 0;
+}
+.barra { display: flex; align-items: center; gap: 10px; }
+.marca { display: flex; align-items: center; gap: 8px; font-family: var(--display); font-weight: 800; font-size: 1.05rem; flex: 1; min-width: 0; }
+.chip-pts {
+  display: inline-flex; align-items: center; gap: 6px; font-weight: 700; font-variant-numeric: tabular-nums;
+  background: var(--hoja); border: 3px solid var(--tinta); border-radius: 999px; padding: 3px 12px 3px 6px;
+}
+.btn {
+  font: inherit; font-weight: 700; color: var(--tinta); cursor: pointer;
+  background: var(--hoja); border: 3px solid var(--tinta); border-radius: 16px;
+  min-height: 50px; padding: 8px 16px; box-shadow: 0 4px 0 var(--tinta);
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  transition: transform 140ms, box-shadow 140ms;
+}
+.btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--tinta); }
+.btn:focus-visible, .edad:focus-visible, .check:focus-visible, .opcion:focus-visible { outline: 4px solid var(--lavanda); outline-offset: 3px; }
+.btn.sol { background: var(--sol); }
+.btn.verde { background: var(--verde); color: var(--blanco); }
+.btn.peque { min-height: 46px; padding: 6px 12px; font-size: .95rem; }
+
+/* 1 · Portada por edades */
+.saludo { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; align-items: end; }
+.saludo h3 { font-size: clamp(1.7rem, 4vw, 2.2rem); font-weight: 800; }
+.bocadillo {
+  position: relative; background: var(--hoja); border: 3px solid var(--tinta); border-radius: 18px;
+  padding: 8px 12px; font-weight: 700; font-size: .98rem; margin-bottom: 4px;
+}
+.edades { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 520px) { .edades { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.edad {
+  font: inherit; color: var(--tinta); cursor: pointer; text-align: center;
+  border: 3px solid var(--tinta); border-radius: 20px; padding: 12px 6px 10px;
+  box-shadow: 0 5px 0 var(--tinta); display: grid; gap: 2px; justify-items: center;
+  transition: transform 140ms, box-shadow 140ms;
+}
+.edad:nth-child(odd) { transform: rotate(-1.5deg); }
+.edad:nth-child(even) { transform: rotate(1.2deg); }
+.edad[aria-pressed="true"] { outline: 4px solid var(--tinta); outline-offset: 3px; }
+.edad b { font-family: var(--display); font-size: 2.1rem; line-height: 1; }
+.edad span { font-size: .85rem; font-weight: 700; }
+.e1 { background: var(--sol); } .e2 { background: var(--coral); } .e3 { background: var(--turquesa); color: var(--blanco); } .e4 { background: var(--lavanda); color: var(--blanco); }
+.e3, .e4 { color: var(--blanco); }
+.lista-juegos { display: grid; gap: 10px; }
+.lista-juegos h4 { margin: 0; font-family: var(--display); font-size: 1.15rem; }
+.juego {
+  display: grid; grid-template-columns: 58px minmax(0, 1fr) auto; gap: 12px; align-items: center;
+  background: var(--hoja); border: 3px solid var(--tinta); border-radius: 18px; padding: 10px 12px;
+  box-shadow: 0 4px 0 var(--tinta);
+}
+.juego .ico { width: 58px; height: 58px; border-radius: 14px; display: grid; place-items: center; border: 2.5px solid var(--tinta); }
+.juego b { font-family: var(--display); font-size: 1.15rem; display: block; line-height: 1.1; }
+.juego small { color: var(--suave); font-size: .88rem; }
+.juego.luego { opacity: .6; box-shadow: none; border-style: dashed; }
+.pegatina { font-size: .78rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; border: 2px solid var(--tinta); background: var(--sol-claro); white-space: nowrap; }
+
+/* 2 · Jugando */
+.marcador { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.marcador h3 { font-size: 1.4rem; font-weight: 800; flex: 1; min-width: 8ch; }
+.racha {
+  display: inline-flex; align-items: center; gap: 4px; font-weight: 800; font-family: var(--display); font-size: 1.05rem;
+  background: var(--coral-claro); border: 3px solid var(--coral); color: var(--tinta); border-radius: 999px; padding: 2px 12px 2px 6px;
+}
+.camino { display: flex; gap: 6px; }
+.camino span { flex: 1; height: 12px; border-radius: 999px; border: 2px solid var(--tinta); background: var(--hoja); }
+.camino .si { background: var(--verde); }
+.camino .ahora { background: var(--sol); }
+.juega { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 12px; align-items: start; }
+@media (max-width: 520px) { .juega { grid-template-columns: minmax(0, 1fr); } }
+.dibujo { background: var(--hoja); border: 3px solid var(--tinta); border-radius: 20px; padding: 8px; display: grid; place-items: center; position: relative; }
+.dibujo svg { width: 100%; height: auto; max-height: 260px; }
+.mas {
+  position: absolute; top: 18%; right: 10%;
+  font-family: var(--display); font-weight: 800; font-size: 1.6rem; color: var(--verde);
+  background: var(--verde-claro); border: 3px solid var(--verde); border-radius: 14px; padding: 0 10px;
+  transform: rotate(6deg);
+}
+.pide { background: var(--sol-claro); border: 3px solid var(--tinta); border-radius: 20px; padding: 12px 14px; display: grid; gap: 2px; align-content: center; }
+.pide small { font-weight: 700; font-size: 1rem; }
+.pide b { font-family: var(--display); font-size: 2.2rem; line-height: 1; }
+.bien { background: var(--verde-claro); border: 3px solid var(--verde); border-radius: 16px; padding: 10px 12px; font-weight: 700; display: grid; gap: 2px; }
+.bien .cuenta { font-family: var(--display); font-size: 1.05rem; color: var(--verde); }
+.fila { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* Punta, el lápiz */
+.punta { flex: none; }
+.pt-goma { fill: var(--goma); } .pt-metal { fill: var(--metal); } .pt-cuerpo { fill: var(--sol); } .pt-raya { fill: var(--oro); }
+.pt-madera { fill: var(--madera); } .pt-mina { fill: var(--tinta); } .pt-borde { fill: none; stroke: var(--tinta); stroke-width: 3; stroke-linejoin: round; }
+.pt-ojo { fill: var(--tinta); } .pt-boca { fill: none; stroke: var(--tinta); stroke-width: 2.5; stroke-linecap: round; } .pt-moflete { fill: var(--coral); opacity: .55; }
+
+/* 3 · Reto de escribir */
+.reto-cab { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px; align-items: center; }
+.reto-cab h3 { font-size: 1.6rem; font-weight: 800; }
+.encargo { background: var(--hoja); border: 3px solid var(--tinta); border-radius: 18px; padding: 12px 14px; font-weight: 700; font-size: 1.1rem; }
+.pauta {
+  background: var(--hoja); border: 3px solid var(--tinta); border-radius: 18px; padding: 10px 14px 16px;
+  display: grid; gap: 4px;
+}
+.pauta small { color: var(--suave); font-weight: 700; font-size: .85rem; }
+.renglon {
+  position: relative; height: 64px; overflow: hidden;
+  background:
+    linear-gradient(var(--raya), var(--raya)) 0 22px / 100% 1px no-repeat,
+    linear-gradient(var(--raya), var(--raya)) 0 46px / 100% 2px no-repeat;
+  border-left: 3px solid var(--margen);
+  padding-left: 12px;
+}
+.renglon span { position: absolute; left: 14px; bottom: 15px; font-family: var(--letra); font-size: 1.55rem; color: var(--tinta); white-space: nowrap; }
+.renglon.calco span { opacity: .28; }
+.truco {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: center;
+  background: var(--lavanda-claro); border: 3px solid var(--lavanda); border-radius: 18px; padding: 10px 12px;
+}
+.truco b { display: block; font-family: var(--display); font-size: 1.05rem; color: var(--lavanda); }
+.revisa { background: var(--hoja); border: 3px solid var(--tinta); border-radius: 18px; padding: 12px 14px; display: grid; gap: 8px; }
+.revisa h4 { margin: 0; font-family: var(--display); font-size: 1.1rem; }
+.check {
+  font: inherit; color: var(--tinta); cursor: pointer; text-align: left; background: none; border: 0; padding: 4px 0;
+  display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 10px; align-items: center; min-height: 40px;
+}
+.check i { width: 30px; height: 30px; border: 3px solid var(--tinta); border-radius: 9px; display: grid; place-items: center; background: var(--hoja); }
+.check[aria-pressed="true"] i { background: var(--verde); }
+.check[aria-pressed="true"] i::after { content: ""; width: 12px; height: 7px; border-left: 3px solid var(--blanco); border-bottom: 3px solid var(--blanco); transform: rotate(-45deg) translate(1px, -1px); }
+.premio { font-weight: 700; color: var(--verde); min-height: 1.5em; }
+.foto {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: center;
+  border: 3px dashed var(--raya); border-radius: 18px; padding: 10px 12px;
+}
+.prueba { display: inline-block; font-size: .8rem; font-weight: 700; padding: 2px 9px; border-radius: 999px; background: var(--turquesa-claro); border: 2px solid var(--turquesa); }
+
+/* 4 · Ajustes */
+.ajustes { display: grid; gap: 12px; }
+.ajuste { background: var(--hoja); border: 3px solid var(--tinta); border-radius: 18px; padding: 12px 14px; display: grid; gap: 8px; }
+.ajuste h4 { margin: 0; font-family: var(--display); font-size: 1.1rem; }
+.perfil { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 12px; align-items: center; }
+.avatar { width: 52px; height: 52px; border-radius: 50%; background: var(--coral); border: 3px solid var(--tinta); display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-size: 1.4rem; }
+.opciones { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+@media (max-width: 420px) { .opciones { grid-template-columns: minmax(0, 1fr); } }
+.opcion {
+  font: inherit; color: var(--tinta); text-align: left; cursor: pointer;
+  border: 3px solid var(--tinta); border-radius: 14px; padding: 10px 12px; background: var(--hoja); display: grid; gap: 2px;
+}
+.opcion[aria-pressed="true"] { background: var(--turquesa-claro); box-shadow: inset 0 0 0 2px var(--turquesa); }
+.opcion b { font-family: var(--display); font-size: 1.02rem; }
+.opcion small { color: var(--suave); }
+.bono { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: center; background: var(--sol-claro); border: 3px solid var(--oro); border-radius: 16px; padding: 10px 12px; }
+.privado { color: var(--suave); font-size: .9rem; }
+
+.decide { background: var(--hoja); border: 3px solid var(--tinta); border-radius: 22px; padding: 18px 20px; display: grid; gap: 10px; max-width: 80ch; }
+.decide h2 { font-size: 1.4rem; font-weight: 800; }
+.decide ul { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="intro">
+    <p class="eti">Propuesta de diseño 1 · para revisar</p>
+    <h1>Así se verían <span class="subrayado">todos los juegos</span></h1>
+    <p>Un cuaderno de cuadros con pegatinas de colores, como el de clase. Cada edad tiene su color y Punta, el lápiz, acompaña en todos los juegos y da los trucos de letra. Las cuatro pantallas se pueden tocar.</p>
+  </header>
+
+  <div class="galeria">
+
+    <!-- 1 · PORTADA -->
+    <section class="lamina">
+      <h2><span class="num">1</span> La portada: elegir la edad</h2>
+      <div class="pantalla">
+        <div class="barra">
+          <span class="marca">Juega con Daniela</span>
+          <span class="chip-pts"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="var(--sol)" stroke="var(--tinta)" stroke-width="1.6" stroke-linejoin="round" d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>340</span>
+        </div>
+        <div class="saludo">
+          <svg class="punta" width="62" height="112" viewBox="0 0 60 120" role="img" aria-label="Punta, el lápiz"><use href="#punta"/></svg>
+          <div><p class="bocadillo">¡Hola! Soy Punta. ¿Cuántos años tienes?</p><h3>¿A qué jugamos hoy?</h3></div>
+        </div>
+        <div class="edades" role="group" aria-label="Edad">
+          <button class="edad e1" aria-pressed="false" data-edad="3 a 5"><b>3-5</b><span>Infantil</span></button>
+          <button class="edad e2" aria-pressed="true" data-edad="6 y 7"><b>6-7</b><span>1º y 2º</span></button>
+          <button class="edad e3" aria-pressed="false" data-edad="8 y 9"><b>8-9</b><span>3º y 4º</span></button>
+          <button class="edad e4" aria-pressed="false" data-edad="10 a 12"><b>10-12</b><span>5º y 6º</span></button>
+        </div>
+        <div class="lista-juegos">
+          <h4 id="titulo-edad">Juegos para 6 y 7 años</h4>
+          <div class="juego">
+            <span class="ico" style="background:var(--coral-claro)"><svg viewBox="0 0 64 64" width="44" height="44" aria-hidden="true"><g transform="rotate(-40 32 32)"><rect fill="var(--tinta)" x="10" y="25" width="44" height="14" rx="7"/><circle fill="var(--tinta)" cx="13" cy="25" r="9"/><circle fill="var(--tinta)" cx="13" cy="39" r="9"/><circle fill="var(--tinta)" cx="51" cy="25" r="9"/><circle fill="var(--tinta)" cx="51" cy="39" r="9"/><rect fill="var(--hoja)" x="12" y="27" width="40" height="10" rx="5"/><circle fill="var(--hoja)" cx="13" cy="25" r="7"/><circle fill="var(--hoja)" cx="13" cy="39" r="7"/><circle fill="var(--hoja)" cx="51" cy="25" r="7"/><circle fill="var(--hoja)" cx="51" cy="39" r="7"/></g></svg></span>
+            <span><b>Mi cuerpo por dentro</b><small>Conocimiento del Medio · Tema 1</small></span>
+            <span class="pegatina">4 de 6 pegatinas</span>
+          </div>
+          <div class="juego luego">
+            <span class="ico" style="background:var(--turquesa-claro)"></span>
+            <span><b>El siguiente tema</b><small>Llega cuando mandes las fotos del cuaderno</small></span>
+            <span class="pegatina">Pronto</span>
+          </div>
+        </div>
+      </div>
+      <p class="por-que">Cuatro pegatinas grandes, una por edad, con su curso debajo para los padres. Elegida la edad, salen sus juegos con las pegatinas ya ganadas, que es lo que les hace volver.</p>
+    </section>
+
+    <!-- 2 · JUGANDO -->
+    <section class="lamina">
+      <h2><span class="num">2</span> Jugando: puntos y racha</h2>
+      <div class="pantalla" style="border-color:var(--tinta)">
+        <div class="marcador">
+          <button class="btn peque">‹ Salir</button>
+          <h3>Los huesos</h3>
+          <span class="racha"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="var(--coral)" stroke="var(--tinta)" stroke-width="1.5" stroke-linejoin="round" d="M12 2c1 4 6 6 6 12a6 6 0 0 1-12 0c0-3 2-4 2-7 2 1 3 3 3 5 1-3 1-7 1-10z"/></svg>Racha ×3</span>
+          <span class="chip-pts"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="var(--sol)" stroke="var(--tinta)" stroke-width="1.6" stroke-linejoin="round" d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>85</span>
+        </div>
+        <div class="camino" aria-label="Pregunta 5 de 10"><span class="si"></span><span class="si"></span><span class="si"></span><span class="si"></span><span class="ahora"></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="juega">
+          <div class="pide"><small>Toca el…</small><b>fémur</b></div>
+          <div class="dibujo">
+            <svg viewBox="0 0 140 230" role="img" aria-label="Los huesos de la pierna, con el fémur en verde">
+              <path d="M70 26 C58 12 34 10 30 24 C27 36 40 46 56 42 L70 50 L84 42 C100 46 113 36 110 24 C106 10 82 12 70 26 Z" fill="var(--hoja)" stroke="var(--tinta)" stroke-width="3"/>
+              <line x1="58" y1="34" x2="54" y2="120" stroke="var(--tinta)" stroke-width="16" stroke-linecap="round"/>
+              <line x1="58" y1="34" x2="54" y2="120" stroke="var(--verde)" stroke-width="10" stroke-linecap="round"/>
+              <circle cx="56" cy="128" r="7" fill="var(--hoja)" stroke="var(--tinta)" stroke-width="3"/>
+              <line x1="62" y1="142" x2="64" y2="206" stroke="var(--tinta)" stroke-width="14" stroke-linecap="round"/>
+              <line x1="62" y1="142" x2="64" y2="206" stroke="var(--hoja)" stroke-width="8" stroke-linecap="round"/>
+              <line x1="42" y1="144" x2="44" y2="204" stroke="var(--tinta)" stroke-width="9" stroke-linecap="round"/>
+              <line x1="42" y1="144" x2="44" y2="204" stroke="var(--hoja)" stroke-width="4" stroke-linecap="round"/>
+              <ellipse cx="54" cy="216" rx="22" ry="8" fill="var(--hoja)" stroke="var(--tinta)" stroke-width="3"/>
+            </svg>
+            <span class="mas">+15</span>
+          </div>
+        </div>
+        <div class="bien"><span>¡Genial! El fémur es el hueso del muslo.</span><span class="cuenta">+10 por acertar · +5 por la racha</span></div>
+        <div class="fila"><button class="btn peque">Oírlo otra vez</button><button class="btn peque">Una pista · ganas 5</button></div>
+      </div>
+      <p class="por-que">La racha sube cuando aciertas seguido y nunca se pierden puntos: si fallas, solo se apaga la racha. La pista ayuda, pero da la mitad. Sin cronómetro, para que no agobie.</p>
+    </section>
+
+    <!-- 3 · RETO DE ESCRIBIR -->
+    <section class="lamina">
+      <h2><span class="num">3</span> El reto de escribir en el cuaderno</h2>
+      <div class="pantalla">
+        <div class="reto-cab">
+          <svg class="punta" width="48" height="96" viewBox="0 0 60 120" aria-hidden="true"><use href="#punta"/></svg>
+          <h3>¡Ahora, a escribir en tu cuaderno!</h3>
+        </div>
+        <p class="encargo">Escribe los tres huesos de la pierna.</p>
+        <div class="pauta">
+          <small>Míralo así de bonito:</small>
+          <div class="renglon"><span>fémur, tibia y peroné</span></div>
+          <div class="renglon calco"><span>fémur, tibia y peroné</span></div>
+        </div>
+        <div class="truco">
+          <svg class="punta" width="30" height="60" viewBox="0 0 60 120" aria-hidden="true"><use href="#punta"/></svg>
+          <p><b>Truco de Punta</b>Apoya todas las letras en la raya de abajo, como si se sentaran en un banco.</p>
+        </div>
+        <button class="btn sol">¡Ya lo he escrito!</button>
+        <div class="revisa">
+          <h4>Que lo mire un mayor</h4>
+          <button class="check" aria-pressed="false"><i></i><span>Se lee bien</span></button>
+          <button class="check" aria-pressed="false"><i></i><span>Las letras se apoyan en la raya</span></button>
+          <button class="check" aria-pressed="false"><i></i><span>Hay espacio entre palabras</span></button>
+          <button class="check" aria-pressed="false"><i></i><span>Las letras son del mismo tamaño</span></button>
+          <p class="premio" id="premio" aria-live="polite"></p>
+        </div>
+        <div class="foto">
+          <svg width="40" height="40" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="6" width="19" height="14" rx="3" fill="var(--turquesa-claro)" stroke="var(--tinta)" stroke-width="1.8"/><path d="M8 6l1.5-2.5h5L16 6" fill="none" stroke="var(--tinta)" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13" r="4" fill="var(--hoja)" stroke="var(--tinta)" stroke-width="1.8"/></svg>
+          <p><b>O hazle una foto y Punta la lee</b><br><span class="prueba">Prueba gratis · quedan 5 días</span></p>
+        </div>
+      </div>
+      <p class="por-que">Cada juego termina aquí. El modelo va en pauta de dos rayas y letra ligada, como en el cole, con una línea más clarita para calcar. Si la letra no se entiende, Punta propone repetirlo más despacio.</p>
+    </section>
+
+    <!-- 4 · AJUSTES -->
+    <section class="lamina">
+      <h2><span class="num">4</span> Los ajustes de la familia</h2>
+      <div class="pantalla">
+        <div class="barra"><span class="marca">Ajustes de la familia</span></div>
+        <div class="ajustes">
+          <div class="ajuste perfil">
+            <span class="avatar">D</span>
+            <span><b style="font-family:var(--display);font-size:1.2rem">Daniela</b><br><small style="color:var(--suave)">6 y 7 años · 1º y 2º de Primaria</small></span>
+          </div>
+          <div class="ajuste">
+            <h4>¿Quién revisa la letra?</h4>
+            <div class="opciones" role="group" aria-label="Quién revisa la letra">
+              <button class="opcion" aria-pressed="true"><b>Un mayor</b><small>Con la lista de cuatro preguntas. Gratis.</small></button>
+              <button class="opcion" aria-pressed="false"><b>Foto automática</b><small>Punta lee la foto del cuaderno.</small></button>
+            </div>
+            <p><span class="prueba">Prueba gratis de la foto · quedan 5 de 7 días</span></p>
+          </div>
+          <div class="bono">
+            <svg width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="9" width="18" height="12" rx="2" fill="var(--coral-claro)" stroke="var(--tinta)" stroke-width="1.8"/><rect x="2" y="6" width="20" height="4" rx="1.5" fill="var(--coral)" stroke="var(--tinta)" stroke-width="1.8"/><path d="M12 6v15" stroke="var(--tinta)" stroke-width="1.8"/><path d="M12 6c-2-4-6-3-5 0M12 6c2-4 6-3 5 0" fill="none" stroke="var(--tinta)" stroke-width="1.8"/></svg>
+            <p><b>Tienes un bono de regalo</b><br>La foto automática es gratis hasta el 30 de noviembre.</p>
+          </div>
+          <p class="privado">La foto solo sale de la tableta si eliges «Foto automática», y se borra nada más leerla.</p>
+        </div>
+      </div>
+      <p class="por-que">Aquí decide cada familia. La prueba de 7 días la tiene cualquier cuenta gratis, y la fila del bono solo aparece cuando tú, como administrador, se lo regalas a alguien.</p>
+    </section>
+  </div>
+
+  <section class="decide">
+    <h2>Lo que necesito que mires</h2>
+    <ul>
+      <li>Si te gusta el estilo: el cuaderno de cuadros, las pegatinas de colores y los botones gordos.</li>
+      <li>Si Punta, el lápiz, te parece buena idea como compañero de todos los juegos.</li>
+      <li>Si los colores de cada edad te encajan: amarillo, coral, turquesa y lavanda.</li>
+      <li>Cualquier cosa que cambiarías antes de aplicarlo a «Mi cuerpo por dentro».</li>
+    </ul>
+  </section>
+</main>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="punta">
+      <rect class="pt-goma" x="14" y="4" width="32" height="16" rx="6"/>
+      <rect class="pt-metal" x="13" y="18" width="34" height="10"/>
+      <rect class="pt-cuerpo" x="13" y="28" width="34" height="58"/>
+      <rect class="pt-raya" x="25" y="28" width="10" height="58"/>
+      <path class="pt-madera" d="M13 86 L47 86 L34 108 L26 108 Z"/>
+      <path class="pt-mina" d="M26 108 L34 108 L30 116 Z"/>
+      <path class="pt-borde" d="M14 10 Q14 4 20 4 H40 Q46 4 46 10 V18 H47 V86 L30 116 L13 86 V18 H14 Z"/>
+      <path class="pt-borde" d="M13 28 H47 M13 86 H47"/>
+      <circle class="pt-moflete" cx="19" cy="58" r="4"/><circle class="pt-moflete" cx="41" cy="58" r="4"/>
+      <circle class="pt-ojo" cx="23" cy="48" r="3.2"/><circle class="pt-ojo" cx="37" cy="48" r="3.2"/>
+      <path class="pt-boca" d="M24 58 Q30 64 36 58"/>
+    </g>
+  </defs>
+</svg>
+
+<script>
+(function () {
+  var edades = document.querySelectorAll('.edad');
+  edades.forEach(function (b) {
+    b.addEventListener('click', function () {
+      edades.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      document.getElementById('titulo-edad').textContent = 'Juegos para ' + b.dataset.edad + ' años';
+    });
+  });
+  var checks = document.querySelectorAll('.check'), premio = document.getElementById('premio');
+  checks.forEach(function (c) {
+    c.addEventListener('click', function () {
+      c.setAttribute('aria-pressed', c.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+      var n = document.querySelectorAll('.check[aria-pressed="true"]').length;
+      premio.textContent = n === 4 ? '¡Qué letra tan bonita! +20 puntos y una pegatina.' :
+        n > 0 ? 'Vas muy bien. Repasa lo que falta, despacito.' : '';
+    });
+  });
+  document.querySelectorAll('.opcion').forEach(function (o, _, todas) {
+    o.addEventListener('click', function () { todas.forEach(function (x) { x.setAttribute('aria-pressed', x === o ? 'true' : 'false'); }); });
+  });
+})();
+</script>
+</body>
+</html>

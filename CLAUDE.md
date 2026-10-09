@@ -19,13 +19,40 @@ La idea a medio plazo es abrirlo a más niños y quizá monetizarlo; hoy es para
 
 - **El contenido es el del cuaderno**, con las mismas palabras que usa su profesora. Lo que
   se añade para explicar (para qué sirve cada hueso) tiene que ser correcto y del nivel.
-- **Nada sale del aparato**: ni analítica, ni anuncios, ni peticiones a otros servidores.
-  Las estrellas van en `localStorage` (clave `jcd:<tema>:v1`), siempre dentro de try/catch.
+- **Nada sale del aparato** salvo lo que la familia active en sus ajustes (la cuenta y la
+  lectura de la letra por foto, abajo): ni analítica, ni anuncios, ni peticiones a otros
+  servidores. Las estrellas van en `localStorage` (clave `jcd:<tema>:v1`), siempre dentro de
+  try/catch.
   La voz es la del propio navegador (`speechSynthesis`), y los sonidos, Web Audio.
 - **Para un niño de 7 años**: letra de 18 px o más, botones de 46 px o más, todo se puede
   oír, y equivocarse dice qué ha tocado y anima a seguir. Nunca castiga ni quita estrellas.
 - **Dibujos propios.** Las láminas del libro de texto tienen derechos; no se copian.
 - Español en el código, los comentarios y los commits.
+
+## Hacia dónde va: la web por edades (decidido el 9-oct-2026)
+
+La idea es abrirlo a más familias y monetizarlo. Todo juego nuevo se hace ya pensando en eso.
+
+- **La portada se elige por edad** y por dentro va por curso, que es como va el temario:
+  3-5 años (Infantil), 6-7 (1º-2º), 8-9 (3º-4º) y 10-12 (5º-6º). Cada juego dice su curso.
+- **Un solo diseño para todos.** El diseño aprobado vive en `diseno/` y manda sobre cualquier
+  juego. No se inventa un aspecto por juego: si algo no encaja, se cambia en el diseño común.
+- **Cada juego acaba con un reto de escritura en papel.** Algo corto del propio tema
+  («Escribe en tu cuaderno los tres huesos de la pierna»), con el modelo en pauta de dos rayas
+  y letra ligada como la del colegio, un truco de caligrafía y ánimo. Los trucos los da
+  **Punta**, el lápiz que acompaña en todos los juegos. Si la letra no se entiende, se anima a
+  repetirlo despacio, nunca se riñe.
+- **Quién revisa la letra lo decide cada familia en sus ajustes:**
+  - **Un mayor** (gratis): una lista corta en pantalla. ¿Se lee? ¿Las letras se apoyan en la
+    línea? ¿Hay espacio entre palabras? ¿Son del mismo tamaño?
+  - **Foto automática** (de pago): el niño fotografía el papel y se lee la letra. Cada usuario
+    gratis puede probarla **7 días**, y el **administrador puede regalar bonos** a quien
+    quiera. La foto solo sale del aparato con este modo activado y con permiso de los padres,
+    y se borra nada más leerla.
+- **Puntos que enganchan sin agobiar:** +10 por acierto, +5 más por cada acierto seguido desde
+  el tercero (la racha), y +5 en vez de +10 si se ha usado una pista. Los puntos nunca se
+  restan. Hay pegatinas para coleccionar por tema y un reto del día. Sin cronómetros y sin
+  compras dentro del juego: lo de pago lo gestionan los padres en sus ajustes.
 
 ## Comprobar un juego
 
