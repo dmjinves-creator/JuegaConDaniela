@@ -440,6 +440,16 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.05;
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+/* Candado de la web publicada */
+.llave:not([hidden]) { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 16px; background: rgba(29, 43, 79, .55); }
+.llave-c { width: min(100%, 360px); display: grid; gap: 10px; background: #fffaf0; border: 3px solid #1d2b4f; border-radius: 22px; padding: 22px 20px; box-shadow: 0 8px 0 #1d2b4f; color: #1d2b4f; font-family: "Andika", "Trebuchet MS", sans-serif; font-size: 18px; }
+.llave-c h2 { margin: 0; font-family: "Baloo 2", "Trebuchet MS", sans-serif; font-weight: 800; font-size: 1.6rem; line-height: 1.1; }
+.llave-c p { margin: 0; }
+.llave-c label { font-weight: 700; }
+.llave-c input { font: inherit; min-height: 52px; padding: 8px 14px; border: 2px solid #b3bfd6; border-radius: 14px; background: #fff; color: #1d2b4f; }
+.llave-c input:focus-visible { outline: 4px solid #8b6cf0; outline-offset: 2px; }
+.llave-c button { font: inherit; font-weight: 800; min-height: 54px; border-radius: 16px; cursor: pointer; color: #1d2b4f; background: linear-gradient(180deg, #ffdb6e, #ffc93c); border: 2px solid #d99a00; box-shadow: 0 4px 0 #d99a00; }
+.llave-m { min-height: 1.4em; color: #a8520b; font-weight: 700; }
 </style>
 </head>
 <body>
@@ -1469,6 +1479,46 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.05;
   pintarTotal(); pintarSon();
   var inicio = (location.hash || '').slice(1);
   ir(PANTALLAS[inicio] ? inicio : '');
+})();
+</script>
+<div class="llave" id="llave" hidden>
+  <form class="llave-c" id="llaveF">
+    <h2>Juega con Daniela</h2>
+    <p>Esta web es para la familia. Pide la contraseña a un mayor.</p>
+    <label for="llaveIn">Contraseña</label>
+    <input id="llaveIn" type="password" autocomplete="current-password" autocapitalize="none" spellcheck="false">
+    <p class="llave-m" id="llaveM" aria-live="polite"></p>
+    <button type="submit">Entrar</button>
+  </form>
+</div>
+<script>
+(function () {
+  // Candado sencillo de la web publicada: pide la contraseña una vez por aparato.
+  // No es seguridad de verdad (el código es público): solo evita que entre cualquiera por casualidad.
+  // Abierto desde el propio ordenador (file://). Da igual mayúsculas o minúsculas.
+  var CLAVE = 'jcd:llave:v1', HUELLA = 3828857873;
+  function huella(t) {
+    var h = 2166136261; t = t.trim().toLowerCase();
+    for (var i = 0; i < t.length; i++) { h ^= t.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; }
+    return h;
+  }
+  var abierto = location.protocol === 'file:';
+  try { abierto = abierto || localStorage.getItem(CLAVE) === String(HUELLA); } catch (e) {}
+  var caja = document.getElementById('llave');
+  if (abierto) { caja.remove(); return; }
+  caja.hidden = false;
+  var campo = document.getElementById('llaveIn');
+  try { campo.focus(); } catch (e) {}
+  document.getElementById('llaveF').onsubmit = function (e) {
+    e.preventDefault();
+    if (huella(campo.value) === HUELLA) {
+      try { localStorage.setItem(CLAVE, String(HUELLA)); } catch (er) {}
+      caja.remove();
+    } else {
+      document.getElementById('llaveM').textContent = 'Esa no es. Prueba otra vez, despacito.';
+      campo.select();
+    }
+  };
 })();
 </script>
 </body>

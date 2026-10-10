@@ -87,6 +87,15 @@ de `diseno/index.html`.
 - **Siempre se intenta escribir.** Todo juego, y también la canción, acaban en el reto de escribir
   en el cuaderno: pauta de dos rayas, letra ligada y el truco de Punta.
 
+## La web publicada
+
+- Se publica con GitHub Pages desde la rama de trabajo: https://dmjinves-creator.github.io/JuegaConDaniela/
+- Lleva un **candado sencillo**: cada página (la portada y cada juego) pide la contraseña de la
+  familia una vez por aparato y la recuerda en `localStorage` (`jcd:llave:v1`). Solo se guarda su
+  huella, nunca la contraseña. No es seguridad de verdad, porque el código es público, y desde el
+  propio ordenador (`file://`) no se pide. Todo juego nuevo copia el bloque del candado del final
+  de `index.html`.
+
 ## Comprobar un juego
 
 Hay Playwright en la máquina de la nube (Chromium en `/opt/pw-browsers`). Lo mínimo antes de
