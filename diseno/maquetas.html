@@ -1,0 +1,698 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Maquetas de Juega con Daniela</title>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Baloo+2:wght@600;700;800&display=swap">
+<style>
+/* Hoja de maquetas: una sección por cosa a decidir, cada opción en su tarjeta con código (1A, 1B…).
+   Las láminas de dentro llevan sus propios colores fijos: son el dibujo que verá el niño. */
+:root {
+  --fondo: #f3f5fa;
+  --hoja: #ffffff;
+  --tinta: #1d2b4f;
+  --suave: #5b6683;
+  --borde: #d7deeb;
+  --acento: #2f63c9;
+  --acento-suave: #dbe6fb;
+  --sol: #ffc93c;
+  --display: "Baloo 2", "Arial Rounded MT Bold", "Trebuchet MS", sans-serif;
+  --texto: "Andika", "Trebuchet MS", "Segoe UI", sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --fondo: #141a2b; --hoja: #1d2539; --tinta: #e8ecf6; --suave: #a7b0c8; --borde: #2f3a55; --acento: #8fb0ff; --acento-suave: #26345a; color-scheme: dark; }
+}
+:root[data-theme="dark"] { --fondo: #141a2b; --hoja: #1d2539; --tinta: #e8ecf6; --suave: #a7b0c8; --borde: #2f3a55; --acento: #8fb0ff; --acento-suave: #26345a; color-scheme: dark; }
+
+* { box-sizing: border-box; }
+body { background: var(--fondo); color: var(--tinta); font-family: var(--texto); font-size: 16px; line-height: 1.5; padding-inline: 16px; padding-block: 20px 60px; }
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.1; text-wrap: balance; }
+.wrap { max-width: 1180px; margin: 0 auto; display: grid; gap: 44px; }
+.cab { display: grid; gap: 10px; max-width: 70ch; }
+.cab h1 { font-size: clamp(2rem, 6vw, 2.8rem); font-weight: 800; }
+.cab p { color: var(--suave); }
+.como { background: var(--acento-suave); border-radius: 14px; padding: 12px 16px; color: var(--tinta); }
+.como b { font-family: var(--display); }
+
+.sec { display: grid; gap: 16px; }
+.sec-cab { display: grid; gap: 4px; max-width: 72ch; }
+.sec-cab .num { font-family: var(--display); font-weight: 800; color: var(--acento); letter-spacing: .06em; text-transform: uppercase; font-size: .85rem; }
+.sec-cab h2 { font-size: clamp(1.5rem, 4.5vw, 2rem); font-weight: 800; }
+.sec-cab p { color: var(--suave); }
+.ops { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 330px), 1fr)); }
+.ops.dos { grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
+.op { background: var(--hoja); border: 1px solid var(--borde); border-radius: 20px; padding: 14px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.op-cab { display: flex; gap: 10px; align-items: center; }
+.cod { font-family: var(--display); font-weight: 800; font-size: 1.15rem; background: var(--sol); color: #1d2b4f; border-radius: 10px; min-width: 46px; height: 40px; display: grid; place-items: center; }
+.op h3 { font-size: 1.25rem; font-weight: 800; }
+.op p { font-size: .95rem; }
+.op .pq { color: var(--suave); font-size: .9rem; }
+.lam { border-radius: 14px; overflow: hidden; }
+.lam svg { display: block; width: 100%; height: auto; }
+
+/* Láminas: fondos fijos */
+.l-a { background-color: #fbfdfc; background-image: linear-gradient(#e6f0ed 1px, transparent 1px), linear-gradient(90deg, #e6f0ed 1px, transparent 1px); background-size: 18px 18px; }
+.l-b { background: radial-gradient(120% 90% at 50% 30%, #fffdf7, #f1eadb); }
+.l-c { background: radial-gradient(110% 80% at 50% 35%, #1b3a66, #0b1830); }
+.l-m { background: radial-gradient(120% 90% at 50% 30%, #ffffff, #eef2f8); }
+
+/* Esqueletos: tres pieles sobre el mismo dibujo */
+.oL { fill: none; stroke: var(--o); stroke-linecap: round; stroke-linejoin: round; }
+.oS { fill: var(--o); stroke: var(--o); stroke-width: var(--ow); stroke-linejoin: round; }
+.fL { fill: none; stroke: var(--f); stroke-linecap: round; stroke-linejoin: round; }
+.fS { fill: var(--fs); }
+.hL { fill: none; stroke: var(--h); stroke-linecap: round; opacity: .8; }
+.det { fill: none; stroke: var(--o); stroke-width: 1.3; opacity: .5; stroke-linecap: round; }
+.hole { fill: var(--hole); }
+.tooth { fill: var(--diente); stroke: var(--o); stroke-width: 1; }
+.skA { --o: #4b4672; --ow: 4.4px; --f: #fffcf3; --fs: #fffcf3; --hole: #5a5582; --diente: #fff; }
+.skA .ok .fS { fill: #cff0dc; } .skA .ok .fL { stroke: #cff0dc; }
+.skB { --o: #9b8463; --ow: 1.6px; --f: #eadcbd; --fs: url(#gHueso); --h: #fffaf0; --hole: #6b5640; --diente: #fbf6ea; }
+.skB .ok .fS { fill: url(#gHuesoOk); } .skB .ok .fL { stroke: #bfe6c9; }
+.skC { --o: rgba(150, 210, 255, .35); --ow: 3px; --f: #e3f2ff; --fs: #e3f2ff; --h: #ffffff; --hole: #10284a; --diente: #e3f2ff; }
+.skC .ok .fS { fill: #a8ffd6; } .skC .ok .fL { stroke: #a8ffd6; }
+.skC .det { stroke: #10284a; opacity: .6; }
+
+/* Etiquetas de las láminas */
+.etA rect { fill: #fff; stroke: #b7c8d3; stroke-width: 2.5; stroke-dasharray: 7 5; }
+.etA.ll rect { fill: #dff5e8; stroke: #2e9e64; stroke-dasharray: none; }
+.etA text { font: 800 26px var(--texto); fill: #1d6b43; text-anchor: middle; }
+.etA .vac { fill: #9a99b5; font-size: 22px; }
+.etA .lin { stroke: #8e8cab; stroke-width: 2; fill: none; } .etA .pt { fill: #ff6b57; }
+.etB rect { fill: #fffdf8; stroke: #c9b48c; stroke-width: 2; }
+.etB.ll rect { fill: #f4fbf3; stroke: #5f9e6e; }
+.etB text { font: 700 26px var(--texto); fill: #3d3426; text-anchor: middle; }
+.etB .vac { fill: #b3a68c; }
+.etB .lin { stroke: #9b8463; stroke-width: 1.6; fill: none; } .etB .pt { fill: #9b8463; }
+.etC rect { fill: rgba(16, 40, 74, .85); stroke: #7cc4ff; stroke-width: 2; }
+.etC.ll rect { stroke: #a8ffd6; }
+.etC text { font: 700 26px var(--texto); fill: #e3f2ff; text-anchor: middle; }
+.etC .vac { fill: #7cc4ff; }
+.etC .lin { stroke: #7cc4ff; stroke-width: 1.6; fill: none; opacity: .8; } .etC .pt { fill: #a8ffd6; }
+
+/* Cuerpos (músculos y viaje) */
+.piel { fill: #f7d5bd; } .pielL { stroke: #f7d5bd; fill: none; stroke-linecap: round; }
+.borde { fill: #b9876a; } .bordeL { stroke: #b9876a; fill: none; stroke-linecap: round; }
+.carne { fill: #b8483e; } .carneL { stroke: #b8483e; fill: none; stroke-linecap: round; }
+.pelo { fill: #6b4128; }
+.ojo { fill: #2b2233; }
+.boca-l { stroke: #8a3b33; stroke-width: 2.4; fill: none; stroke-linecap: round; }
+.mus { fill: url(#gMus); stroke: #7d231c; stroke-width: 1.4; }
+.mus-p { fill: url(#pFib); pointer-events: none; }
+.fib { stroke: #7d231c; stroke-width: 1; fill: none; opacity: .35; stroke-linecap: round; }
+.juego .mus { stroke: #7d231c; }
+.sel .mus { fill: url(#gSel); stroke: #b88400; stroke-width: 2.5; }
+.ventana { fill: none; stroke: #b9876a; stroke-width: 1.4; stroke-dasharray: 3 3; }
+.rot { font: 700 15px var(--texto); fill: #5b6683; text-anchor: middle; }
+.rotM { font: 700 14px var(--texto); fill: #1d2b4f; }
+.rotM-l { stroke: #1d2b4f; stroke-width: 1.2; fill: none; }
+
+/* Viaje */
+.org-boca { fill: #9c2f3a; } .lengua { fill: #e86f7c; }
+.esof { stroke: url(#gTubo); fill: none; stroke-linecap: round; }
+.estom { fill: url(#gEst); stroke: #a6413f; stroke-width: 1.6; }
+.intD { stroke: #f0b2a5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.intDb { stroke: #c97d70; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.intG { stroke: #d99a74; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.intGb { stroke: #9e6445; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.pulmon { fill: #dbe8f7; opacity: .7; }
+.parada circle { fill: #fff; stroke: #1d2b4f; stroke-width: 2; }
+.parada.hecha circle { fill: #2a9d5c; stroke: #1c7442; }
+.parada text { font: 800 13px var(--display); fill: #1d2b4f; text-anchor: middle; }
+.parada.hecha text { fill: #fff; }
+.ruta { stroke: #ffb703; stroke-width: 2.5; stroke-dasharray: 2 6; fill: none; stroke-linecap: round; }
+.bolo { fill: #8bc34a; stroke: #4e7d1c; stroke-width: 2; }
+
+/* Metro */
+.metro { background: #fff; padding: 18px 16px; display: grid; gap: 0; color: #1d2b4f; font-family: var(--texto); }
+.metro-t { font: 800 1.15rem var(--display); margin-bottom: 10px; }
+.est { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 12px; align-items: center; position: relative; min-height: 76px; }
+.est::before { content: ""; position: absolute; left: 25px; top: 0; bottom: 0; width: 6px; background: #f08a24; }
+.est:first-of-type::before { top: 50%; } .est:last-child::before { bottom: 50%; }
+.est.hecha::before { background: #2a9d5c; }
+.est-c { width: 56px; height: 56px; border-radius: 50%; background: #fff; border: 4px solid #f08a24; display: grid; place-items: center; position: relative; z-index: 1; }
+.est.hecha .est-c { border-color: #2a9d5c; }
+.est.aqui .est-c { box-shadow: 0 0 0 6px #fde3c6; }
+.est b { font: 800 1.15rem var(--display); display: block; line-height: 1.1; }
+.est span { font-size: .9rem; color: #5b6683; }
+.est .ya { color: #1c7442; font-weight: 700; }
+.aqui-t { display: inline-block; background: #f08a24; color: #fff; border-radius: 999px; font: 800 .75rem var(--display); padding: 1px 8px; margin-left: 4px; vertical-align: 2px; }
+
+/* Portadas en un móvil */
+.movil { width: min(100%, 320px); margin: 0 auto; border: 8px solid #1d2b4f; border-radius: 34px; overflow: hidden; background: #fff; color: #1d2b4f; font-family: var(--texto); font-size: 14px; line-height: 1.35; }
+.movil h4 { margin: 0; font-family: var(--display); line-height: 1.1; }
+.pt-a { background: #fffaf0; padding: 14px; display: grid; gap: 12px; }
+.saludo { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 8px; align-items: center; }
+.saludo h4 { font-size: 1.25rem; }
+.saludo small { color: #5b6683; display: block; }
+.pts { background: #fff3cc; border: 2px solid #d99a00; border-radius: 999px; font: 800 .9rem var(--display); padding: 2px 10px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.edades { display: flex; gap: 6px; overflow: hidden; }
+.edad { flex: 1; text-align: center; border: 2px solid #d7deeb; border-radius: 12px; padding: 4px 2px; font: 800 .85rem var(--display); background: #fff; }
+.edad small { display: block; font: 400 .65rem var(--texto); color: #5b6683; }
+.edad.on { background: #2f63c9; border-color: #1f4796; color: #fff; }
+.edad.on small { color: #dbe6fb; }
+.reto { background: linear-gradient(135deg, #8b6cf0, #6145cf); color: #fff; border-radius: 16px; padding: 12px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px; align-items: center; }
+.reto small { opacity: .85; display: block; }
+.reto b { font-family: var(--display); font-size: 1.05rem; }
+.mini-b { background: #ffc93c; color: #1d2b4f; border-radius: 10px; font: 800 .85rem var(--display); padding: 6px 10px; }
+.tema { background: #fff; border: 2px solid #d7deeb; border-radius: 16px; padding: 10px; display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 10px; align-items: center; }
+.tema-i { width: 56px; height: 56px; border-radius: 14px; display: grid; place-items: center; background: #f6ecd4; }
+.tema small { color: #5b6683; display: block; font-size: .75rem; text-transform: uppercase; letter-spacing: .06em; }
+.tema h4 { font-size: 1.05rem; }
+.barra { height: 8px; border-radius: 99px; background: #e9eef6; overflow: hidden; margin-top: 6px; }
+.barra i { display: block; height: 100%; background: #2a9d5c; border-radius: 99px; }
+.tema.prox { border-style: dashed; background: transparent; }
+.tema.prox .tema-i { background: #e9eef6; }
+.pt-b { background: linear-gradient(#dff3ff, #f4fbff 40%); padding: 14px; display: grid; gap: 10px; }
+.banda { background: #2a9d5c; color: #fff; border-radius: 16px; padding: 10px 12px; box-shadow: 0 4px 0 #1c7442; }
+.banda small { display: block; opacity: .9; }
+.banda h4 { font-size: 1.15rem; }
+.camino { position: relative; height: 400px; }
+.camino svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.nodo { position: absolute; width: 64px; height: 60px; border-radius: 50%; display: grid; place-items: center; transform: translate(-50%, -50%); background: #ffc93c; box-shadow: 0 6px 0 #d99a00; border: 3px solid #fff; }
+.nodo.hecho { background: #2a9d5c; box-shadow: 0 6px 0 #1c7442; }
+.nodo.cerr { background: #dde1ea; box-shadow: 0 6px 0 #a4abba; }
+.nodo-t { position: absolute; transform: translateX(-50%); font: 800 .8rem var(--display); white-space: nowrap; color: #1d2b4f; }
+.pt-c { background: #f4f6fb; padding: 14px; display: grid; gap: 10px; }
+.cursos { display: flex; gap: 4px; background: #e2e7f1; padding: 4px; border-radius: 12px; }
+.cursos span { flex: 1; text-align: center; padding: 5px 0; border-radius: 9px; font: 800 .85rem var(--display); color: #5b6683; }
+.cursos .on { background: #fff; color: #1d2b4f; box-shadow: 0 1px 3px rgba(29, 43, 79, .15); }
+.asig { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.as { border-radius: 16px; padding: 10px; color: #fff; min-height: 96px; display: grid; align-content: space-between; }
+.as h4 { font-size: 1rem; }
+.as small { opacity: .9; }
+.as-1 { background: #17a99a; } .as-2 { background: #d93b30; } .as-3 { background: #2f63c9; } .as-4 { background: #f08a24; }
+.as.vacia { background: #fff; color: #5b6683; border: 2px dashed #b3bfd6; }
+.sigue { background: #fff; border-radius: 16px; padding: 10px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; align-items: center; border: 1px solid #d7deeb; }
+.sigue small { color: #5b6683; display: block; }
+.pegas { display: flex; gap: 6px; }
+.pega { width: 34px; height: 34px; border-radius: 50%; background: #fff3cc; border: 2px solid #f0d27a; display: grid; place-items: center; }
+.pega.no { background: #e9eef6; border-color: #d7deeb; }
+
+.elegido { background: var(--hoja); border: 2px solid #2a9d5c; border-radius: 14px; padding: 12px 16px; }
+.op.elegida { border: 3px solid #2a9d5c; }
+.ya-el { margin-left: auto; background: #2a9d5c; color: #fff; font: 800 .8rem var(--display); border-radius: 999px; padding: 3px 10px; }
+.comic { background: #fffaf0; padding: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.vin { background: #fff; border: 3px solid #1d2b4f; border-radius: 12px; overflow: hidden; display: grid; }
+.vin svg { display: block; width: 100%; height: auto; }
+.vin p { margin: 0; padding: 6px 8px; font-size: .8rem; line-height: 1.25; color: #1d2b4f; border-top: 2px solid #1d2b4f; background: #fff3cc; }
+.vin p b { font-family: var(--display); }
+.letra { background: #fffaf0; border-radius: 14px; padding: 14px 16px; display: grid; gap: 10px; font-size: 1.05rem; color: #1d2b4f; }
+.letra b { color: #a8520b; }
+.letra .estr { font-family: var(--display); font-weight: 800; font-size: 1.15rem; color: #2f63c9; }
+.pie { color: var(--suave); font-size: .9rem; max-width: 70ch; }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <radialGradient id="gHueso" cx=".35" cy=".3" r=".9"><stop offset="0" stop-color="#fffaf0"/><stop offset=".55" stop-color="#ecdfc2"/><stop offset="1" stop-color="#c9b48c"/></radialGradient>
+    <radialGradient id="gHuesoOk" cx=".35" cy=".3" r=".9"><stop offset="0" stop-color="#f4fff6"/><stop offset=".6" stop-color="#c8ebd0"/><stop offset="1" stop-color="#8fc79c"/></radialGradient>
+    <radialGradient id="gMus" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#ff9a88"/><stop offset=".6" stop-color="#e0574a"/><stop offset="1" stop-color="#a83228"/></radialGradient>
+    <radialGradient id="gSel" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#fff2b0"/><stop offset=".6" stop-color="#ffcf3a"/><stop offset="1" stop-color="#e09a00"/></radialGradient>
+    <radialGradient id="gEst" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#ffc2bb"/><stop offset=".6" stop-color="#ef8a80"/><stop offset="1" stop-color="#c4524c"/></radialGradient>
+    <linearGradient id="gTubo" x1="0" x2="1" y1="0" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="translate(114 0) scale(14 1)"><stop offset="0" stop-color="#d9706b"/><stop offset=".45" stop-color="#ffb4ab"/><stop offset="1" stop-color="#d9706b"/></linearGradient>
+    <pattern id="pFib" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(70)"><line x1="0" y1="0" x2="0" y2="5" stroke="#7d231c" stroke-width="1" opacity=".3"/></pattern>
+    <filter id="fBrillo" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <linearGradient id="gCuerpo" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#e09a00"/><stop offset=".28" stop-color="#ffcf3a"/><stop offset=".42" stop-color="#fff2b0"/><stop offset=".56" stop-color="#ffd44a"/><stop offset="1" stop-color="#d98f00"/></linearGradient>
+    <linearGradient id="gMetal" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#8a93a6"/><stop offset=".4" stop-color="#f4f6fa"/><stop offset=".7" stop-color="#c6ccd8"/><stop offset="1" stop-color="#7f889c"/></linearGradient>
+    <linearGradient id="gGoma" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#e86d88"/><stop offset=".4" stop-color="#ffc4d1"/><stop offset="1" stop-color="#e3647f"/></linearGradient>
+    <linearGradient id="gMadera" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#d4925a"/><stop offset=".45" stop-color="#fbd9ae"/><stop offset="1" stop-color="#c98549"/></linearGradient>
+    <linearGradient id="gMina" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#1d2b4f"/><stop offset=".5" stop-color="#5a6a8f"/><stop offset="1" stop-color="#1d2b4f"/></linearGradient>
+    <g id="punta">
+      <ellipse cx="30" cy="117" rx="16" ry="3" fill="#1d2b4f" opacity=".15"/>
+      <path d="M14 12 Q14 4 22 4 H38 Q46 4 46 12 V19 H14 Z" fill="url(#gGoma)"/>
+      <rect x="13" y="19" width="34" height="10" fill="url(#gMetal)"/>
+      <path d="M13 22.5 H47 M13 25.5 H47" stroke="#7f889c" stroke-width="1"/>
+      <rect x="13" y="29" width="34" height="57" fill="url(#gCuerpo)"/>
+      <path d="M24.5 29 V86 M35.5 29 V86" stroke="#c98a00" stroke-width="1" opacity=".55"/>
+      <path d="M13 86 Q17.5 90.5 22 86 Q26.2 90.5 30 86 Q33.8 90.5 38 86 Q42.5 90.5 47 86 L34 108 L26 108 Z" fill="url(#gMadera)"/>
+      <path d="M26 108 L34 108 L30 116 Z" fill="url(#gMina)"/>
+      <path d="M14 12 Q14 4 22 4 H38 Q46 4 46 12 V19 H47 V86 L30 116 L13 86 V19 H14 Z" fill="none" stroke="#1d2b4f" stroke-width="2.4" stroke-linejoin="round"/>
+      <path d="M18 8 Q20 6 25 6" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".7" fill="none"/>
+      <circle cx="19" cy="60" r="4.5" fill="#ff7a59" opacity=".45"/><circle cx="41" cy="60" r="4.5" fill="#ff7a59" opacity=".45"/>
+      <circle cx="23.5" cy="49" r="3.6" fill="#1d2b4f"/><circle cx="36.5" cy="49" r="3.6" fill="#1d2b4f"/>
+      <circle cx="24.6" cy="47.8" r="1.2" fill="#fff"/><circle cx="37.6" cy="47.8" r="1.2" fill="#fff"/>
+      <path d="M24.5 59 Q30 65 35.5 59" fill="none" stroke="#1d2b4f" stroke-width="2.4" stroke-linecap="round"/>
+    </g>
+
+  </defs>
+</svg>
+
+<div class="wrap">
+  <header class="cab">
+    <h1>Maquetas para elegir</h1>
+    <p>Son solo dibujos para decidir el aspecto. Todavía no se juega con ellos. Cuando elijas, el diseño se apunta en el repositorio y se rehacen los juegos con él.</p>
+    <p class="como"><b>Cómo elegir:</b> dime un código por apartado, por ejemplo «1B, 2A, 3B, 4A». Si te gusta algo de dos opciones, dilo también: «1C pero con las etiquetas de 1B».</p>
+    <p class="elegido"><b>Elegido el 10 de octubre:</b> 1C esqueleto en rayos X · 2A todos los músculos · 3B el camino · 4D cuento en viñetas, con canción.</p>
+  </header>
+
+  <section class="sec">
+    <div class="sec-cab">
+      <span class="num">Apartado 1</span>
+      <h2>El esqueleto</h2>
+      <p>El de ahora era de palitos. Las tres opciones usan el dibujo de El Esqueleto Curioso, con mandíbula, esternón, rótula, manos y pies. Cambia cómo se pinta.</p>
+    </div>
+    <div class="ops">
+      <article class="op">
+        <div class="op-cab"><span class="cod">1A</span><h3>El Esqueleto Curioso</h3></div>
+        <div class="lam l-a"><svg id="esqA" viewBox="-170 10 740 850" role="img" aria-label="Esqueleto con contorno grueso, estilo dibujo animado"></svg></div>
+        <p>El que ya te gustó: contorno grueso, hueso color crema y etiquetas con línea hasta el hueso.</p>
+        <p class="pq">Para 5-8 años. Se ve muy claro en el móvil.</p>
+      </article>
+      <article class="op">
+        <div class="op-cab"><span class="cod">1B</span><h3>Lámina de museo</h3></div>
+        <div class="lam l-b"><svg id="esqB" viewBox="-170 10 740 850" role="img" aria-label="Esqueleto con volumen y luz, como una lámina de ciencias"></svg></div>
+        <p>El mismo esqueleto con luz y sombra, como un hueso de verdad. Contorno fino y etiquetas tranquilas.</p>
+        <p class="pq">Es la más realista. Sirve igual para 6 años que para 12.</p>
+      </article>
+      <article class="op elegida">
+        <div class="op-cab"><span class="cod">1C</span><h3>Rayos X</h3><span class="ya-el">Elegida</span></div>
+        <div class="lam l-c"><svg id="esqC" viewBox="-170 10 740 850" role="img" aria-label="Esqueleto brillante dentro de la silueta de un niño, como una radiografía"></svg></div>
+        <p>Los huesos brillan dentro de la silueta de un niño, como en el médico. Se entiende que los huesos están dentro de nosotros.</p>
+        <p class="pq">La más llamativa. Fondo oscuro, así que se lee algo peor a pleno sol.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-cab">
+      <span class="num">Apartado 2</span>
+      <h2>Los músculos</h2>
+      <p>Músculos con su forma de verdad: el bíceps abultado, el pectoral en abanico, los abdominales en cuadritos y el gemelo con sus dos partes. La cara y el pelo siguen siendo de niño. En amarillo, el músculo que se acaba de tocar.</p>
+    </div>
+    <div class="ops">
+      <article class="op elegida">
+        <div class="op-cab"><span class="cod">2A</span><h3>Todos los músculos</h3><span class="ya-el">Elegida</span></div>
+        <div class="lam l-m"><svg id="musA" viewBox="0 0 500 500" role="img" aria-label="Niño de frente y de espaldas con todos los músculos dibujados"></svg></div>
+        <p>Como la lámina de clase: todo el cuerpo con músculos y fibras. Los cinco del cuaderno se pueden tocar. Los demás son decorado.</p>
+        <p class="pq">Más real. Hay más cosas que mirar, y a los 6 años puede despistar.</p>
+      </article>
+      <article class="op">
+        <div class="op-cab"><span class="cod">2B</span><h3>Piel con ventanas</h3></div>
+        <div class="lam l-m"><svg id="musB" viewBox="0 0 500 500" role="img" aria-label="Niño con piel y solo los cinco músculos del tema a la vista"></svg></div>
+        <p>El niño con su piel y solo los cinco músculos del cuaderno a la vista, con forma y fibras reales, como si se viera a través.</p>
+        <p class="pq">Más fácil para 6-7 años. Se ve qué hay que aprender.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-cab">
+      <span class="num">Apartado 3</span>
+      <h2>La portada</h2>
+      <p>La pantalla de inicio de la web. Las tres opciones llevan lo decidido: se elige la edad, va por curso, tienen puntos, pegatinas y reto del día. Se ven como en un móvil, que es donde más se usará.</p>
+    </div>
+    <div class="ops">
+      <article class="op">
+        <div class="op-cab"><span class="cod">3A</span><h3>Pupitre ordenado</h3></div>
+        <div class="movil"><div class="pt-a">
+          <div class="saludo"><svg viewBox="0 0 60 120" width="30" height="60" aria-hidden="true"><use href="#punta"/></svg><div><h4>¡Hola, Daniela!</h4><small>1º de Primaria</small></div><span class="pts">★ 240</span></div>
+          <div class="edades"><span class="edad">3-5<small>Infantil</small></span><span class="edad on">6-7<small>1º-2º</small></span><span class="edad">8-9<small>3º-4º</small></span><span class="edad">10-12<small>5º-6º</small></span></div>
+          <div class="reto"><div><small>Reto del día</small><b>Escribe los tres huesos de la pierna</b></div><span class="mini-b">Ir</span></div>
+          <div class="tema"><span class="tema-i"><svg viewBox="0 0 64 64" width="40" height="40" aria-hidden="true"><g transform="rotate(-40 32 32)"><rect x="10" y="25" width="44" height="14" rx="7" fill="#8a7350"/><circle cx="13" cy="25" r="9" fill="#8a7350"/><circle cx="13" cy="39" r="9" fill="#8a7350"/><circle cx="51" cy="25" r="9" fill="#8a7350"/><circle cx="51" cy="39" r="9" fill="#8a7350"/><rect x="12" y="27" width="40" height="10" rx="5" fill="#fffaf0"/><circle cx="13" cy="25" r="7" fill="#fffaf0"/><circle cx="13" cy="39" r="7" fill="#fffaf0"/><circle cx="51" cy="25" r="7" fill="#fffaf0"/><circle cx="51" cy="39" r="7" fill="#fffaf0"/></g></svg></span><div><small>C. del Medio · Tema 1</small><h4>Mi cuerpo por dentro</h4><div class="barra"><i style="width:50%"></i></div></div></div>
+          <div class="tema prox"><span class="tema-i"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="#a4abba" stroke-width="3" stroke-linecap="round"/></svg></span><div><small>Siguiente tema</small><h4>Llega con las fotos del cuaderno</h4></div></div>
+        </div></div>
+        <p>Limpio y ordenado: saludo, edad, reto del día y la lista de temas con lo que falta de cada uno.</p>
+        <p class="pq">Funciona de 6 a 12 años. Es la más fácil de mantener.</p>
+      </article>
+      <article class="op elegida">
+        <div class="op-cab"><span class="cod">3B</span><h3>El camino</h3><span class="ya-el">Elegida</span></div>
+        <div class="movil"><div class="pt-b">
+          <div class="saludo"><svg viewBox="0 0 60 120" width="30" height="60" aria-hidden="true"><use href="#punta"/></svg><div><h4>¡A jugar!</h4><small>6-7 años · 1º</small></div><span class="pts">★ 240</span></div>
+          <div class="banda"><small>Tema 1 · Conocimiento del Medio</small><h4>Mi cuerpo por dentro</h4></div>
+          <div class="camino" id="camino"></div>
+        </div></div>
+        <p>Cada tema es un camino de paradas, una por juego. Punta espera en la siguiente. Al final está el reto de escribir.</p>
+        <p class="pq">La que más engancha a 5-7 años. Con muchos temas hay que bajar mucho.</p>
+      </article>
+      <article class="op">
+        <div class="op-cab"><span class="cod">3C</span><h3>Asignaturas</h3></div>
+        <div class="movil"><div class="pt-c">
+          <div class="saludo"><svg viewBox="0 0 60 120" width="30" height="60" aria-hidden="true"><use href="#punta"/></svg><div><h4>Daniela</h4><small>6-7 años</small></div><span class="pts">★ 240</span></div>
+          <div class="cursos"><span class="on">1º</span><span>2º</span></div>
+          <div class="sigue"><div><small>Sigue donde lo dejaste</small><b>Pon nombre a los huesos</b></div><span class="mini-b">Seguir</span></div>
+          <div class="asig">
+            <div class="as as-1"><h4>Conocimiento del Medio</h4><small>1 tema · 9 de 18 ★</small></div>
+            <div class="as vacia"><h4>Lengua</h4><small>Sin temas aún</small></div>
+            <div class="as vacia"><h4>Matemáticas</h4><small>Sin temas aún</small></div>
+            <div class="as vacia"><h4>Inglés</h4><small>Sin temas aún</small></div>
+          </div>
+          <div><small style="color:#5b6683">Pegatinas del tema</small><div class="pegas"><span class="pega">🦴</span><span class="pega">💪</span><span class="pega no"></span><span class="pega no"></span><span class="pega no"></span></div></div>
+        </div></div>
+        <p>Por asignaturas, como el horario del cole. «Sigue donde lo dejaste» arriba y las pegatinas abajo.</p>
+        <p class="pq">La que mejor crece hasta 12 años y muchos temas. Para 5 años es menos divertida.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-cab">
+      <span class="num">Apartado 4</span>
+      <h2>El viaje de la comida</h2>
+      <p>Elige una de las cuatro. Las cuatro paradas del cuaderno: boca, esófago, estómago y ano. El intestino se dibuja para que el camino sea de verdad, pero no es parada porque no está en el cuaderno.</p>
+    </div>
+    <div class="ops dos">
+      <article class="op">
+        <div class="op-cab"><span class="cod">4A</span><h3>Por dentro del cuerpo</h3></div>
+        <div class="lam l-m"><svg id="viaA" viewBox="0 0 430 440" role="img" aria-label="Niño con el aparato digestivo dibujado por dentro y la comida bajando por el esófago"></svg></div>
+        <p>Los órganos con su forma y su volumen: el esófago como un tubo, el estómago en forma de bolsa y el intestino enrollado. Un trozo de manzana va bajando parada a parada.</p>
+        <p class="pq">Realista y fácil de seguir con el dedo.</p>
+      </article>
+      <article class="op">
+        <div class="op-cab"><span class="cod">4B</span><h3>Línea de metro</h3></div>
+        <div class="lam" style="border:1px solid #d7deeb">
+          <div class="metro">
+            <p class="metro-t">El viaje de la manzana</p>
+            <div class="est hecha"><span class="est-c" id="mi1"></span><div><b>Boca</b><span class="ya">✓ Masticamos la comida.</span></div></div>
+            <div class="est aqui"><span class="est-c" id="mi2"></span><div><b>Esófago <span class="aqui-t">Estás aquí</span></b><span>Es un tubo que baja la comida.</span></div></div>
+            <div class="est"><span class="est-c" id="mi3"></span><div><b>Estómago</b><span>¿Qué pasa aquí?</span></div></div>
+            <div class="est"><span class="est-c" id="mi4"></span><div><b>Ano</b><span>Fin del viaje.</span></div></div>
+          </div>
+        </div>
+        <p>Un plano de metro con un dibujo de cada órgano en su estación. Moderno y muy claro: se ve el orden de un vistazo.</p>
+        <p class="pq">Más esquema que cuerpo. Puede ir junto a 4A como resumen al acabar.</p>
+      </article>
+      <article class="op">
+        <div class="op-cab"><span class="cod">4C</span><h3>Rayos X de perfil</h3></div>
+        <div class="lam l-c"><svg id="viaC" viewBox="0 0 400 440" role="img" aria-label="Niño de perfil en rayos X con el camino de la comida brillando por dentro"></svg></div>
+        <p>El mismo mundo que el esqueleto elegido: el niño de lado, en rayos X, y el tubo de la comida brillando de la boca al final. De lado se ve muy bien que la comida baja.</p>
+        <p class="pq">Encaja con 1C, así todo el tema se ve igual.</p>
+      </article>
+      <article class="op elegida">
+        <div class="op-cab"><span class="cod">4D</span><h3>Cuento en viñetas</h3><span class="ya-el">Elegida</span></div>
+        <div class="lam" style="border:1px solid #d7deeb"><div class="comic" id="viaD"></div></div>
+        <p>La manzana es la protagonista y cada parada es una viñeta de cómic, de cerca. El juego es poner las viñetas en orden y luego leer el cuento entero.</p>
+        <p class="pq">La más divertida para 5-7 años. Enseña cada órgano de cerca, pero no dónde está en el cuerpo.</p>
+      </article>
+      <article class="op elegida">
+        <div class="op-cab"><span class="cod">♪</span><h3>La canción de la manzana</h3></div>
+        <div class="letra">
+          <p>En la boca, ñam, ñam, ñam,<br><b>masticamos la comida.</b></p>
+          <p>El esófago <b>es un tubo<br>que baja la comida.</b></p>
+          <p>En el estómago, chof, chof,<br><b>aquí la comida se deshace.</b></p>
+          <p>Y por el ano, al final,<br><b>sale lo que el cuerpo no usa.</b></p>
+          <p class="estr">¡Boca, esófago, estómago y ano!</p>
+        </div>
+        <p>Va después de ordenar las viñetas. La letra se ilumina mientras suena. En negrita, las frases del cuaderno, sin cambiar ni una palabra. La melodía es propia, con los sonidos del navegador.</p>
+        <p class="pq">Y luego, a escribir: «Escribe en tu cuaderno las cuatro paradas en orden».</p>
+      </article>
+    </div>
+  </section>
+
+  <p class="pie">Todos los dibujos son propios, hechos para Juega con Daniela. No se copia ninguna lámina del libro.</p>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var MIR = 'translate(400,0) scale(-1,1)';
+
+  /* ---------- El esqueleto (geometría de El Esqueleto Curioso) ---------- */
+  function partes() {
+    var B = [], sp = [], sd = [], i;
+    for (i = 0; i < 5; i++) sp.push(['r', 190, 186 + i * 9, 20, 7, 3]);
+    for (i = 0; i < 12; i++) { var tw = 22 + i * 0.5; sp.push(['r', 200 - tw / 2, 234 + i * 13.2, tw, 11, 3]); }
+    for (i = 0; i < 5; i++) {
+      var ly = 392 + i * 13;
+      sp.push(['l', 186, ly + 6, 171, ly + 4, 4], ['l', 214, ly + 6, 229, ly + 4, 4], ['r', 185, ly, 30, 11.5, 4]);
+      sd.push(['p', 'M200 ' + (ly + 2) + 'V' + (ly + 9.5), 'det']);
+    }
+    B.push({ id: 'columna', p: sp, d: sd });
+    B.push({ id: 'pelvis', m: 1, p: [['p', 'M194,458 C182,446 160,440 142,444 C128,448 122,462 126,478 C130,492 140,500 146,508 L150,516 C150,530 156,544 170,548 C182,551 192,546 198,538 L198,524 C190,522 184,518 180,510 C178,500 184,488 190,480 Z']],
+      d: [['e', 170, 529, 10, 7, 'hole'], ['p', 'M136,462 Q152,450 178,456', 'det'], ['p', 'M140,476 Q156,468 176,472', 'det']] });
+    B.push({ id: 'pelvis', p: [['p', 'M186,456 L214,456 L210,490 L204,508 L200,514 L196,508 L190,490 Z']],
+      d: [['c', 194, 468, 2.2, 'hole'], ['c', 206, 468, 2.2, 'hole'], ['c', 195, 481, 2, 'hole'], ['c', 205, 481, 2, 'hole'], ['c', 197, 493, 1.8, 'hole'], ['c', 203, 493, 1.8, 'hole']] });
+    B.push({ id: 'femur', m: 1, p: [['c', 150, 512, 10], ['l', 150, 514, 138, 526, 10], ['c', 135, 527, 8], ['l', 141, 530, 164, 684, 13], ['p', 'M146,680 C150,674 178,674 182,680 L184,694 C178,702 150,702 144,694 Z']], d: [['p', 'M164,690 L164,701', 'det']] });
+    B.push({ id: 'perone', m: 1, p: [['c', 147, 721, 5], ['l', 147, 724, 149, 812, 5], ['e', 149, 817, 4.5, 7]] });
+    B.push({ id: 'tibia', m: 1, p: [['p', 'M146,706 C152,701 178,701 184,706 L178,722 L152,722 Z'], ['l', 165, 720, 163, 810, 11], ['e', 165, 814, 9, 6], ['c', 172, 815, 4.5]] });
+    var pie = [['e', 160, 826, 17, 8]];
+    [[147, 830, 139, 845], [153, 831, 148, 846], [159, 831, 157, 847], [165, 831, 166, 847], [171, 830, 176, 846]].forEach(function (m, k) {
+      pie.push(['l', m[0], m[1], m[2], m[3], k === 4 ? 5 : 4]);
+      pie.push(['l', m[2], m[3] + 4, m[2] + (k < 2 ? -1.5 : k === 4 ? 1.5 : 0), m[3] + 9, k === 4 ? 4.5 : 3.4]);
+    });
+    B.push({ id: 'pie', m: 1, p: pie });
+    B.push({ id: 'rotula', m: 1, p: [['e', 164, 694, 9, 11]], d: [['p', 'M160,690 Q164,686 168,690', 'det']] });
+    var ribW = [40, 50, 57, 62, 65, 66, 66, 63, 58], ribs = [];
+    for (i = 0; i < ribW.length; i++) {
+      var w = ribW[i], sx, sy;
+      if (i < 7) { sx = 192; sy = 246 + i * 13; } else { sx = 184 - (i - 7) * 8; sy = 336 + (i - 7) * 10; }
+      var lx = 200 - w;
+      ribs.push(['s', 'M' + sx + ',' + sy + ' Q' + (sx - (sx - lx) * 0.75).toFixed(1) + ',' + (sy - 9) + ' ' + lx + ',' + (sy + 14) + ' Q' + (lx + 1) + ',' + (sy + 24) + ' ' + (lx + 7) + ',' + (sy + 30), 6]);
+    }
+    B.push({ id: 'costillas', m: 1, p: ribs });
+    B.push({ id: 'esternon', p: [['p', 'M191,236 L209,236 L211,251 L207,256 L207,322 C207,330 204,336 200,340 C196,336 193,330 193,322 L193,256 L189,251 Z'], ['p', 'M197,338 L203,338 L200,351 Z']], d: [['p', 'M193,256 L207,256', 'det']] });
+    B.push({ id: 'clavicula', m: 1, p: [['s', 'M194,238 C176,242 164,226 132,230', 7]] });
+    var cd = [['p', 'M150,86 Q170,68 200,64 Q230,68 250,86', 'det'], ['e', 183, 98, 14, 12, 'hole'], ['e', 217, 98, 14, 12, 'hole'], ['p', 'M200,110 L192,130 Q200,135 208,130 Z', 'hole'], ['p', 'M154,118 Q166,126 173,114', 'det'], ['p', 'M246,118 Q234,126 227,114', 'det']];
+    for (i = 0; i < 6; i++) cd.push(['r', 182 + i * 6.2, 143, 5.4, 9, 1.5, 'tooth']);
+    B.push({ id: 'craneo', p: [['p', 'M200,22 C243,22 263,54 261,90 C260,106 255,116 250,124 L247,140 C245,148 238,152 230,152 L170,152 C162,152 155,148 153,140 L150,124 C145,116 140,106 139,90 C137,54 157,22 200,22 Z']], d: cd });
+    var jd = [];
+    for (i = 0; i < 6; i++) jd.push(['r', 182 + i * 6.2, 152, 5.4, 8.5, 1.5, 'tooth']);
+    jd.push(['c', 172, 176, 1.8, 'hole'], ['c', 228, 176, 1.8, 'hole']);
+    B.push({ id: 'mandibula', p: [['p', 'M150,126 C150,150 152,166 160,178 C170,192 186,198 200,198 C214,198 230,192 240,178 C248,166 250,150 250,126 L242,128 C242,146 238,156 230,160 L170,160 C162,156 158,146 158,128 Z']], d: jd });
+    B.push({ id: 'humero', m: 1, p: [['c', 130, 238, 11], ['l', 128, 246, 115, 372, 12], ['p', 'M101,372 C105,366 125,366 130,372 L127,386 C120,391 110,391 104,386 Z']] });
+    B.push({ id: 'cubito', m: 1, p: [['c', 122, 392, 6], ['l', 122, 396, 116, 500, 7], ['c', 116, 502, 4]] });
+    B.push({ id: 'radio', m: 1, p: [['c', 106, 394, 5], ['l', 106, 398, 98, 500, 7], ['e', 98, 503, 7, 4.5]] });
+    B.push({ id: 'mano', m: 1, p: [['e', 107, 513, 14, 8], ['l', 100, 518, 94, 540, 4], ['l', 105, 519, 101, 541, 4], ['l', 110, 519, 109, 542, 4], ['l', 115, 518, 117, 540, 4], ['l', 97, 515, 87, 532, 4.5]] });
+    var fg = [];
+    [94, 101, 109, 117].forEach(function (x, k) {
+      var c = k === 3 ? 3 : 0;
+      fg.push(['l', x, 544, x - 1, 553 - c, 3.4], ['l', x - 1, 556 - c, x - 1.5, 562 - c, 3], ['l', x - 1.5, 565 - c, x - 2, 569 - c, 2.6]);
+    });
+    fg.push(['l', 86, 535, 81, 545, 3.6], ['l', 80, 548, 77, 554, 3]);
+    B.push({ id: 'falanges', m: 1, p: fg });
+    return B;
+  }
+
+  function forma(p, cls, sw) {
+    var t = p[0], lin = (t === 'l' || t === 's'), c = cls + (lin ? 'L' : 'S');
+    var k = p[p.length - 1], extra = (typeof k === 'string' && t !== 's' && t !== 'p') || (t === 'p' && p.length > 2) ? '' : '';
+    if (t === 'l') return '<line class="' + c + '" x1="' + p[1] + '" y1="' + p[2] + '" x2="' + p[3] + '" y2="' + p[4] + '" stroke-width="' + sw(p[5]) + '"/>';
+    if (t === 's') return '<path class="' + c + '" d="' + p[1] + '" stroke-width="' + sw(p[2]) + '"/>';
+    if (t === 'p') return '<path class="' + c + '" d="' + p[1] + '"/>';
+    if (t === 'c') return '<circle class="' + c + '" cx="' + p[1] + '" cy="' + p[2] + '" r="' + p[3] + '"/>';
+    if (t === 'e') return '<ellipse class="' + c + '" cx="' + p[1] + '" cy="' + p[2] + '" rx="' + p[3] + '" ry="' + p[4] + '"/>';
+    return '<rect class="' + c + '" x="' + p[1] + '" y="' + p[2] + '" width="' + p[3] + '" height="' + p[4] + '" rx="' + (p[5] || 0) + '"/>' + extra;
+  }
+  function detalle(d) {
+    var t = d[0], c = d[d.length - 1];
+    if (t === 'p') return '<path class="' + c + '" d="' + d[1] + '"/>';
+    if (t === 'c') return '<circle class="' + c + '" cx="' + d[1] + '" cy="' + d[2] + '" r="' + d[3] + '"/>';
+    if (t === 'e') return '<ellipse class="' + c + '" cx="' + d[1] + '" cy="' + d[2] + '" rx="' + d[3] + '" ry="' + d[4] + '"/>';
+    return '<rect class="' + c + '" x="' + d[1] + '" y="' + d[2] + '" width="' + d[3] + '" height="' + d[4] + '" rx="' + d[5] + '"/>';
+  }
+  function esqueleto(piel, hechos) {
+    var ow = { A: 4.4, B: 2, C: 4 }[piel], s = '';
+    partes().forEach(function (b) {
+      var g = '';
+      b.p.forEach(function (p) { g += forma(p, 'o', function (w) { return w + ow; }); });
+      b.p.forEach(function (p) { g += forma(p, 'f', function (w) { return w; }); });
+      if (piel !== 'A') b.p.forEach(function (p) { if (p[0] === 'l' || p[0] === 's') g += forma(p, 'h', function (w) { return Math.max(1, w * 0.3); }).replace('<', '<g transform="translate(-1 -1)"><') + '</g>'; });
+      (b.d || []).forEach(function (d) { g += detalle(d); });
+      var cl = hechos.indexOf(b.id) >= 0 ? ' class="ok"' : '';
+      s += '<g' + cl + '>' + g + '</g>';
+      if (b.m) s += '<g' + cl + ' transform="' + MIR + '">' + g + '</g>';
+    });
+    return s;
+  }
+  function silueta() {
+    var h = '<line x1="130" y1="236" x2="115" y2="382" stroke-width="40"/><line x1="113" y1="390" x2="100" y2="505" stroke-width="32"/><ellipse cx="104" cy="536" rx="22" ry="36"/>' +
+      '<line x1="152" y1="520" x2="164" y2="692" stroke-width="58"/><line x1="163" y1="700" x2="157" y2="815" stroke-width="44"/><ellipse cx="160" cy="834" rx="30" ry="14"/>';
+    var c = '<ellipse cx="200" cy="108" rx="78" ry="98"/><rect x="176" y="190" width="48" height="50"/>' +
+      '<path d="M124 232 C150 220 250 220 276 232 C286 300 282 380 270 450 C292 480 290 524 262 544 L138 544 C110 524 108 480 130 450 C118 380 114 300 124 232 Z"/>' + h + '<g transform="' + MIR + '">' + h + '</g>';
+    return '<g opacity=".55" fill="none" stroke="#7cc4ff" stroke-width="6" stroke-linecap="round">' + c.replace(/stroke-width="(\d+)"/g, function (m, n) { return 'stroke-width="' + (+n + 6) + '"'; }) + '</g>' +
+      '<g opacity=".9" fill="#21497e" stroke="#21497e" stroke-linecap="round">' + c + '</g>';
+  }
+  var ETIQ = [
+    ['Cráneo', 'craneo', 'L', 70, 158, 66], ['Costillas', 'costillas', 'L', 290, 137, 310], ['Pelvis', null, 'L', 490, 136, 466], ['Peroné', null, 'L', 770, 147, 772],
+    ['Húmero', 'humero', 'R', 300, 278, 310], ['Columna vertebral', null, 'R', 420, 212, 423], ['Fémur', 'femur', 'R', 620, 247, 610], ['Tibia', null, 'R', 760, 236, 770]
+  ];
+  function etiquetas(est) {
+    var s = '';
+    ETIQ.forEach(function (e) {
+      var izq = e[2] === 'L', x = izq ? -160 : 410, w = 150, y = e[3], lleno = !!e[1];
+      var ex = izq ? x + w : x, kx = izq ? ex + 14 : ex - 14;
+      var tx = e[0] === 'Columna vertebral' ? 'Columna' : e[0];
+      s += '<g class="' + est + (lleno ? ' ll' : '') + '"><polyline class="lin" points="' + e[4] + ',' + e[5] + ' ' + kx + ',' + y + ' ' + ex + ',' + y + '"/><circle class="pt" cx="' + e[4] + '" cy="' + e[5] + '" r="5"/>' +
+        '<rect x="' + x + '" y="' + (y - 22) + '" width="' + w + '" height="44" rx="12"/>' +
+        '<text x="' + (x + w / 2) + '" y="' + (y + 9) + '"' + (lleno ? '' : ' class="vac"') + '>' + (lleno ? tx : '?') + '</text></g>';
+    });
+    return s;
+  }
+  var HECHOS = ['craneo', 'costillas', 'humero', 'femur'];
+  document.getElementById('esqA').innerHTML = '<g class="skA">' + esqueleto('A', HECHOS) + '</g>' + etiquetas('etA');
+  document.getElementById('esqB').innerHTML = '<g class="skB" style="filter:drop-shadow(3px 6px 5px rgba(90,70,40,.25))">' + esqueleto('B', HECHOS) + '</g>' + etiquetas('etB');
+  document.getElementById('esqC').innerHTML = silueta() + '<g class="skC" filter="url(#fBrillo)">' + esqueleto('C', HECHOS) + '</g>' + etiquetas('etC');
+
+  /* ---------- Los músculos ---------- */
+  var MF = 'translate(240,0) scale(-1,1)';
+  function seg(x1, y1, x2, y2, w) {
+    var dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy), a = Math.atan2(-dx, dy) * 180 / Math.PI;
+    var s = '<g transform="translate(' + ((x1 + x2) / 2) + ' ' + ((y1 + y2) / 2) + ') rotate(' + a.toFixed(1) + ')"><ellipse class="mus" rx="' + (w / 2) + '" ry="' + (L / 2) + '"/>';
+    for (var k = -1; k <= 1; k++) s += '<path class="fib" d="M' + (k * w / 4) + ' ' + (-L * 0.38) + ' Q' + (k * w / 3) + ' 0 ' + (k * w / 4) + ' ' + (L * 0.38) + '"/>';
+    return s + '</g>';
+  }
+  function mp(d) { return '<path class="mus" d="' + d + '"/><path class="mus-p" d="' + d + '"/>'; }
+  var TORSO = 'M86 106 C100 100 140 100 154 106 C164 140 160 190 152 226 C158 240 158 252 152 262 L88 262 C82 252 82 240 88 226 C80 190 76 140 86 106 Z';
+  function medio(cls, mas) {
+    return '<line class="' + cls + 'L" x1="86" y1="114" x2="70" y2="196" stroke-width="' + (28 + mas) + '"/><line class="' + cls + 'L" x1="70" y1="196" x2="60" y2="272" stroke-width="' + (22 + mas) + '"/>' +
+      '<line class="' + cls + 'L" x1="102" y1="252" x2="98" y2="368" stroke-width="' + (36 + mas) + '"/><line class="' + cls + 'L" x1="98" y1="368" x2="98" y2="452" stroke-width="' + (28 + mas) + '"/>';
+  }
+  function extremos(cls, mas) {
+    var r = mas / 2;
+    return '<circle class="' + cls + '" cx="58" cy="286" r="' + (12 + r) + '"/><ellipse class="' + cls + '" cx="94" cy="464" rx="' + (18 + r) + '" ry="' + (9 + r) + '"/>';
+  }
+  function cuerpo(cuerpoCls) {
+    var s = '<path class="borde" d="' + TORSO + '" stroke="#b9876a" stroke-width="5"/>' + medio('borde', 5) + '<g transform="' + MF + '">' + medio('borde', 5) + '</g>' +
+      extremos('borde', 5) + '<g transform="' + MF + '">' + extremos('borde', 5) + '</g><circle class="borde" cx="120" cy="52" r="42.5"/><rect class="borde" x="105.5" y="84" width="29" height="26"/>';
+    s += '<path class="' + cuerpoCls + '" d="' + TORSO + '"/>' + medio(cuerpoCls, 0) + '<g transform="' + MF + '">' + medio(cuerpoCls, 0) + '</g>';
+    s += extremos('piel', 0) + '<g transform="' + MF + '">' + extremos('piel', 0) + '</g><rect class="piel" x="108" y="84" width="24" height="26"/><circle class="piel" cx="120" cy="52" r="40"/>';
+    return s;
+  }
+  function delante(todos) {
+    var m = '';
+    if (todos) m += mp('M100 106 C88 104 76 108 74 122 C73 134 75 142 78 150 C82 136 88 126 98 120 Z') + seg(68, 204, 61, 262, 16) +
+      mp('M101 150 C93 170 91 200 95 226 L105 232 L105 152 Z') + mp('M90 262 C84 300 86 330 92 352 C98 360 106 358 110 350 C114 320 114 290 112 262 Z') + seg(95, 382, 97, 440, 12);
+    var pec = '<g class="juego">' + mp('M118 112 C106 108 96 112 92 120 C90 130 94 142 104 146 C110 147 116 145 118 142 Z') + '</g>';
+    var bic = seg(83, 128, 72, 186, 18);
+    var abd = '';
+    [152, 176, 200].forEach(function (y) { abd += '<rect class="mus" x="106" y="' + y + '" width="13" height="21" rx="5"/>'; });
+    var s = m + pec + '<g class="juego">' + abd + '</g>' + '<g class="juego sel">' + bic + '</g>';
+    return s + '<g transform="' + MF + '">' + m + pec + '<g class="juego">' + abd + '</g><g class="juego">' + bic + '</g></g>';
+  }
+  function detras(todos) {
+    var m = '';
+    if (todos) m += mp('M120 90 L104 100 L86 110 C100 116 110 132 120 172 Z') + mp('M100 106 C88 104 76 108 74 122 C73 134 75 142 78 150 C82 136 88 126 98 120 Z') +
+      seg(83, 128, 73, 186, 18) + seg(68, 204, 61, 262, 16) + mp('M118 174 C108 152 96 138 88 134 C86 162 90 196 100 218 L118 226 Z') + seg(104, 288, 100, 354, 26);
+    var glu = '<g class="juego">' + mp('M120 234 C108 230 92 234 90 250 C90 268 104 278 120 274 Z') + '</g>';
+    var gem = '<g class="juego">' + seg(92, 376, 94, 422, 13) + seg(104, 376, 102, 422, 13) + '</g>';
+    var s = m + glu + gem;
+    return s + '<g transform="' + MF + '">' + s + '</g>';
+  }
+  function cara() {
+    return '<path class="pelo" d="M80 50 C78 14 162 14 160 50 C152 34 134 28 120 36 C104 28 88 34 80 50 Z"/><circle class="ojo" cx="106" cy="56" r="4"/><circle class="ojo" cx="134" cy="56" r="4"/>' +
+      '<circle cx="107.3" cy="54.6" r="1.3" fill="#fff"/><circle cx="135.3" cy="54.6" r="1.3" fill="#fff"/><path class="boca-l" d="M110 72 Q120 80 130 72"/><circle cx="98" cy="68" r="5" fill="#ff8a7a" opacity=".35"/><circle cx="142" cy="68" r="5" fill="#ff8a7a" opacity=".35"/>';
+  }
+  function nuca() { return '<path class="pelo" d="M80 56 C76 10 164 10 160 56 C160 72 154 84 148 88 C140 78 100 78 92 88 C86 84 80 72 80 56 Z"/>'; }
+  function rotulo(x, y, x2, y2, t, izq) {
+    return '<path class="rotM-l" d="M' + x + ' ' + y + ' L' + x2 + ' ' + y2 + '"/><circle cx="' + x + '" cy="' + y + '" r="2.5" fill="#1d2b4f"/><text class="rotM" x="' + (izq ? x2 - 4 : x2 + 4) + '" y="' + (y2 + 5) + '" text-anchor="' + (izq ? 'end' : 'start') + '">' + t + '</text>';
+  }
+  function figuras(todos) {
+    var base = todos ? 'carne' : 'piel';
+    var s = '<g transform="translate(5 10)">' + cuerpo(base) + delante(todos) + cara() + '<text class="rot" x="120" y="488">De frente</text></g>';
+    s += '<g transform="translate(255 10)">' + cuerpo(base) + detras(todos) + nuca() + '<text class="rot" x="120" y="488">De espaldas</text></g>';
+    s += '<rect x="0" y="100" width="64" height="26" rx="8" fill="#fff3cc" stroke="#d99a00" stroke-width="1.5"/><text class="rotM" x="32" y="118" text-anchor="middle">bíceps</text>';
+    return s;
+  }
+  document.getElementById('musA').innerHTML = figuras(true);
+  document.getElementById('musB').innerHTML = figuras(false);
+
+  /* ---------- El viaje de la comida ---------- */
+  function viaje() {
+    var T = 'M64 128 C92 112 148 112 176 128 C188 220 186 330 174 410 L66 410 C54 330 52 220 64 128 Z';
+    var s = '<g transform="translate(60 0)">';
+    s += '<path d="' + T + '" fill="#b9876a" stroke="#b9876a" stroke-width="6" stroke-linejoin="round"/><circle cx="120" cy="62" r="50.5" fill="#b9876a"/><rect x="104" y="100" width="32" height="26" fill="#b9876a"/>';
+    s += '<path d="' + T + '" fill="#f7d5bd"/><rect x="106" y="100" width="28" height="30" fill="#f7d5bd"/><circle cx="120" cy="62" r="48" fill="#f7d5bd"/>';
+    s += '<path class="pelo" d="M72 60 C70 16 170 16 168 60 C158 40 136 32 120 40 C104 32 82 40 72 60 Z"/>';
+    s += '<circle class="ojo" cx="104" cy="62" r="4.5"/><circle class="ojo" cx="136" cy="62" r="4.5"/>';
+    s += '<path class="pulmon" d="M114 140 C96 136 76 150 74 190 C74 214 86 222 112 214 Z"/><path class="pulmon" d="M126 140 C144 136 164 150 166 190 C166 200 164 206 160 210 L128 206 Z"/>';
+    s += '<path d="M120 96 L120 140 Q120 170 126 192" class="esof" stroke-width="12" stroke="#b05650"/><path d="M120 96 L120 140 Q120 170 126 192" class="esof" stroke-width="8"/>';
+    s += '<path class="estom" d="M124 186 C150 170 176 190 172 222 C168 252 142 264 120 254 C106 247 106 233 118 229 C132 225 140 219 138 207 C137 199 130 195 124 192 Z"/>';
+    s += '<path d="M126 196 C134 210 150 222 164 222" fill="none" stroke="#c4524c" stroke-width="1" opacity=".5"/>';
+    var g = 'M98 362 L96 292 C96 278 102 272 114 272 L132 272 C144 272 150 278 150 292 L148 350 C148 362 138 368 126 370 L120 396';
+    s += '<path class="intGb" d="' + g + '" stroke-width="18"/><path class="intG" d="' + g + '" stroke-width="14"/>';
+    var d = 'M112 286 C140 284 140 296 112 298 C100 300 100 310 120 310 C142 310 140 322 116 322 C100 322 104 334 124 334 C140 334 140 346 116 348';
+    s += '<path class="intDb" d="' + d + '" stroke-width="10"/><path class="intD" d="' + d + '" stroke-width="7"/>';
+    s += '<ellipse class="org-boca" cx="120" cy="84" rx="14" ry="8"/><ellipse class="lengua" cx="120" cy="88" rx="9" ry="4"/>';
+    s += '<circle cx="120" cy="400" r="5" fill="#9c2f3a"/>';
+    s += '<path class="ruta" d="M120 84 L120 128"/>';
+    s += '<circle class="bolo" cx="120" cy="134" r="8"/><path d="M120 126 q2 -5 6 -6" stroke="#4e7d1c" stroke-width="2" fill="none"/>';
+    s += '</g>';
+    var P = [[1, 'Boca', 180, 84, 300, 60, true], [2, 'Esófago', 180, 150, 300, 140, false], [3, 'Estómago', 230, 218, 300, 220, false], [4, 'Ano', 180, 400, 300, 400, false]];
+    P.forEach(function (p) {
+      s += '<path d="M' + p[2] + ' ' + p[3] + ' L' + (p[4] - 18) + ' ' + p[5] + '" stroke="#1d2b4f" stroke-width="1.2" fill="none"/><circle cx="' + p[2] + '" cy="' + p[3] + '" r="3" fill="#1d2b4f"/>';
+      s += '<g class="parada' + (p[6] ? ' hecha' : '') + '"><circle cx="' + p[4] + '" cy="' + p[5] + '" r="14"/><text x="' + p[4] + '" y="' + (p[5] + 5) + '">' + p[0] + '</text></g>';
+      s += '<text class="rotM" x="' + (p[4] + 20) + '" y="' + (p[5] + 5) + '">' + p[1] + '</text>';
+    });
+    return s;
+  }
+  document.getElementById('viaA').innerHTML = viaje();
+
+  function viajeX() {
+    var cab = '<ellipse cx="140" cy="70" rx="52" ry="56"/><path d="M186 56 L202 84 L186 92 Z"/><rect x="116" y="108" width="44" height="36"/>' +
+      '<path d="M110 135 C88 150 82 220 86 300 C88 350 92 390 104 424 L192 424 C202 380 198 330 194 300 C206 250 202 170 176 138 Z"/>';
+    var s = '<g opacity=".55" fill="none" stroke="#7cc4ff" stroke-width="8" stroke-linejoin="round">' + cab + '</g><g fill="#21497e">' + cab + '</g>';
+    s += '<ellipse cx="124" cy="74" rx="8" ry="12" fill="none" stroke="#7cc4ff" stroke-width="2" opacity=".6"/><circle cx="168" cy="60" r="4" fill="#7cc4ff"/>';
+    var tubos = [
+      ['M176 352 L178 290 C178 276 170 270 158 270 L122 270 C110 270 104 278 104 292 L106 380 Q106 400 108 414', 14],
+      ['M150 286 C180 280 182 296 150 298 C126 300 128 314 156 314 C182 314 180 330 152 330 C128 330 132 346 160 346', 8],
+      ['M190 100 L152 104 Q140 106 140 124 L138 200 Q138 214 150 222', 9]
+    ];
+    var t = '';
+    tubos.forEach(function (p) { t += '<path d="' + p[0] + '" fill="none" stroke="#7cc4ff" stroke-width="' + (p[1] + 8) + '" opacity=".35" stroke-linecap="round" stroke-linejoin="round"/><path d="' + p[0] + '" fill="none" stroke="#e3f2ff" stroke-width="' + p[1] + '" stroke-linecap="round" stroke-linejoin="round"/>'; });
+    t += '<path d="M146 214 C170 200 196 214 192 244 C188 268 160 274 146 262 C136 254 140 240 150 238 C160 236 164 228 158 222 Z" fill="#e3f2ff" stroke="#7cc4ff" stroke-width="4"/>';
+    t += '<circle cx="108" cy="418" r="5" fill="#a8ffd6"/>';
+    s += '<g filter="url(#fBrillo)">' + t + '</g>';
+    s += '<path d="M190 100 L152 104 Q140 106 140 124 L139 150" fill="none" stroke="#a8ffd6" stroke-width="3" stroke-dasharray="2 5" stroke-linecap="round"/>';
+    s += '<g filter="url(#fBrillo)"><circle cx="139" cy="166" r="8" fill="#ffe066" stroke="#fff" stroke-width="2"/></g>';
+    [[1, 'Boca', 192, 100, 70, true], [2, 'Esófago', 141, 168, 160, false], [3, 'Estómago', 192, 244, 244, false], [4, 'Ano', 110, 418, 410, false]].forEach(function (p) {
+      s += '<path d="M' + p[2] + ' ' + p[3] + ' L242 ' + p[4] + '" stroke="#7cc4ff" stroke-width="1.4" opacity=".8" fill="none"/><circle cx="' + p[2] + '" cy="' + p[3] + '" r="3" fill="#a8ffd6"/>';
+      s += '<circle cx="256" cy="' + p[4] + '" r="14" fill="' + (p[5] ? '#2a9d5c' : '#10284a') + '" stroke="' + (p[5] ? '#a8ffd6' : '#7cc4ff') + '" stroke-width="2"/><text x="256" y="' + (p[4] + 5) + '" text-anchor="middle" style="font:800 13px var(--display);fill:#e3f2ff">' + p[0] + '</text>';
+      s += '<text x="278" y="' + (p[4] + 6) + '" style="font:700 17px var(--texto);fill:#e3f2ff">' + p[1] + '</text>';
+    });
+    return s;
+  }
+  document.getElementById('viaC').innerHTML = viajeX();
+
+  function manzana(x, y, k) {
+    return '<g transform="translate(' + x + ' ' + y + ') scale(' + k + ')"><circle r="14" fill="#e84a3c" stroke="#9c2f2a" stroke-width="1.5"/><path d="M0 -13 q1 -6 5 -8" stroke="#6b4128" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M3 -17 q8 -6 12 0 q-6 4 -12 0Z" fill="#6fcf97"/>' +
+      '<circle cx="-5" cy="-2" r="2" fill="#2b2233"/><circle cx="5" cy="-2" r="2" fill="#2b2233"/><path d="M-5 5 q5 4 10 0" stroke="#2b2233" stroke-width="1.6" fill="none" stroke-linecap="round"/><circle cx="-6" cy="-7" r="3" fill="#fff" opacity=".4"/></g>';
+  }
+  function globo(x, y, t) {
+    var w = t.length * 7.5 + 16;
+    return '<g><rect x="' + x + '" y="' + y + '" width="' + w + '" height="24" rx="12" fill="#fff" stroke="#1d2b4f" stroke-width="2"/><path d="M' + (x + 14) + ' ' + (y + 23) + ' l-4 9 l12 -9" fill="#fff" stroke="#1d2b4f" stroke-width="2" stroke-linejoin="round"/>' +
+      '<text x="' + (x + w / 2) + '" y="' + (y + 17) + '" text-anchor="middle" style="font:800 13px var(--display);fill:#1d2b4f">' + t + '</text></g>';
+  }
+  var dientes = '';
+  for (var d = 0; d < 7; d++) { dientes += '<rect x="' + (38 + d * 12) + '" y="46" width="10" height="13" rx="3" fill="#fff" stroke="#c9b48c"/><rect x="' + (38 + d * 12) + '" y="96" width="10" height="12" rx="3" fill="#fff" stroke="#c9b48c"/>'; }
+  var VIN = [
+    ['Boca', 'Masticamos la comida.', '<rect width="160" height="140" fill="#ffe3dc"/><path d="M20 76 C20 30 140 30 140 76 C140 122 20 122 20 76 Z" fill="#e8838a"/><path d="M30 76 C30 44 130 44 130 76 C130 110 30 110 30 76 Z" fill="#7a1f2b"/>' + dientes + '<ellipse cx="80" cy="96" rx="34" ry="10" fill="#e86f7c"/>' + manzana(70, 78, .55) + manzana(94, 74, .4) + globo(96, 8, '¡Ñam!')],
+    ['Esófago', 'Es un tubo que baja la comida.', '<rect width="160" height="140" fill="#e7f3ff"/><path d="M58 0 V140 M102 0 V140" stroke="#d9706b" stroke-width="10"/><rect x="63" y="0" width="34" height="140" fill="#ffc9c2"/><path d="M63 20 h34 M63 50 h34 M63 110 h34" stroke="#e79a92" stroke-width="2"/>' + manzana(80, 78, .95) + '<path d="M80 40 v14 M70 44 v10 M90 44 v10" stroke="#1d2b4f" stroke-width="2" stroke-linecap="round" opacity=".5"/>' + globo(102, 96, '¡Voy!').replace('l-4 9 l12 -9', 'l-4 -9 l12 9').replace(/(M\d+ )(\d+)( l-4 -9)/, function (m, a, b, c) { return a + (+b - 22) + c; })],
+    ['Estómago', 'Aquí la comida se deshace.', '<rect width="160" height="140" fill="#fff4e0"/><path d="M50 18 C110 2 150 40 140 86 C130 128 70 136 44 112 C28 96 40 78 60 76 C80 74 90 62 80 48 C74 38 60 34 50 32 Z" fill="url(#gEst)" stroke="#a6413f" stroke-width="2.5"/><path d="M48 96 C70 86 90 104 136 88 C130 120 80 132 50 112 Z" fill="#b6e3a8" opacity=".7"/>' +
+      '<circle cx="70" cy="104" r="4" fill="#fff" opacity=".7"/><circle cx="96" cy="110" r="3" fill="#fff" opacity=".7"/><circle cx="116" cy="98" r="5" fill="#fff" opacity=".7"/>' + manzana(98, 76, .7) + manzana(74, 86, .35) + manzana(120, 84, .3)],
+    ['Ano', 'Por aquí sale lo que el cuerpo no usa.', '<rect width="160" height="140" fill="#eef7ea"/><path d="M20 20 C70 20 120 20 120 50 C120 80 40 70 40 96 C40 116 80 112 80 128" stroke="#9e6445" stroke-width="22" fill="none" stroke-linecap="round"/><path d="M20 20 C70 20 120 20 120 50 C120 80 40 70 40 96 C40 116 80 112 80 128" stroke="#d99a74" stroke-width="16" fill="none" stroke-linecap="round"/>' +
+      '<path d="M108 98 V134" stroke="#1d2b4f" stroke-width="2.5"/><path d="M108 98 h30 v18 h-30 Z" fill="#fff" stroke="#1d2b4f" stroke-width="2"/><path d="M108 98 h10 v6 h-10Z M128 98 h10 v6 h-10Z M118 104 h10 v6 h-10Z M108 110 h10 v6 h-10Z M128 110 h10 v6 h-10Z" fill="#1d2b4f"/><text x="123" y="92" text-anchor="middle" style="font:800 12px var(--display);fill:#1d2b4f">Fin</text>']
+  ];
+  document.getElementById('viaD').innerHTML = VIN.map(function (v, i) {
+    return '<div class="vin"><svg viewBox="0 0 160 140" aria-hidden="true">' + v[2] + '<circle cx="16" cy="16" r="12" fill="#ffc93c" stroke="#1d2b4f" stroke-width="2"/><text x="16" y="21" text-anchor="middle" style="font:800 13px var(--display);fill:#1d2b4f">' + (i + 1) + '</text></svg><p><b>' + v[0] + '.</b> ' + v[1] + '</p></div>';
+  }).join('');
+
+  var MINI = {
+    mi1: '<svg viewBox="0 0 40 40" width="34" height="34" aria-hidden="true"><ellipse cx="20" cy="20" rx="15" ry="9" fill="#9c2f3a"/><ellipse cx="20" cy="24" rx="9" ry="4" fill="#e86f7c"/><path d="M8 17h24" stroke="#fff" stroke-width="3" stroke-dasharray="3 1.5"/></svg>',
+    mi2: '<svg viewBox="0 0 40 40" width="34" height="34" aria-hidden="true"><path d="M20 4 V28 Q20 34 24 37" stroke="#d9706b" stroke-width="9" fill="none" stroke-linecap="round"/><path d="M20 4 V28 Q20 34 24 37" stroke="#ffb4ab" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="20" cy="16" r="5" fill="#8bc34a" stroke="#4e7d1c" stroke-width="1.5"/></svg>',
+    mi3: '<svg viewBox="0 0 40 40" width="34" height="34" aria-hidden="true"><path d="M14 6 C30 0 40 14 34 26 C28 38 12 38 8 30 C6 24 12 22 18 22 C24 22 24 14 18 12 Z" fill="url(#gEst)" stroke="#a6413f" stroke-width="1.4"/></svg>',
+    mi4: '<svg viewBox="0 0 40 40" width="34" height="34" aria-hidden="true"><path d="M8 8 C20 4 32 8 30 16 C28 22 12 20 12 26 C12 32 24 30 20 36" stroke="#d99a74" stroke-width="6" fill="none" stroke-linecap="round"/><circle cx="20" cy="36" r="3" fill="#9c2f3a"/></svg>'
+  };
+  Object.keys(MINI).forEach(function (k) { document.getElementById(k).innerHTML = MINI[k]; });
+
+  /* ---------- Portada 3B: el camino ---------- */
+  var N = [[50, 8, 'hecho', 'Pon nombre'], [74, 25, 'hecho', 'Los huesos'], [44, 42, '', 'Los músculos'], [22, 59, 'cerr', '¿Dónde está?'], [52, 76, 'cerr', 'El viaje'], [76, 86, 'cerr', 'Escribe']];
+  var cam = document.getElementById('camino'), h = '<svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M50 8 C80 14 80 20 74 25 C66 32 44 34 44 42 C44 50 22 52 22 59 C22 68 52 68 52 76 C52 82 76 80 76 86" fill="none" stroke="#b3bfd6" stroke-width="2.4" stroke-dasharray="1 3" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>';
+  N.forEach(function (n) {
+    var ico = n[2] === 'hecho' ? '<svg viewBox="0 0 24 24" width="28" height="28"><path d="M5 12.5l4.5 4.5L19 7" stroke="#fff" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+      : n[2] === 'cerr' ? '<svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z" fill="#a4abba"/></svg>'
+      : '<svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z" fill="#1d2b4f"/></svg>';
+    h += '<span class="nodo ' + n[2] + '" style="left:' + n[0] + '%;top:' + n[1] + '%">' + ico + '</span><span class="nodo-t" style="left:' + n[0] + '%;top:calc(' + n[1] + '% + 34px)">' + n[3] + '</span>';
+  });
+  h += '<svg viewBox="0 0 60 120" width="30" height="60" style="position:absolute;left:calc(44% + 34px);top:calc(42% - 44px);width:30px;height:60px" aria-hidden="true"><use href="#punta"/></svg>';
+  cam.innerHTML = h;
+})();
+</script>
+
+</body>
+</html>

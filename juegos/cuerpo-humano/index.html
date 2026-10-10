@@ -348,6 +348,95 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.05;
 .org-l.ok { stroke: var(--rojo); }
 .tripa { stroke: var(--apagado); fill: none; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
 
+/* Diseño elegido el 10-oct-2026 (diseno/maquetas.html): esqueleto en rayos X, músculos de verdad,
+   camino de paradas y viñetas del viaje */
+.deco, .silueta, .fib, .mus-p { pointer-events: none; }
+.hitL { fill: none; stroke: transparent; stroke-linecap: round; }
+.fig.rx { background: radial-gradient(110% 80% at 50% 35%, #1b3a66, #0b1830); border-color: #21497e; box-shadow: inset 0 2px 0 rgba(255, 255, 255, .08), 0 4px 0 #0b1830, 0 10px 22px rgba(29, 43, 79, .2); }
+.fig.rx figcaption { color: #a9c8ec; }
+.xoS { fill: rgba(124, 196, 255, .3); stroke: rgba(124, 196, 255, .3); stroke-width: 4; stroke-linejoin: round; }
+.xoL { fill: none; stroke: rgba(124, 196, 255, .3); stroke-linecap: round; stroke-linejoin: round; }
+.xfS { fill: #e3f2ff; transition: fill var(--t); }
+.xfL { fill: none; stroke: #e3f2ff; stroke-linecap: round; stroke-linejoin: round; transition: stroke var(--t); }
+.xdet { fill: none; stroke: #10284a; stroke-width: 1.3; opacity: .6; stroke-linecap: round; }
+.xhole { fill: #10284a; }
+.xtooth { fill: #e3f2ff; stroke: #10284a; stroke-width: 1; }
+.pieza.sel .xfS { fill: #ffe066; } .pieza.sel .xfL { stroke: #ffe066; }
+.pieza.ok .xfS, .pieza.hecho .xfS { fill: #a8ffd6; } .pieza.ok .xfL, .pieza.hecho .xfL { stroke: #a8ffd6; }
+.pieza.mal .xfS { fill: #ffab5e; } .pieza.mal .xfL { stroke: #ffab5e; }
+.pieza:focus-visible .xfS { fill: #c9b6ff; } .pieza:focus-visible .xfL { stroke: #c9b6ff; }
+.rx .hueco rect { fill: rgba(16, 40, 74, .9); stroke: #7cc4ff; stroke-width: 2.5; stroke-dasharray: 8 6; }
+.rx .hueco .guia-l { stroke: #7cc4ff; stroke-width: 2; opacity: .8; stroke-dasharray: 5 5; }
+.rx .hueco .punto { fill: #7cc4ff; }
+.rx .hueco text { font-size: 27px; fill: #e3f2ff; }
+.rx .hueco .vacio { fill: #7cc4ff; font-size: 32px; }
+.rx .hueco.sel rect { fill: #3d3a12; stroke: #ffe066; stroke-dasharray: none; }
+.rx .hueco.mal rect { fill: #4a2a10; stroke: #ffab5e; }
+.rx .hueco.hecho rect { fill: #10402e; stroke: #a8ffd6; stroke-dasharray: none; }
+.rx .hueco.hecho .guia-l { stroke: #a8ffd6; stroke-dasharray: none; }
+.rx .hueco.hecho .punto { fill: #a8ffd6; }
+
+.piel { fill: #f7d5bd; } .pielL { stroke: #f7d5bd; fill: none; stroke-linecap: round; }
+.borde { fill: #b9876a; } .bordeL { stroke: #b9876a; fill: none; stroke-linecap: round; }
+.carne { fill: #b8483e; } .carneL { stroke: #b8483e; fill: none; stroke-linecap: round; }
+.pelo { fill: #6b4128; }
+.boca-l { stroke: #8a3b33; stroke-width: 2.4; fill: none; stroke-linecap: round; }
+.mus { fill: url(#gMus); stroke: #7d231c; stroke-width: 1.4; transition: fill var(--t); }
+.mus-p { fill: url(#pFib); }
+.fib { stroke: #7d231c; stroke-width: 1; fill: none; opacity: .35; stroke-linecap: round; }
+.pieza.sel .mus { fill: url(#gSel); stroke: #b88400; stroke-width: 2.5; }
+.rot { font-family: var(--texto); font-size: 15px; font-weight: 700; fill: var(--suave); text-anchor: middle; }
+
+.banda {
+  display: grid; gap: 4px; color: var(--blanco); margin-top: 8px;
+  background: linear-gradient(180deg, #43b878, var(--verde)); border: 2px solid var(--verde-osc); border-radius: 22px; padding: 14px 18px;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, .35), 0 6px 0 var(--verde-osc), 0 14px 24px rgba(29, 43, 79, .12);
+}
+.banda .eti { color: #e4f8ec; }
+.banda h1 { font-size: clamp(2rem, 7vw, 2.8rem); font-weight: 800; }
+.banda p:last-child { font-size: 1.05rem; }
+.camino-j { position: relative; max-width: 560px; margin: 26px auto 0; }
+.camino-j > svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.parada {
+  position: absolute; transform: translateX(-50%); width: 160px; display: grid; justify-items: center; gap: 6px;
+  background: none; border: 0; padding: 0; font: inherit; color: var(--tinta); cursor: pointer;
+}
+.bola {
+  width: 76px; height: 72px; border-radius: 50%; display: grid; place-items: center; border: 4px solid var(--blanco);
+  background: linear-gradient(180deg, #ffdb6e, var(--sol)); box-shadow: 0 6px 0 var(--sol-osc), 0 12px 18px rgba(29, 43, 79, .18);
+  transition: transform var(--t), box-shadow var(--t);
+}
+.parada:active .bola { transform: translateY(4px); box-shadow: 0 2px 0 var(--sol-osc); }
+.parada.hecha .bola { background: linear-gradient(180deg, #5fd08e, var(--verde)); box-shadow: 0 6px 0 var(--verde-osc), 0 12px 18px rgba(29, 43, 79, .18); }
+.parada.falta .bola { background: linear-gradient(180deg, #f4f6fb, var(--apagado)); box-shadow: 0 6px 0 var(--apagado-osc), 0 12px 18px rgba(29, 43, 79, .1); }
+.parada-t { font-family: var(--display); font-weight: 800; font-size: 1.1rem; line-height: 1.1; text-align: center; background: rgba(255, 255, 255, .94); border-radius: 10px; padding: 2px 8px; }
+.parada:focus-visible { outline: none; }
+.parada:focus-visible .bola { outline: 4px solid var(--lavanda); outline-offset: 3px; }
+.junto { position: absolute; pointer-events: none; }
+
+.cuento, .mesa { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+@media (min-width: 700px) { .cuento, .mesa { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.vin {
+  font: inherit; color: var(--tinta); text-align: left; padding: 0; cursor: pointer; overflow: hidden; display: grid; align-content: start;
+  background: var(--blanco); border: 3px solid var(--tinta); border-radius: 14px; box-shadow: 0 4px 0 var(--tinta);
+}
+.vin.puesta { cursor: default; }
+.vin:focus-visible { outline: 4px solid var(--lavanda); outline-offset: 3px; }
+.vin svg { display: block; width: 100%; height: auto; }
+.vin-t { padding: 6px 10px; border-top: 2px solid var(--tinta); background: var(--sol-claro); font-size: 1rem; line-height: 1.3; }
+.vin-t b { font-family: var(--display); font-size: 1.1rem; }
+.hueco-v {
+  min-height: 120px; border: 3px dashed var(--borde-osc); border-radius: 14px; display: grid; place-items: center;
+  font-family: var(--display); font-weight: 800; font-size: 2.2rem; color: var(--apagado-osc); background: rgba(255, 255, 255, .6);
+}
+.cancion { display: grid; gap: 10px; padding: 14px 16px; border-radius: 20px; background: linear-gradient(180deg, #fffdf3, var(--sol-claro)); border: 2px solid #f0d27a; box-shadow: 0 4px 0 #f0d27a; }
+.verso { padding: 6px 10px; border-radius: 12px; font-size: 1.15rem; line-height: 1.4; transition: background var(--t), color var(--t); }
+.verso b { color: var(--naranja-osc); }
+.verso:last-of-type { font-family: var(--display); font-weight: 800; font-size: 1.25rem; color: var(--azul); }
+.verso.suena { background: var(--sol); }
+.verso.ya { color: var(--suave); }
+.cancion .fila { justify-content: flex-start; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
@@ -357,6 +446,11 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.05;
 <!-- Degradados, sombra y Punta, compartidos por todos los dibujos (diseño común) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
+    <radialGradient id="gMus" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#ff9a88"/><stop offset=".6" stop-color="#e0574a"/><stop offset="1" stop-color="#a83228"/></radialGradient>
+    <radialGradient id="gSel" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#fff2b0"/><stop offset=".6" stop-color="#ffcf3a"/><stop offset="1" stop-color="#e09a00"/></radialGradient>
+    <radialGradient id="gEst" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#ffc2bb"/><stop offset=".6" stop-color="#ef8a80"/><stop offset="1" stop-color="#c4524c"/></radialGradient>
+    <pattern id="pFib" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(70)"><line x1="0" y1="0" x2="0" y2="5" stroke="#7d231c" stroke-width="1" opacity=".3"/></pattern>
+    <filter id="fBrillo" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
     <filter id="fSombra" x="-20%" y="-10%" width="140%" height="130%"><feDropShadow dx="2" dy="4" stdDeviation="3" flood-color="#1d2b4f" flood-opacity=".2"/></filter>
     <linearGradient id="gCuerpo" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#e09a00"/><stop offset=".28" stop-color="#ffcf3a"/><stop offset=".42" stop-color="#fff2b0"/><stop offset=".56" stop-color="#ffd44a"/><stop offset="1" stop-color="#d98f00"/></linearGradient>
     <linearGradient id="gMetal" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#8a93a6"/><stop offset=".4" stop-color="#f4f6fa"/><stop offset=".7" stop-color="#c6ccd8"/><stop offset="1" stop-color="#7f889c"/></linearGradient>
@@ -536,152 +630,192 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.05;
   ];
 
   /* ---------- Los dibujos ---------- */
-  function largo(id, nombre, x1, y1, x2, y2, w) {
-    var r = w * 0.75, ln = function (cls, sw) {
-      return '<line class="' + cls + '" x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke-width="' + sw + '"/>';
-    };
-    var o = ln('ol', w + 4) + '<circle class="ols" cx="' + x1 + '" cy="' + y1 + '" r="' + (r + 2) + '"/><circle class="ols" cx="' + x2 + '" cy="' + y2 + '" r="' + (r + 2) + '"/>';
-    var f = ln('fl', w) + '<circle class="fs" cx="' + x1 + '" cy="' + y1 + '" r="' + r + '"/><circle class="fs" cx="' + x2 + '" cy="' + y2 + '" r="' + r + '"/>';
-    f += '<line class="brillo" x1="' + (x1 - w * 0.22) + '" y1="' + (y1 + r) + '" x2="' + (x2 - w * 0.22) + '" y2="' + (y2 - r) + '" stroke-width="' + Math.max(1.2, w * 0.22) + '"/>';
-    var h = ln('hit', Math.max(w + 14, 20));
-    return pieza(id, nombre, o + f + h);
-  }
-  function pieza(id, nombre, dentro) {
-    return '<g class="pieza" data-p="' + id + '" tabindex="0" role="button" aria-label="' + nombre + '">' + dentro + '</g>';
-  }
-  function deco(x1, y1, x2, y2, w) {
-    return '<line class="ol" x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke-width="' + (w + 3) + '"/>' +
-      '<line class="fl" x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke-width="' + w + '"/>';
-  }
   function nombreHueso(id) { for (var i = 0; i < HUESOS.length; i++) if (HUESOS[i].id === id) return HUESOS[i].nombre; return id; }
 
-  function cuerpoEsqueleto() {
-    var m = function (x) { return 220 - x; };
-    var s = '';
-    // costillas
-    var o = '', f = '';
-    for (var k = 0; k < 6; k++) {
-      var y = 104 + k * 14, xo = 72 + k * 1.5;
-      var a = 'M106 ' + y + ' Q' + xo + ' ' + (y - 4) + ' ' + xo + ' ' + (y + 16);
-      var b = 'M114 ' + y + ' Q' + m(xo) + ' ' + (y - 4) + ' ' + m(xo) + ' ' + (y + 16);
-      o += '<path class="ol" d="' + a + '" stroke-width="7"/><path class="ol" d="' + b + '" stroke-width="7"/>';
-      f += '<path class="fl" d="' + a + '" stroke-width="3.5"/><path class="fl" d="' + b + '" stroke-width="3.5"/>';
+  // Esqueleto en rayos X (diseño 1C). La geometría es la de «El Esqueleto Curioso», en un dibujo de
+  // 400 de ancho: cada hueso es una lista de formas y los del lado derecho son el reflejo del izquierdo.
+  var ESPEJO = 'translate(400,0) scale(-1,1)';
+  function partesEsqueleto() {
+    var B = [], sp = [], sd = [], i;
+    for (i = 0; i < 5; i++) sp.push(['r', 190, 186 + i * 9, 20, 7, 3]);
+    for (i = 0; i < 12; i++) { var tw = 22 + i * 0.5; sp.push(['r', 200 - tw / 2, 234 + i * 13.2, tw, 11, 3]); }
+    for (i = 0; i < 5; i++) {
+      var ly = 392 + i * 13;
+      sp.push(['l', 186, ly + 6, 171, ly + 4, 4], ['l', 214, ly + 6, 229, ly + 4, 4], ['r', 185, ly, 30, 11.5, 4]);
+      sd.push(['p', 'M200 ' + (ly + 2) + 'V' + (ly + 9.5), 'det']);
     }
-    s += pieza('costillas', nombreHueso('costillas'), o + f + '<rect class="hit" x="68" y="96" width="36" height="98"/><rect class="hit" x="116" y="96" width="36" height="98"/>');
-    // clavículas
-    s += '<g>' + deco(108, 92, 72, 99, 5) + deco(112, 92, 148, 99, 5) + '</g>';
-    // pelvis
-    s += pieza('pelvis', nombreHueso('pelvis'),
-      '<path class="fsb" d="M110 250 C92 240 70 240 68 258 C66 276 84 288 100 284 L110 292 L120 284 C136 288 154 276 152 258 C150 240 128 240 110 250 Z"/>' +
-      '<circle class="agujero" cx="90" cy="272" r="6"/><circle class="agujero" cx="130" cy="272" r="6"/>');
-    // columna vertebral
-    var v = '';
-    for (var j = 0; j < 20; j++) v += '<rect class="fsb" x="103" y="' + (78 + j * 9) + '" width="14" height="7" rx="2.5"/>';
-    s += pieza('columna', nombreHueso('columna'), v + '<rect class="hit" x="98" y="76" width="24" height="186"/>');
-    // brazos
-    [false, true].forEach(function (der) {
-      var X = der ? m : function (x) { return x; };
-      s += largo('humero', nombreHueso('humero'), X(66), 104, X(56), 184, 8);
-      s += largo('radio', nombreHueso('radio'), X(52), 192, X(38), 262, 5);
-      s += largo('cubito', nombreHueso('cubito'), X(60), 192, X(62), 262, 5);
-      s += '<g><ellipse class="fsb" cx="' + X(50) + '" cy="276" rx="12" ry="10"/>' +
-        deco(X(42), 284, X(40), 300, 3.5) + deco(X(47), 286, X(46), 304, 3.5) +
-        deco(X(53), 286, X(54), 304, 3.5) + deco(X(58), 284, X(60), 298, 3.5) + '</g>';
+    B.push({ id: 'columna', p: sp, d: sd });
+    B.push({ id: 'pelvis', m: 1, p: [['p', 'M194,458 C182,446 160,440 142,444 C128,448 122,462 126,478 C130,492 140,500 146,508 L150,516 C150,530 156,544 170,548 C182,551 192,546 198,538 L198,524 C190,522 184,518 180,510 C178,500 184,488 190,480 Z']],
+      d: [['e', 170, 529, 10, 7, 'hole'], ['p', 'M136,462 Q152,450 178,456', 'det'], ['p', 'M140,476 Q156,468 176,472', 'det']] });
+    B.push({ id: 'pelvis', p: [['p', 'M186,456 L214,456 L210,490 L204,508 L200,514 L196,508 L190,490 Z']],
+      d: [['c', 194, 468, 2.2, 'hole'], ['c', 206, 468, 2.2, 'hole'], ['c', 195, 481, 2, 'hole'], ['c', 205, 481, 2, 'hole'], ['c', 197, 493, 1.8, 'hole'], ['c', 203, 493, 1.8, 'hole']] });
+    B.push({ id: 'femur', m: 1, p: [['c', 150, 512, 10], ['l', 150, 514, 138, 526, 10], ['c', 135, 527, 8], ['l', 141, 530, 164, 684, 13], ['p', 'M146,680 C150,674 178,674 182,680 L184,694 C178,702 150,702 144,694 Z']], d: [['p', 'M164,690 L164,701', 'det']] });
+    B.push({ id: 'perone', m: 1, p: [['c', 147, 721, 5], ['l', 147, 724, 149, 812, 5], ['e', 149, 817, 4.5, 7]] });
+    B.push({ id: 'tibia', m: 1, p: [['p', 'M146,706 C152,701 178,701 184,706 L178,722 L152,722 Z'], ['l', 165, 720, 163, 810, 11], ['e', 165, 814, 9, 6], ['c', 172, 815, 4.5]] });
+    var pie = [['e', 160, 826, 17, 8]];
+    [[147, 830, 139, 845], [153, 831, 148, 846], [159, 831, 157, 847], [165, 831, 166, 847], [171, 830, 176, 846]].forEach(function (m, k) {
+      pie.push(['l', m[0], m[1], m[2], m[3], k === 4 ? 5 : 4]);
+      pie.push(['l', m[2], m[3] + 4, m[2] + (k < 2 ? -1.5 : k === 4 ? 1.5 : 0), m[3] + 9, k === 4 ? 4.5 : 3.4]);
     });
-    // piernas
-    [false, true].forEach(function (der) {
-      var X = der ? m : function (x) { return x; };
-      s += largo('femur', nombreHueso('femur'), X(92), 284, X(88), 368, 9);
-      s += '<g><circle class="fsb" cx="' + X(88) + '" cy="376" r="5"/></g>';
-      s += largo('perone', nombreHueso('perone'), X(74), 386, X(76), 446, 4.5);
-      s += largo('tibia', nombreHueso('tibia'), X(94), 384, X(96), 448, 8);
-      s += '<g><ellipse class="fsb" cx="' + X(86) + '" cy="458" rx="15" ry="7"/></g>';
+    B.push({ id: 'pie', m: 1, p: pie });
+    B.push({ id: 'rotula', m: 1, p: [['e', 164, 694, 9, 11]], d: [['p', 'M160,690 Q164,686 168,690', 'det']] });
+    var ribW = [40, 50, 57, 62, 65, 66, 66, 63, 58], ribs = [];
+    for (i = 0; i < ribW.length; i++) {
+      var w = ribW[i], sx, sy;
+      if (i < 7) { sx = 192; sy = 246 + i * 13; } else { sx = 184 - (i - 7) * 8; sy = 336 + (i - 7) * 10; }
+      var lx = 200 - w;
+      ribs.push(['s', 'M' + sx + ',' + sy + ' Q' + (sx - (sx - lx) * 0.75).toFixed(1) + ',' + (sy - 9) + ' ' + lx + ',' + (sy + 14) + ' Q' + (lx + 1) + ',' + (sy + 24) + ' ' + (lx + 7) + ',' + (sy + 30), 6]);
+    }
+    B.push({ id: 'costillas', m: 1, p: ribs });
+    B.push({ id: 'esternon', p: [['p', 'M191,236 L209,236 L211,251 L207,256 L207,322 C207,330 204,336 200,340 C196,336 193,330 193,322 L193,256 L189,251 Z'], ['p', 'M197,338 L203,338 L200,351 Z']], d: [['p', 'M193,256 L207,256', 'det']] });
+    B.push({ id: 'clavicula', m: 1, p: [['s', 'M194,238 C176,242 164,226 132,230', 7]] });
+    var cd = [['p', 'M150,86 Q170,68 200,64 Q230,68 250,86', 'det'], ['e', 183, 98, 14, 12, 'hole'], ['e', 217, 98, 14, 12, 'hole'], ['p', 'M200,110 L192,130 Q200,135 208,130 Z', 'hole'], ['p', 'M154,118 Q166,126 173,114', 'det'], ['p', 'M246,118 Q234,126 227,114', 'det']];
+    for (i = 0; i < 6; i++) cd.push(['r', 182 + i * 6.2, 143, 5.4, 9, 1.5, 'tooth']);
+    B.push({ id: 'craneo', p: [['p', 'M200,22 C243,22 263,54 261,90 C260,106 255,116 250,124 L247,140 C245,148 238,152 230,152 L170,152 C162,152 155,148 153,140 L150,124 C145,116 140,106 139,90 C137,54 157,22 200,22 Z']], d: cd });
+    var jd = [];
+    for (i = 0; i < 6; i++) jd.push(['r', 182 + i * 6.2, 152, 5.4, 8.5, 1.5, 'tooth']);
+    jd.push(['c', 172, 176, 1.8, 'hole'], ['c', 228, 176, 1.8, 'hole']);
+    B.push({ id: 'mandibula', p: [['p', 'M150,126 C150,150 152,166 160,178 C170,192 186,198 200,198 C214,198 230,192 240,178 C248,166 250,150 250,126 L242,128 C242,146 238,156 230,160 L170,160 C162,156 158,146 158,128 Z']], d: jd });
+    B.push({ id: 'humero', m: 1, p: [['c', 130, 238, 11], ['l', 128, 246, 115, 372, 12], ['p', 'M101,372 C105,366 125,366 130,372 L127,386 C120,391 110,391 104,386 Z']] });
+    B.push({ id: 'cubito', m: 1, p: [['c', 122, 392, 6], ['l', 122, 396, 116, 500, 7], ['c', 116, 502, 4]] });
+    B.push({ id: 'radio', m: 1, p: [['c', 106, 394, 5], ['l', 106, 398, 98, 500, 7], ['e', 98, 503, 7, 4.5]] });
+    B.push({ id: 'mano', m: 1, p: [['e', 107, 513, 14, 8], ['l', 100, 518, 94, 540, 4], ['l', 105, 519, 101, 541, 4], ['l', 110, 519, 109, 542, 4], ['l', 115, 518, 117, 540, 4], ['l', 97, 515, 87, 532, 4.5]] });
+    var fg = [];
+    [94, 101, 109, 117].forEach(function (x, k) {
+      var c = k === 3 ? 3 : 0;
+      fg.push(['l', x, 544, x - 1, 553 - c, 3.4], ['l', x - 1, 556 - c, x - 1.5, 562 - c, 3], ['l', x - 1.5, 565 - c, x - 2, 569 - c, 2.6]);
     });
-    // cráneo
-    s += pieza('craneo', nombreHueso('craneo'),
-      '<path class="fsb" d="M92 58 Q94 84 110 86 Q126 84 128 58 Z"/>' +
-      '<ellipse class="fsb" cx="110" cy="40" rx="27" ry="30"/>' +
-      '<circle class="ojo" cx="99" cy="42" r="7"/><circle class="ojo" cx="121" cy="42" r="7"/>' +
-      '<path class="ojo" d="M110 52 l-4 8 h8 z"/>' +
-      '<path class="ol" stroke-width="1.6" d="M100 75 H120 M104 72 v6 M110 72 v7 M116 72 v6"/>');
+    fg.push(['l', 86, 535, 81, 545, 3.6], ['l', 80, 548, 77, 554, 3]);
+    B.push({ id: 'falanges', m: 1, p: fg });
+    return B;
+  }
+
+  function forma(p, cls, ancho) {
+    var t = p[0], c = cls + (t === 'l' || t === 's' ? 'L' : 'S');
+    if (t === 'l') return '<line class="' + c + '" x1="' + p[1] + '" y1="' + p[2] + '" x2="' + p[3] + '" y2="' + p[4] + '" stroke-width="' + ancho(p[5]) + '"/>';
+    if (t === 's') return '<path class="' + c + '" d="' + p[1] + '" stroke-width="' + ancho(p[2]) + '"/>';
+    if (t === 'p') return '<path class="' + c + '" d="' + p[1] + '"/>';
+    if (t === 'c') return '<circle class="' + c + '" cx="' + p[1] + '" cy="' + p[2] + '" r="' + p[3] + '"/>';
+    if (t === 'e') return '<ellipse class="' + c + '" cx="' + p[1] + '" cy="' + p[2] + '" rx="' + p[3] + '" ry="' + p[4] + '"/>';
+    return '<rect class="' + c + '" x="' + p[1] + '" y="' + p[2] + '" width="' + p[3] + '" height="' + p[4] + '" rx="' + (p[5] || 0) + '"/>';
+  }
+  function detalle(d) {
+    var t = d[0], c = 'x' + d[d.length - 1];
+    if (t === 'p') return '<path class="' + c + '" d="' + d[1] + '"/>';
+    if (t === 'c') return '<circle class="' + c + '" cx="' + d[1] + '" cy="' + d[2] + '" r="' + d[3] + '"/>';
+    if (t === 'e') return '<ellipse class="' + c + '" cx="' + d[1] + '" cy="' + d[2] + '" rx="' + d[3] + '" ry="' + d[4] + '"/>';
+    return '<rect class="' + c + '" x="' + d[1] + '" y="' + d[2] + '" width="' + d[3] + '" height="' + d[4] + '" rx="' + d[5] + '"/>';
+  }
+  function esJuego(id) { return HUESOS.some(function (x) { return x.id === id; }); }
+  function esqueletoRX() {
+    var s = '';
+    partesEsqueleto().forEach(function (b) {
+      var g = '', hit = '', juego = esJuego(b.id);
+      b.p.forEach(function (p) { g += forma(p, 'xo', function (w) { return w + 5; }); });
+      b.p.forEach(function (p) { g += forma(p, 'xf', function (w) { return w; }); });
+      (b.d || []).forEach(function (d) { g += detalle(d); });
+      // Los huesos finos llevan una raya invisible más gorda para que se puedan tocar con el dedo
+      if (juego) b.p.forEach(function (p) { if (p[0] === 'l' || p[0] === 's') hit += forma(p, 'hit', function (w) { return w + 16; }); });
+      (b.m ? ['', ESPEJO] : ['']).forEach(function (t) {
+        var tr = t ? ' transform="' + t + '"' : '';
+        s += juego
+          ? '<g class="pieza" data-p="' + b.id + '" tabindex="0" role="button" aria-label="' + nombreHueso(b.id) + '"' + tr + '>' + g + hit + '</g>'
+          : '<g class="deco"' + tr + '>' + g + '</g>';
+      });
+    });
     return s;
   }
-
+  // La silueta del niño, en una sola capa para que no se noten los solapes
+  function siluetaRX() {
+    var m = '<line x1="130" y1="236" x2="115" y2="382" stroke-width="40"/><line x1="113" y1="390" x2="100" y2="505" stroke-width="32"/><ellipse cx="104" cy="536" rx="22" ry="36"/>' +
+      '<line x1="152" y1="520" x2="164" y2="692" stroke-width="58"/><line x1="163" y1="700" x2="157" y2="815" stroke-width="44"/><ellipse cx="160" cy="834" rx="30" ry="14"/>';
+    var c = '<ellipse cx="200" cy="108" rx="78" ry="98"/><rect x="176" y="190" width="48" height="50"/>' +
+      '<path d="M124 232 C150 220 250 220 276 232 C286 300 282 380 270 450 C292 480 290 524 262 544 L138 544 C110 524 108 480 130 450 C118 380 114 300 124 232 Z"/>' + m + '<g transform="' + ESPEJO + '">' + m + '</g>';
+    return '<g class="silueta" opacity=".55" fill="none" stroke="#7cc4ff" stroke-width="6" stroke-linecap="round">' +
+      c.replace(/stroke-width="(\d+)"/g, function (x, n) { return 'stroke-width="' + (+n + 6) + '"'; }) + '</g>' +
+      '<g class="silueta" opacity=".9" fill="#21497e" stroke="#21497e" stroke-linecap="round">' + c + '</g>';
+  }
   function svgEsqueleto() {
-    return '<svg viewBox="0 0 220 472" role="img" aria-label="Dibujo de un esqueleto"><g filter="url(#fSombra)">' + cuerpoEsqueleto() + '</g></svg>';
+    return '<svg viewBox="50 0 300 862" role="img" aria-label="Esqueleto en rayos X dentro de la silueta de un niño">' +
+      siluetaRX() + '<g filter="url(#fBrillo)">' + esqueletoRX() + '</g></svg>';
   }
 
-  var SILUETA = [
-    ['c', 100, 42, 24],
-    ['l', 100, 62, 100, 80, 16],
-    ['p', 'M68 78 Q100 70 132 78 Q141 140 134 198 Q100 214 66 198 Q59 140 68 78 Z'],
-    ['l', 72, 86, 52, 168, 22], ['l', 52, 168, 44, 246, 18], ['c', 43, 258, 11],
-    ['l', 128, 86, 148, 168, 22], ['l', 148, 168, 156, 246, 18], ['c', 157, 258, 11],
-    ['l', 86, 196, 84, 300, 26], ['l', 84, 300, 84, 386, 22], ['e', 80, 398, 17, 8],
-    ['l', 114, 196, 116, 300, 26], ['l', 116, 300, 116, 386, 22], ['e', 120, 398, 17, 8]
-  ];
-  function silueta() {
-    var o = '', f = '';
-    SILUETA.forEach(function (p) {
-      if (p[0] === 'c') {
-        o += '<circle class="mo" cx="' + p[1] + '" cy="' + p[2] + '" r="' + (p[3] + 2.5) + '"/>';
-        f += '<circle class="mf" cx="' + p[1] + '" cy="' + p[2] + '" r="' + p[3] + '"/>';
-      } else if (p[0] === 'l') {
-        var at = 'x1="' + p[1] + '" y1="' + p[2] + '" x2="' + p[3] + '" y2="' + p[4] + '"';
-        o += '<line class="mol" ' + at + ' stroke-width="' + (p[5] + 5) + '"/>';
-        f += '<line class="mfl" ' + at + ' stroke-width="' + p[5] + '"/>';
-      } else if (p[0] === 'p') {
-        o += '<path class="mop" d="' + p[1] + '"/>';
-        f += '<path class="mf" d="' + p[1] + '"/>';
-      } else {
-        o += '<ellipse class="mo" cx="' + p[1] + '" cy="' + p[2] + '" rx="' + (p[3] + 2.5) + '" ry="' + (p[4] + 2.5) + '"/>';
-        f += '<ellipse class="mf" cx="' + p[1] + '" cy="' + p[2] + '" rx="' + p[3] + '" ry="' + p[4] + '"/>';
-      }
-    });
-    return o + f;
+  // Músculos (diseño 2A): niño de frente y de espaldas, de 240 de ancho, con todos los músculos.
+  // Solo se tocan los del cuaderno; los demás son decorado.
+  var ESPEJO_M = 'translate(240,0) scale(-1,1)';
+  function seg(x1, y1, x2, y2, w, hit) {
+    var dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy), a = Math.atan2(-dx, dy) * 180 / Math.PI;
+    var s = '<g transform="translate(' + ((x1 + x2) / 2) + ' ' + ((y1 + y2) / 2) + ') rotate(' + a.toFixed(1) + ')">';
+    if (hit) s += '<ellipse class="hit" rx="' + (w / 2 + 9) + '" ry="' + (L / 2 + 6) + '"/>';
+    s += '<ellipse class="mus" rx="' + (w / 2) + '" ry="' + (L / 2) + '"/>';
+    for (var k = -1; k <= 1; k++) s += '<path class="fib" d="M' + (k * w / 4) + ' ' + (-L * 0.38) + ' Q' + (k * w / 3) + ' 0 ' + (k * w / 4) + ' ' + (L * 0.38) + '"/>';
+    return s + '</g>';
   }
+  function mp(d) { return '<path class="mus" d="' + d + '"/><path class="mus-p" d="' + d + '"/>'; }
+  var TORSO = 'M86 106 C100 100 140 100 154 106 C164 140 160 190 152 226 C158 240 158 252 152 262 L88 262 C82 252 82 240 88 226 C80 190 76 140 86 106 Z';
+  function medio(cls, mas) {
+    return '<line class="' + cls + 'L" x1="86" y1="114" x2="70" y2="196" stroke-width="' + (28 + mas) + '"/><line class="' + cls + 'L" x1="70" y1="196" x2="60" y2="272" stroke-width="' + (22 + mas) + '"/>' +
+      '<line class="' + cls + 'L" x1="102" y1="252" x2="98" y2="368" stroke-width="' + (36 + mas) + '"/><line class="' + cls + 'L" x1="98" y1="368" x2="98" y2="452" stroke-width="' + (28 + mas) + '"/>';
+  }
+  function extremos(cls, mas) {
+    var r = mas / 2;
+    return '<circle class="' + cls + '" cx="58" cy="286" r="' + (12 + r) + '"/><ellipse class="' + cls + '" cx="94" cy="464" rx="' + (18 + r) + '" ry="' + (9 + r) + '"/>';
+  }
+  function cuerpoNino() {
+    var s = '<path class="borde" d="' + TORSO + '" stroke="#b9876a" stroke-width="5"/>' + medio('borde', 5) + '<g transform="' + ESPEJO_M + '">' + medio('borde', 5) + '</g>' +
+      extremos('borde', 5) + '<g transform="' + ESPEJO_M + '">' + extremos('borde', 5) + '</g><circle class="borde" cx="120" cy="52" r="42.5"/><rect class="borde" x="105.5" y="84" width="29" height="26"/>';
+    s += '<path class="carne" d="' + TORSO + '"/>' + medio('carne', 0) + '<g transform="' + ESPEJO_M + '">' + medio('carne', 0) + '</g>';
+    s += extremos('piel', 0) + '<g transform="' + ESPEJO_M + '">' + extremos('piel', 0) + '</g><rect class="piel" x="108" y="84" width="24" height="26"/><circle class="piel" cx="120" cy="52" r="40"/>';
+    return '<g class="deco">' + s + '</g>';
+  }
+  function nombreMusculo(id) { for (var i = 0; i < MUSCULOS.length; i++) if (MUSCULOS[i].id === id) return MUSCULOS[i].nombre; return id; }
+  function pzM(id, dentro, t) {
+    return '<g class="pieza" data-p="' + id + '" tabindex="0" role="button" aria-label="' + nombreMusculo(id) + '"' + (t ? ' transform="' + t + '"' : '') + '>' + dentro + '</g>';
+  }
+  var DELTOIDES = 'M100 106 C88 104 76 108 74 122 C73 134 75 142 78 150 C82 136 88 126 98 120 Z';
+  function musDelante() {
+    var deco = mp(DELTOIDES) + seg(68, 204, 61, 262, 16) + mp('M101 150 C93 170 91 200 95 226 L105 232 L105 152 Z') +
+      mp('M90 262 C84 300 86 330 92 352 C98 360 106 358 110 350 C114 320 114 290 112 262 Z') + seg(95, 382, 97, 440, 12);
+    var abd = '<rect class="hit" x="104" y="148" width="17" height="77"/>';
+    [152, 176, 200].forEach(function (y) { abd += '<rect class="mus" x="106" y="' + y + '" width="13" height="21" rx="5"/>'; });
+    function lado(t) {
+      return '<g class="deco"' + (t ? ' transform="' + t + '"' : '') + '>' + deco + '</g>' +
+        pzM('pectoral', mp('M118 112 C106 108 96 112 92 120 C90 130 94 142 104 146 C110 147 116 145 118 142 Z'), t) +
+        pzM('abdominal', abd, t) + pzM('biceps', seg(83, 128, 72, 186, 18, true), t);
+    }
+    return lado('') + lado(ESPEJO_M);
+  }
+  function musDetras() {
+    var deco = mp('M120 90 L104 100 L86 110 C100 116 110 132 120 172 Z') + mp(DELTOIDES) + seg(83, 128, 73, 186, 18) + seg(68, 204, 61, 262, 16) +
+      mp('M118 174 C108 152 96 138 88 134 C86 162 90 196 100 218 L118 226 Z') + seg(104, 288, 100, 354, 26);
+    function lado(t) {
+      return '<g class="deco"' + (t ? ' transform="' + t + '"' : '') + '>' + deco + '</g>' +
+        pzM('gluteo', mp('M120 234 C108 230 92 234 90 250 C90 268 104 278 120 274 Z'), t) +
+        pzM('gemelo', '<rect class="hit" x="82" y="366" width="32" height="66" rx="14"/>' + seg(92, 376, 94, 422, 13) + seg(104, 376, 102, 422, 13), t);
+    }
+    return lado('') + lado(ESPEJO_M);
+  }
+  function cara() {
+    return '<g class="deco"><path class="pelo" d="M80 50 C78 14 162 14 160 50 C152 34 134 28 120 36 C104 28 88 34 80 50 Z"/><circle class="ojo" cx="106" cy="56" r="4"/><circle class="ojo" cx="134" cy="56" r="4"/>' +
+      '<circle cx="107.3" cy="54.6" r="1.3" fill="#fff"/><circle cx="135.3" cy="54.6" r="1.3" fill="#fff"/><path class="boca-l" d="M110 72 Q120 80 130 72"/>' +
+      '<circle cx="98" cy="68" r="5" fill="#ff8a7a" opacity=".35"/><circle cx="142" cy="68" r="5" fill="#ff8a7a" opacity=".35"/></g>';
+  }
+  function nuca() { return '<g class="deco"><path class="pelo" d="M80 56 C76 10 164 10 160 56 C160 72 154 84 148 88 C140 78 100 78 92 88 C86 84 80 72 80 56 Z"/></g>'; }
   function svgMusculos() {
-    var s = '<svg viewBox="0 0 420 432" role="img" aria-label="Dos dibujos de un niño: de frente y de espaldas">';
-    // de frente
-    s += '<g>' + silueta() +
-      '<circle class="ojo" cx="92" cy="40" r="2.6"/><circle class="ojo" cx="108" cy="40" r="2.6"/><path class="ol" stroke-width="2" d="M93 50 Q100 56 107 50"/>' +
-      pieza('pectoral', 'pectoral', '<ellipse class="mus" cx="87" cy="102" rx="15" ry="11"/><ellipse class="mus" cx="113" cy="102" rx="15" ry="11"/>') +
-      pieza('abdominal', 'abdominal', '<rect class="mus" x="89" y="122" width="22" height="62" rx="9"/><path class="mline" d="M89 143 h22 M89 163 h22 M100 124 v58"/>') +
-      pieza('biceps', 'bíceps', '<ellipse class="mus" cx="63" cy="122" rx="8.5" ry="20" transform="rotate(13 63 122)"/><ellipse class="hit" cx="63" cy="122" rx="16" ry="28" transform="rotate(13 63 122)"/>') +
-      pieza('biceps', 'bíceps', '<ellipse class="mus" cx="137" cy="122" rx="8.5" ry="20" transform="rotate(-13 137 122)"/><ellipse class="hit" cx="137" cy="122" rx="16" ry="28" transform="rotate(-13 137 122)"/>') +
-      '<text class="rotulo" x="100" y="428" text-anchor="middle">De frente</text></g>';
-    // de espaldas
-    s += '<g transform="translate(210 0)">' + silueta() +
-      '<path class="pliegue" d="M100 92 V186"/>' +
-      pieza('gluteo', 'glúteo', '<ellipse class="mus" cx="89" cy="201" rx="13" ry="13"/><ellipse class="mus" cx="111" cy="201" rx="13" ry="13"/><rect class="hit" x="72" y="184" width="56" height="34"/>') +
-      pieza('gemelo', 'gemelo', '<ellipse class="mus" cx="84" cy="328" rx="9.5" ry="22"/><ellipse class="hit" cx="84" cy="328" rx="17" ry="32"/>') +
-      pieza('gemelo', 'gemelo', '<ellipse class="mus" cx="116" cy="328" rx="9.5" ry="22"/><ellipse class="hit" cx="116" cy="328" rx="17" ry="32"/>') +
-      '<text class="rotulo" x="100" y="428" text-anchor="middle">De espaldas</text></g>';
-    return s + '</svg>';
-  }
-  function svgViaje() {
-    var s = '<svg viewBox="0 0 200 300" role="img" aria-label="Dibujo del camino de la comida por dentro del cuerpo">';
-    s += '<circle class="mo" cx="100" cy="52" r="38.5"/><path class="mop" d="M58 100 Q100 88 142 100 L148 270 Q100 292 52 270 Z"/>';
-    s += '<line class="mol" x1="100" y1="84" x2="100" y2="100" stroke-width="27"/>';
-    s += '<circle class="mf" cx="100" cy="52" r="36"/><path class="mf" d="M58 100 Q100 88 142 100 L148 270 Q100 292 52 270 Z"/>';
-    s += '<line class="mfl" x1="100" y1="84" x2="100" y2="104" stroke-width="22"/>';
-    s += '<circle class="ojo" cx="88" cy="46" r="3"/><circle class="ojo" cx="112" cy="46" r="3"/>';
-    s += '<path class="tripa" d="M106 184 q -24 8 0 16 q 24 8 0 16 q -24 8 0 16 q 24 8 0 16 L100 262"/>';
-    s += '<path class="org-l" data-p="esofago" d="M100 76 L100 100 L106 140" stroke-width="9"/>';
-    s += '<path class="org" data-p="estomago" d="M104 134 C134 124 146 160 126 178 C112 190 92 182 96 168 C100 158 112 160 110 148 Z"/>';
-    s += '<ellipse class="org" data-p="boca" cx="100" cy="70" rx="12" ry="6"/>';
-    s += '<circle class="org" data-p="ano" cx="100" cy="268" r="6"/>';
-    return s + '</svg>';
+    return '<svg viewBox="0 0 500 500" role="img" aria-label="Dos dibujos de un niño con sus músculos: de frente y de espaldas">' +
+      '<g transform="translate(5 6)">' + cuerpoNino() + musDelante() + cara() + '<text class="rot" x="120" y="490">De frente</text></g>' +
+      '<g transform="translate(255 6)">' + cuerpoNino() + musDetras() + nuca() + '<text class="rot" x="120" y="490">De espaldas</text></g></svg>';
   }
 
   /* ---------- Pantallas ---------- */
   var ACTS = [
-    { id: 'nombres', t: 'Pon nombre a los huesos', d: 'Coloca cada nombre en su hueso y luego escríbelos.', ico: ICO.etiqueta },
-    { id: 'huesos', t: 'Los huesos', d: 'Encuentra los huesos del esqueleto.', ico: ICO.hueso },
-    { id: 'musculos', t: 'Los músculos', d: 'Toca el bíceps, el gemelo y los demás.', ico: ICO.musculo },
-    { id: 'clasifica', t: '¿Dónde está cada músculo?', d: 'Brazos, piernas o tronco.', ico: ICO.cajas },
-    { id: 'viaje', t: 'El viaje de la comida', d: 'De la boca hasta el final del camino.', ico: ICO.viaje },
-    { id: 'vf', t: '¿Verdadero o falso?', d: 'Preguntas de todo el tema.', ico: ICO.vf }
+    { id: 'nombres', t: 'Pon nombre a los huesos', c: 'Pon nombre' },
+    { id: 'huesos', t: 'Los huesos', c: 'Los huesos' },
+    { id: 'musculos', t: 'Los músculos', c: 'Los músculos' },
+    { id: 'clasifica', t: '¿Dónde está cada músculo?', c: '¿Dónde está?' },
+    { id: 'viaje', t: 'El viaje de la comida', c: 'El viaje' },
+    { id: 'vf', t: '¿Verdadero o falso?', c: 'Verdadero o falso' },
+    { id: 'escribe', t: 'Reto: escribe en tu cuaderno', c: 'Reto: ¡escribe!' }
   ];
 
   function pintarTotal() {
@@ -717,16 +851,32 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.05;
     return '<div class="tira"><button class="b volver">‹ Menú</button><h2>' + titulo + '</h2>' + (extra || '') + '</div>';
   }
 
+  // Portada del tema (diseño 3B): un camino con una parada por juego. Todas se pueden jugar;
+  // el color solo dice cuáles están hechas y cuál toca ahora.
+  var IC_PARADA = {
+    hecha: '<svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7" stroke="#fff" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    sigue: '<svg viewBox="0 0 24 24" width="32" height="32" aria-hidden="true"><path d="M8 5v14l11-7z" fill="#1d2b4f"/></svg>',
+    falta: '<svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="' + ESTRELLA + '" fill="#a4abba"/></svg>'
+  };
   function pantallaMenu() {
-    var h = '<section class="portada">' + punta(56) + '<p class="eti">Tema 1 · Conocimiento del Medio</p><h1>Mi cuerpo <span class="subrayado">por dentro</span></h1>' +
-      '<p class="lead">Huesos, músculos y el viaje de la comida. Elige un juego.</p></section><div class="menu">';
-    ACTS.forEach(function (a) {
-      h += '<button class="carta' + (a.id === 'nombres' ? ' nueva' : '') + '" data-a="' + a.id + '"><span class="carta-i">' + a.ico + '</span><span class="carta-t">' + a.t +
-        '</span><span class="carta-d">' + a.d + '</span>' + estrellas(mem.estrellas[a.id] || 0, 22) + '</button>';
+    var sig = -1;
+    ACTS.forEach(function (a, k) { if (sig < 0 && !mem.estrellas[a.id]) sig = k; });
+    var X = [50, 72, 36, 28, 58, 72, 46], PASO = 128, ALTO = ACTS.length * PASO + 10, d = '', h = '';
+    ACTS.forEach(function (a, k) {
+      var x = X[k % X.length], y = k * PASO + 44;
+      if (k === 0) d = 'M' + x + ' ' + y;
+      else { var px = X[(k - 1) % X.length]; d += ' C' + px + ' ' + (y - PASO + 64) + ' ' + x + ' ' + (y - 64) + ' ' + x + ' ' + y; }
+      var n = mem.estrellas[a.id] || 0, est = n ? 'hecha' : k === sig ? 'sigue' : 'falta';
+      h += '<button class="parada ' + est + '" data-a="' + a.id + '" style="left:' + x + '%;top:' + (y - 36) + 'px" aria-label="' + a.t + (n ? ', ' + n + ' estrellas' : '') + '">' +
+        '<span class="bola">' + IC_PARADA[est] + '</span><span class="parada-t">' + a.c + '</span>' + (n ? estrellas(n, 18) : '') + '</button>';
+      if (k === sig) h += '<span class="junto" style="left:calc(' + x + '% ' + (x > 50 ? '- 80px' : '+ 46px') + ');top:' + (y - 62) + 'px">' + punta(30) + '</span>';
     });
-    h += '</div><p class="pie">Sin anuncios. Nada de lo que hagas aquí sale de este aparato.</p>';
-    main.innerHTML = h;
-    main.querySelectorAll('.carta').forEach(function (c) { c.onclick = function () { ir(c.dataset.a); }; });
+    main.innerHTML = '<section class="banda"><p class="eti">1º de Primaria · Conocimiento del Medio · Tema 1</p><h1>Mi cuerpo por dentro</h1>' +
+      '<p>Huesos, músculos y el viaje de la comida. Sigue el camino.</p></section>' +
+      '<div class="camino-j" style="height:' + ALTO + 'px"><svg viewBox="0 0 100 ' + ALTO + '" preserveAspectRatio="none" aria-hidden="true">' +
+      '<path d="' + d + '" fill="none" style="stroke:var(--borde-osc)" stroke-width="5" stroke-dasharray="2 12" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>' + h + '</div>' +
+      '<p class="pie">Sin anuncios. Nada de lo que hagas aquí sale de este aparato.</p>';
+    main.querySelectorAll('.parada').forEach(function (c) { c.onclick = function () { ir(c.dataset.a); }; });
   }
 
   /* Huesos y músculos: tocar en el dibujo */
@@ -734,7 +884,7 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.05;
     var st = { modo: 'aprender', orden: [], i: 0, fallos: 0, bloq: false };
     main.innerHTML = '<section>' + tira(cfg.titulo,
       '<div class="modos" role="group" aria-label="Modo"><button class="b modo" data-modo="aprender">Aprender</button><button class="b modo" data-modo="jugar">Jugar</button></div>') +
-      '<div class="lienzo"><figure class="fig">' + cfg.svg() + '<figcaption>' + cfg.pie + '</figcaption></figure><div class="panel" id="panel"></div></div></section>';
+      '<div class="lienzo"><figure class="fig' + (cfg.rx ? ' rx' : '') + '">' + cfg.svg() + '<figcaption>' + cfg.pie + '</figcaption></figure><div class="panel" id="panel"></div></div></section>';
     var fig = $('.fig', main), panel = $('#panel');
     function item(id) { for (var i = 0; i < cfg.items.length; i++) if (cfg.items[i].id === id) return cfg.items[i]; }
     function marcar(id, cls, ms) {
@@ -813,7 +963,7 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.05;
     aprender();
   }
   var CFG_HUESOS = {
-    id: 'huesos', titulo: 'Los huesos', items: HUESOS, svg: svgEsqueleto, pie: 'El esqueleto', plural: 'huesos', queTocar: 'un hueso',
+    id: 'huesos', titulo: 'Los huesos', items: HUESOS, svg: svgEsqueleto, rx: true, pie: 'El esqueleto, como en una radiografía', plural: 'huesos', queTocar: 'un hueso',
     nota: 'Debajo de nuestra piel tenemos los huesos. El conjunto de huesos se llama <b>esqueleto</b>. Los huesos <b>sostienen</b> nuestro cuerpo y <b>protegen</b> algunos órganos.'
   };
   var CFG_MUSCULOS = {
@@ -876,40 +1026,121 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.05;
     empezar();
   }
 
-  /* El viaje de la comida */
+  /* El viaje de la comida (diseño 4D): ordenar las viñetas del cuento, la canción y escribir */
+  var parar = null;
+  function manzana(x, y, k) {
+    return '<g transform="translate(' + x + ' ' + y + ') scale(' + k + ')"><circle r="14" fill="#e84a3c" stroke="#9c2f2a" stroke-width="1.5"/><path d="M0 -13 q1 -6 5 -8" stroke="#6b4128" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M3 -17 q8 -6 12 0 q-6 4 -12 0Z" fill="#6fcf97"/>' +
+      '<circle cx="-5" cy="-2" r="2" fill="#2b2233"/><circle cx="5" cy="-2" r="2" fill="#2b2233"/><path d="M-5 5 q5 4 10 0" stroke="#2b2233" stroke-width="1.6" fill="none" stroke-linecap="round"/><circle cx="-6" cy="-7" r="3" fill="#fff" opacity=".4"/></g>';
+  }
+  function globo(x, y, t, arriba) {
+    var w = t.length * 7.5 + 16, cola = arriba ? 'M' + (x + 14) + ' ' + (y + 1) + ' l-4 -9 l12 9' : 'M' + (x + 14) + ' ' + (y + 23) + ' l-4 9 l12 -9';
+    return '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="24" rx="12" fill="#fff" stroke="#1d2b4f" stroke-width="2"/>' +
+      '<path d="' + cola + '" fill="#fff" stroke="#1d2b4f" stroke-width="2" stroke-linejoin="round"/>' +
+      '<text x="' + (x + w / 2) + '" y="' + (y + 17) + '" text-anchor="middle" style="font:800 13px var(--display);fill:#1d2b4f">' + t + '</text>';
+  }
+  var ARTE = null;
+  function arte() {
+    if (ARTE) return ARTE;
+    var dientes = '';
+    for (var k = 0; k < 7; k++) dientes += '<rect x="' + (38 + k * 12) + '" y="46" width="10" height="13" rx="3" fill="#fff" stroke="#c9b48c"/><rect x="' + (38 + k * 12) + '" y="96" width="10" height="12" rx="3" fill="#fff" stroke="#c9b48c"/>';
+    ARTE = {
+      boca: '<rect width="160" height="140" fill="#ffe3dc"/><path d="M20 76 C20 30 140 30 140 76 C140 122 20 122 20 76 Z" fill="#e8838a"/><path d="M30 76 C30 44 130 44 130 76 C130 110 30 110 30 76 Z" fill="#7a1f2b"/>' +
+        dientes + '<ellipse cx="80" cy="96" rx="34" ry="10" fill="#e86f7c"/>' + manzana(70, 78, 0.55) + manzana(94, 74, 0.4) + globo(96, 8, '¡Ñam!'),
+      esofago: '<rect width="160" height="140" fill="#e7f3ff"/><path d="M58 0 V140 M102 0 V140" stroke="#d9706b" stroke-width="10"/><rect x="63" y="0" width="34" height="140" fill="#ffc9c2"/>' +
+        '<path d="M63 20 h34 M63 50 h34 M63 110 h34" stroke="#e79a92" stroke-width="2"/>' + manzana(80, 78, 0.95) +
+        '<path d="M80 40 v14 M70 44 v10 M90 44 v10" stroke="#1d2b4f" stroke-width="2" stroke-linecap="round" opacity=".5"/>' + globo(104, 104, '¡Voy!', true),
+      estomago: '<rect width="160" height="140" fill="#fff4e0"/><path d="M50 18 C110 2 150 40 140 86 C130 128 70 136 44 112 C28 96 40 78 60 76 C80 74 90 62 80 48 C74 38 60 34 50 32 Z" fill="url(#gEst)" stroke="#a6413f" stroke-width="2.5"/>' +
+        '<path d="M48 96 C70 86 90 104 136 88 C130 120 80 132 50 112 Z" fill="#b6e3a8" opacity=".7"/><circle cx="70" cy="104" r="4" fill="#fff" opacity=".7"/><circle cx="96" cy="110" r="3" fill="#fff" opacity=".7"/><circle cx="116" cy="98" r="5" fill="#fff" opacity=".7"/>' +
+        manzana(98, 76, 0.7) + manzana(74, 86, 0.35) + manzana(120, 84, 0.3),
+      ano: '<rect width="160" height="140" fill="#eef7ea"/><path d="M20 20 C70 20 120 20 120 50 C120 80 40 70 40 96 C40 116 80 112 80 128" stroke="#9e6445" stroke-width="22" fill="none" stroke-linecap="round"/>' +
+        '<path d="M20 20 C70 20 120 20 120 50 C120 80 40 70 40 96 C40 116 80 112 80 128" stroke="#d99a74" stroke-width="16" fill="none" stroke-linecap="round"/>' +
+        '<path d="M108 98 V134" stroke="#1d2b4f" stroke-width="2.5"/><path d="M108 98 h30 v18 h-30 Z" fill="#fff" stroke="#1d2b4f" stroke-width="2"/>' +
+        '<path d="M108 98 h10 v6 h-10Z M128 98 h10 v6 h-10Z M118 104 h10 v6 h-10Z M108 110 h10 v6 h-10Z M128 110 h10 v6 h-10Z" fill="#1d2b4f"/>' +
+        '<text x="123" y="92" text-anchor="middle" style="font:800 12px var(--display);fill:#1d2b4f">Fin</text>'
+    };
+    return ARTE;
+  }
+  function vineta(p, n) {
+    return '<svg viewBox="0 0 160 140" aria-hidden="true">' + arte()[p.id] +
+      (n ? '<circle cx="16" cy="16" r="12" fill="#ffc93c" stroke="#1d2b4f" stroke-width="2"/><text x="16" y="21" text-anchor="middle" style="font:800 13px var(--display);fill:#1d2b4f">' + n + '</text>' : '') +
+      '</svg><span class="vin-t">' + (n ? '<b>' + p.nombre + '.</b> ' + p.dato : '<b>' + p.nombre + '</b>') + '</span>';
+  }
+
+  // La canción: las frases en negrita son las del cuaderno, tal cual. La melodía es nuestra.
+  var CANCION = [
+    ['En la boca, ñam, ñam, ñam,', '<b>masticamos la comida.</b>'],
+    ['El esófago <b>es un tubo</b>', '<b>que baja la comida.</b>'],
+    ['En el estómago, chof, chof,', '<b>aquí la comida se deshace.</b>'],
+    ['Y por el ano, al final,', '<b>sale lo que el cuerpo no usa.</b>'],
+    ['¡Boca, esófago, estómago y ano!']
+  ];
+  var MELODIA = [
+    [523, 587, 659, 784, 659, 587, 523, 587, 659, 523],
+    [587, 659, 698, 880, 698, 659, 587, 523, 587, 659],
+    [659, 784, 880, 784, 659, 587, 659, 784, 659, 587],
+    [523, 659, 784, 1047, 784, 659, 587, 523, 587, 523],
+    [784, 880, 1047, 880, 1047]
+  ];
+  function musica(notas) {
+    if (!mem.sonido) return;
+    try {
+      ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
+      var t = ctx.currentTime + 0.05;
+      notas.forEach(function (f, k) { tono(f, t + k * 0.36, 0.32, 'triangle', 0.07); });
+    } catch (e) {}
+  }
+  function decirY(t, fin) {
+    if (!mem.sonido || !('speechSynthesis' in window)) return;
+    try {
+      speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(t);
+      u.lang = 'es-ES'; if (vozEs) u.voice = vozEs;
+      u.rate = 0.85; u.pitch = 1.15; u.onend = fin; u.onerror = fin;
+      speechSynthesis.speak(u);
+    } catch (e) {}
+  }
+  // Va iluminando cada estrofa mientras suena. Devuelve la función que la para.
+  function cantar(caja) {
+    var versos = caja.querySelectorAll('.verso'), i = 0, vivo = true;
+    function paso() {
+      if (!vivo) return;
+      versos.forEach(function (v, k) { v.classList.toggle('suena', k === i); v.classList.toggle('ya', k < i); });
+      if (i >= versos.length) { vivo = false; return; }
+      var txt = versos[i].textContent, listo = false;
+      function sigue() { if (listo || !vivo) return; listo = true; i++; setTimeout(paso, 300); }
+      musica(MELODIA[i]);
+      decirY(txt, sigue);
+      setTimeout(sigue, 1800 + txt.length * 95);
+    }
+    paso();
+    return function () { vivo = false; callar(); };
+  }
+
   function pantallaViaje() {
-    main.innerHTML = '<section>' + tira('El viaje de la comida') +
-      '<div class="lienzo"><figure class="fig">' + svgViaje() + '<figcaption>El aparato digestivo</figcaption></figure><div class="panel" id="panel"></div></div></section>';
-    var fig = $('.fig', main), panel = $('#panel');
+    main.innerHTML = '<section>' + tira('El viaje de la comida') + '<div class="panel ancho" id="panel"></div></section>';
+    var panel = $('#panel');
     function empezar() {
       var i = 0, fallos = 0;
-      fig.querySelectorAll('[data-p]').forEach(function (e) { e.classList.remove('ok'); });
-      var h = '<p class="nota">Nos alimentamos para <b>crecer</b> y tener <b>energía</b>. La comida hace un viaje por el <b>aparato digestivo</b>.</p>' +
-        '<p class="guia">¿Por dónde pasa la comida? Tócalos en orden.</p><ol class="camino">';
-      VIAJE.forEach(function () { h += '<li><span class="suave">…</span></li>'; });
-      h += '</ol><div class="chips grandes">';
-      barajar(VIAJE).forEach(function (p) { h += '<button class="b chip" data-id="' + p.id + '">' + p.nombre + '</button>'; });
+      var h = '<p class="nota">Nos alimentamos para <b>crecer</b> y tener <b>energía</b>. La comida hace un viaje por el <b>aparato digestivo</b>. ¡Acompaña a la manzana!</p>' +
+        '<p class="guia" id="guia">Toca las viñetas en orden. ¿Qué pasa primero?</p><div class="cuento">';
+      VIAJE.forEach(function (p, k) { h += '<div class="hueco-v">' + (k + 1) + '</div>'; });
+      h += '</div><div class="mesa" id="mesa">';
+      barajar(VIAJE).forEach(function (p) { h += '<button class="vin" data-id="' + p.id + '">' + vineta(p, 0) + '</button>'; });
       h += '</div><p class="dicho" id="dicho" aria-live="polite"></p>';
       panel.innerHTML = h;
-      var d = $('#dicho', panel), pasos = panel.querySelectorAll('.camino li');
-      panel.querySelectorAll('.chip').forEach(function (b) {
+      var d = $('#dicho', panel), huecos = panel.querySelectorAll('.hueco-v');
+      panel.querySelectorAll('#mesa .vin').forEach(function (b) {
         b.onclick = function () {
           var toca = VIAJE[i];
           if (b.dataset.id === toca.id) {
             son('bien');
-            pasos[i].classList.add('hecho');
-            pasos[i].innerHTML = '<span><b>' + toca.nombre + '</b>' + toca.dato + '</span>';
-            fig.querySelectorAll('[data-p="' + toca.id + '"]').forEach(function (e) { e.classList.add('ok'); });
-            b.remove();
+            var v = document.createElement('div');
+            v.className = 'vin puesta'; v.innerHTML = vineta(toca, i + 1);
+            huecos[i].replaceWith(v); b.remove();
             d.className = 'dicho bien'; d.textContent = al(ANIMO);
             decir(toca.nombre + '. ' + toca.dato);
             i++;
-            if (i === VIAJE.length) {
-              setTimeout(function () {
-                pantallaFin(panel, 'viaje', calcEstrellas(fallos, 0, 2), '¡La comida ha hecho todo el viaje!',
-                  'Boca, esófago, estómago y ano.', empezar);
-              }, 1800);
-            }
+            if (i === VIAJE.length) setTimeout(function () { cancion(fallos); }, 1800);
           } else {
             fallos++; son('otra');
             b.classList.remove('mal'); void b.offsetWidth; b.classList.add('mal');
@@ -918,6 +1149,32 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.05;
           }
         };
       });
+    }
+    function cancion(fallos) {
+      if (!$('#mesa', panel)) return;
+      $('#mesa', panel).remove(); $('#guia', panel).remove();
+      var d = $('#dicho', panel);
+      d.className = 'dicho bien'; d.textContent = '¡La manzana ha hecho todo el viaje!';
+      var c = document.createElement('div');
+      c.className = 'cancion';
+      c.innerHTML = '<div class="reto-cab">' + punta(40) + '<h3 class="reto-t">La canción de la manzana</h3></div>' +
+        CANCION.map(function (v) { return '<p class="verso">' + v.join('<br>') + '</p>'; }).join('') +
+        '<div class="fila"><button class="b prim" id="cantar">' + ICO.altavoz + ' Escuchar la canción</button><button class="b" id="aEscribir">Ahora, a escribir ›</button></div>';
+      panel.appendChild(c);
+      c.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      decir('¡La manzana ha hecho todo el viaje! Ahora, la canción.');
+      $('#cantar', c).onclick = function () { if (parar) parar(); parar = cantar(c); };
+      $('#aEscribir', c).onclick = function () { if (parar) { parar(); parar = null; } escribir(fallos); };
+    }
+    function escribir(fallos) {
+      retoEscribir(panel, {
+        encargo: 'Escribe en tu cuaderno las cuatro paradas, en orden.',
+        renglones: ['boca, esófago,', 'estómago y ano'],
+        alTerminar: function () {
+          pantallaFin(panel, 'viaje', calcEstrellas(fallos, 0, 2), '¡La comida ha hecho todo el viaje!', 'Boca, esófago, estómago y ano.', empezar);
+        }
+      });
+      panel.scrollIntoView({ block: 'start' });
     }
     empezar();
   }
@@ -963,36 +1220,34 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.05;
 
   /* ---------- Pon nombre a los huesos ---------- */
   // Dónde va el hueco de cada nombre (lado y altura) y a qué punto del hueso apunta su línea.
-  // Las coordenadas del hueso son las del esqueleto de 220 de ancho, que aquí se desplaza 90.
+  // Las coordenadas son las del esqueleto en rayos X, de 400 de ancho.
   var HUECOS = {
-    craneo: { lado: 'i', y: 40, a: [86, 40] },
-    costillas: { lado: 'i', y: 126, a: [78, 130] },
-    columna: { lado: 'i', y: 210, a: [104, 214] },
-    pelvis: { lado: 'i', y: 264, a: [72, 262] },
-    femur: { lado: 'i', y: 326, a: [90, 326] },
-    tibia: { lado: 'i', y: 420, a: [93, 420] },
-    humero: { lado: 'd', y: 140, a: [160, 140] },
-    radio: { lado: 'd', y: 214, a: [175, 214] },
-    cubito: { lado: 'd', y: 252, a: [159, 252] },
-    perone: { lado: 'd', y: 414, a: [147, 414] }
+    craneo: { lado: 'i', y: 60, a: [158, 66] },
+    costillas: { lado: 'i', y: 250, a: [137, 300] },
+    columna: { lado: 'i', y: 390, a: [192, 405] },
+    pelvis: { lado: 'i', y: 510, a: [136, 470] },
+    femur: { lado: 'i', y: 620, a: [151, 600] },
+    tibia: { lado: 'i', y: 760, a: [164, 760] },
+    humero: { lado: 'd', y: 280, a: [278, 310] },
+    cubito: { lado: 'd', y: 400, a: [281, 430] },
+    radio: { lado: 'd', y: 500, a: [300, 470] },
+    perone: { lado: 'd', y: 770, a: [252, 772] }
   };
-  var DX = 90;
   function svgEsqueletoNombres() {
-    var s = '<svg viewBox="0 0 400 472" role="img" aria-label="Un esqueleto con huecos para poner el nombre de cada hueso">';
+    var s = '<svg class="rx" viewBox="-160 0 720 862" role="img" aria-label="Un esqueleto en rayos X con huecos para poner el nombre de cada hueso">' + siluetaRX();
+    s += '<g filter="url(#fBrillo)">' + esqueletoRX() + '</g>';
     HUESOS.forEach(function (x) {
-      var h = HUECOS[x.id], dos = x.nombre.indexOf(' ') > 0, alto = dos ? 42 : 30;
-      var rx = h.lado === 'i' ? 2 : 316, borde = h.lado === 'i' ? 84 : 316;
-      var ax = h.a[0] + DX, ay = h.a[1], cx = rx + 41;
+      var h = HUECOS[x.id], dos = x.nombre.indexOf(' ') > 0, alto = dos ? 84 : 52;
+      var rx = h.lado === 'i' ? -150 : 410, borde = h.lado === 'i' ? -10 : 410, cx = rx + 70;
       var nom = dos
-        ? '<text class="nom" x="' + cx + '" y="' + (h.y - 4) + '">' + x.nombre.split(' ')[0] + '</text><text class="nom" x="' + cx + '" y="' + (h.y + 13) + '">' + x.nombre.split(' ').slice(1).join(' ') + '</text>'
-        : '<text class="nom" x="' + cx + '" y="' + (h.y + 5) + '">' + x.nombre + '</text>';
+        ? '<text class="nom" x="' + cx + '" y="' + (h.y - 6) + '">' + x.nombre.split(' ')[0] + '</text><text class="nom" x="' + cx + '" y="' + (h.y + 26) + '">' + x.nombre.split(' ').slice(1).join(' ') + '</text>'
+        : '<text class="nom" x="' + cx + '" y="' + (h.y + 9) + '">' + x.nombre + '</text>';
       s += '<g class="pieza hueco" data-p="' + x.id + '" tabindex="0" role="button" aria-label="Hueco para el nombre">' +
-        '<line class="guia-l" x1="' + borde + '" y1="' + h.y + '" x2="' + ax + '" y2="' + ay + '"/>' +
-        '<circle class="punto" cx="' + ax + '" cy="' + ay + '" r="3.5"/>' +
-        '<rect x="' + rx + '" y="' + (h.y - alto / 2) + '" width="82" height="' + alto + '" rx="10"/>' +
-        '<text class="vacio" x="' + cx + '" y="' + (h.y + 6) + '">?</text>' + nom + '</g>';
+        '<line class="guia-l" x1="' + borde + '" y1="' + h.y + '" x2="' + h.a[0] + '" y2="' + h.a[1] + '"/>' +
+        '<circle class="punto" cx="' + h.a[0] + '" cy="' + h.a[1] + '" r="5"/>' +
+        '<rect x="' + rx + '" y="' + (h.y - alto / 2) + '" width="140" height="' + alto + '" rx="14"/>' +
+        '<text class="vacio" x="' + cx + '" y="' + (h.y + 10) + '">?</text>' + nom + '</g>';
     });
-    s += '<g transform="translate(' + DX + ' 0)"><g filter="url(#fSombra)">' + cuerpoEsqueleto() + '</g></g>';
     return s + '</svg>';
   }
 
@@ -1092,7 +1347,7 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.05;
 
   function pantallaNombres() {
     main.innerHTML = '<section>' + tira('Pon nombre a los huesos') +
-      '<div class="lienzo"><figure class="fig">' + svgEsqueletoNombres() + '<figcaption>El esqueleto</figcaption></figure><div class="panel" id="panel"></div></div></section>';
+      '<div class="lienzo"><figure class="fig rx">' + svgEsqueletoNombres() + '<figcaption>El esqueleto</figcaption></figure><div class="panel" id="panel"></div></div></section>';
     var fig = $('.fig', main), panel = $('#panel');
     var st;
     function marcar(id, cls, ms) {
@@ -1177,6 +1432,22 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.05;
     empezar();
   }
 
+  /* El reto final del camino: escribir en el cuaderno */
+  function pantallaEscribe() {
+    main.innerHTML = '<section>' + tira('Reto: escribe') + '<div class="panel ancho" id="panel"></div></section>';
+    var panel = $('#panel');
+    function empezar() {
+      retoEscribir(panel, {
+        encargo: 'Escribe en tu cuaderno los tres huesos de la pierna.',
+        renglones: ['fémur, tibia y peroné'],
+        alTerminar: function (extra, n) {
+          pantallaFin(panel, 'escribe', n >= 4 ? 3 : n >= 2 ? 2 : 1, '¡Reto terminado!', 'Fémur, tibia y peroné son los huesos de la pierna.' + (extra ? ' ¡Y qué letra tan bonita!' : ''), empezar);
+        }
+      });
+    }
+    empezar();
+  }
+
   var PANTALLAS = {
     '': pantallaMenu,
     nombres: pantallaNombres,
@@ -1184,9 +1455,11 @@ h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.05;
     musculos: function () { pantallaTocar(CFG_MUSCULOS); },
     clasifica: pantallaClasifica,
     viaje: pantallaViaje,
-    vf: pantallaVF
+    vf: pantallaVF,
+    escribe: pantallaEscribe
   };
   function ir(id) {
+    if (parar) { parar(); parar = null; }
     callar();
     (PANTALLAS[id] || pantallaMenu)();
     var v = main.querySelector('.volver'); if (v) v.onclick = function () { ir(''); };

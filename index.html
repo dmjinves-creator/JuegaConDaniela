@@ -42,6 +42,13 @@ h1 {
 .eti { font-size: .78rem; text-transform: uppercase; letter-spacing: .1em; color: var(--suave); font-weight: 700; }
 .tema b { font-family: var(--display); font-weight: 800; font-size: 1.4rem; line-height: 1.1; }
 .tema span:last-child { color: var(--suave); font-size: .98rem; }
+.edades { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.edad {
+  display: grid; justify-items: center; gap: 0; padding: 8px 4px; border-radius: 16px; min-height: 64px;
+  background: var(--tarjeta); border: 2px solid #c9d3e6; color: var(--suave); font-family: var(--display); font-weight: 800; font-size: 1.25rem; line-height: 1.1;
+}
+.edad small { font-family: var(--texto); font-weight: 700; font-size: .78rem; }
+.edad.on { background: var(--azul); border-color: #1f4796; color: #fff; box-shadow: 0 4px 0 #1f4796; }
 .pie { margin: 0; color: var(--suave); font-size: .9rem; }
 .ic-o { fill: var(--tinta); } .ic-h { fill: var(--hueso); }
 </style>
@@ -49,13 +56,19 @@ h1 {
 <body>
 <main class="wrap">
   <h1>Juega con Daniela</h1>
-  <p class="lead">Juegos para repasar lo que se aprende en clase. Elige un tema.</p>
+  <p class="lead">Juegos para repasar lo que se aprende en clase. ¿Cuántos años tienes?</p>
+  <div class="edades" role="group" aria-label="Edad">
+    <span class="edad">3-5<small>Pronto</small></span>
+    <span class="edad on" aria-current="true">6-7<small>1º-2º</small></span>
+    <span class="edad">8-9<small>Pronto</small></span>
+    <span class="edad">10-12<small>Pronto</small></span>
+  </div>
   <div class="temas">
     <a class="tema" href="juegos/cuerpo-humano/">
       <svg viewBox="0 0 64 64" width="64" height="64" aria-hidden="true"><g transform="rotate(-40 32 32)"><rect class="ic-o" x="10" y="25" width="44" height="14" rx="7"/><circle class="ic-o" cx="13" cy="25" r="9"/><circle class="ic-o" cx="13" cy="39" r="9"/><circle class="ic-o" cx="51" cy="25" r="9"/><circle class="ic-o" cx="51" cy="39" r="9"/><rect class="ic-h" x="12" y="27" width="40" height="10" rx="5"/><circle class="ic-h" cx="13" cy="25" r="7"/><circle class="ic-h" cx="13" cy="39" r="7"/><circle class="ic-h" cx="51" cy="25" r="7"/><circle class="ic-h" cx="51" cy="39" r="7"/></g></svg>
       <span class="eti">Conocimiento del Medio · Tema 1</span>
       <b>Mi cuerpo por dentro</b>
-      <span>Huesos, músculos y el viaje de la comida. Seis juegos.</span>
+      <span>1º de Primaria. Huesos, músculos y el viaje de la comida: un camino de siete paradas.</span>
     </a>
   </div>
   <p class="pie">Sin anuncios. Nada de lo que se hace aquí sale del aparato.</p>

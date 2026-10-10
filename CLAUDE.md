@@ -54,6 +54,39 @@ La idea es abrirlo a más familias y monetizarlo. Todo juego nuevo se hace ya pe
   restan. Hay pegatinas para coleccionar por tema y un reto del día. Sin cronómetros y sin
   compras dentro del juego: lo de pago lo gestionan los padres en sus ajustes.
 
+## El diseño elegido (10-oct-2026)
+
+Elegido sobre las maquetas de `diseno/maquetas.html`, con los códigos de esa página. Manda sobre
+los juegos hechos antes, que se rehacen con él. Botones, colores, letra y Punta siguen siendo los
+de `diseno/index.html`.
+
+- **Realista sin dejar de ser para niños.** Formas de verdad, bien proporcionadas, con volumen y
+  luz. Caras amables y colores limpios. Nada de muñecos de palitos ni de dibujos planos «de hace
+  veinte años».
+- **Esqueleto: rayos X (1C).** La geometría de «El Esqueleto Curioso»: mandíbula, esternón,
+  clavículas, costillas curvas, rótula, manos y pies. Los huesos brillan en celeste dentro de la
+  silueta de un niño, sobre fondo azul noche. Etiquetas oscuras con borde celeste y línea hasta el
+  hueso. El hueso acertado se pone verde menta.
+- **Músculos: todos dibujados (2A).** Niño de frente y de espaldas, con todos los músculos con su
+  forma y sus fibras, en degradado rojo. Cara, pelo, manos y pies de niño. Solo se tocan los del
+  cuaderno; los demás son decorado. El músculo tocado se pone amarillo.
+- **Portada: el camino (3B).** Arriba, Punta, el saludo y los puntos; luego la edad y el curso.
+  Cada tema es una banda de color con un camino de paradas redondas, una por juego: las hechas en
+  verde con ✓, la siguiente en amarillo con ▶ y Punta al lado, y las que faltan en gris con una
+  estrella. La última parada de cada camino es el reto de escribir.
+- **El viaje de la comida: cuento en viñetas (4D).** La protagonista es una manzana con cara. Hay
+  una viñeta de cómic por parada: borde de tinta grueso, número en un círculo amarillo y la frase
+  del cuaderno abajo. El juego es ordenar las viñetas; después suena la canción y se escribe.
+
+## Canciones y escritura
+
+- **Mini canción** cuando el tema tenga una lista o un orden que aprender de memoria. Las frases
+  del cuaderno van tal cual. La melodía es propia, hecha con Web Audio, nunca la de una canción con
+  derechos, y la letra se ilumina mientras suena.
+  La del viaje de la comida está en `diseno/maquetas.html` («La canción de la manzana»).
+- **Siempre se intenta escribir.** Todo juego, y también la canción, acaban en el reto de escribir
+  en el cuaderno: pauta de dos rayas, letra ligada y el truco de Punta.
+
 ## Comprobar un juego
 
 Hay Playwright en la máquina de la nube (Chromium en `/opt/pw-browsers`). Lo mínimo antes de

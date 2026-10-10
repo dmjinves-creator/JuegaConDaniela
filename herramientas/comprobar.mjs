@@ -55,14 +55,14 @@ for (const [nombre, viewport] of [['móvil', { width: 390, height: 844 }], ['tab
   await p.goto(url);
   await p.waitForTimeout(250);
   await desborda('menú');
-  const cartas = await p.$$eval('.carta', cs => cs.map(c => c.dataset.a));
-  if (!cartas.length) fallos.push(`${nombre}: el menú no tiene ninguna .carta`);
+  const cartas = await p.$$eval('.parada', cs => cs.map(c => c.dataset.a));
+  if (!cartas.length) fallos.push(`${nombre}: el menú no tiene ninguna .parada`);
 
   for (const id of cartas) {
     // Cambiar solo el # no recarga la página: se pasa antes por about:blank.
     await p.goto('about:blank');
     await p.goto(url);
-    await p.click(`.carta[data-a="${id}"]`);
+    await p.click(`.parada[data-a="${id}"]`);
     await p.waitForTimeout(250);
     await desborda(id);
     const jugar = await p.$('.modo[data-modo="jugar"]');
